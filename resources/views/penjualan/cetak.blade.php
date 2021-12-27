@@ -150,9 +150,9 @@
             @foreach($p->barang as $b)
             <tr class="item">
                 <td>{{$b->nama_barang}}</td>
-                <td style="text-align:right">{{$b->pivot->harga_barang}}</td>
+                <td style="text-align:right">{{number_format($b->pivot->harga_barang)}}</td>
                 <td style="text-align:right">{{$b->pivot->jumlah_barang}}</td>
-                <td style="text-align:right">{{$b->pivot->harga_barang * $b->pivot->jumlah_barang}}</td>
+                <td style="text-align:right">{{number_format($b->pivot->harga_barang * $b->pivot->jumlah_barang)}}</td>
             </tr>
             <?php $total += ($b->pivot->harga_barang * $b->pivot->jumlah_barang) ?>
             @endforeach
@@ -161,7 +161,7 @@
                 <td></td>
                 <td></td>
                 <td style="text-align:right">Total : </td>
-                <td style="text-align:right">{{ $total }}</td>
+                <td style="text-align:right">{{ number_format($total) }}</td>
             </tr>
         </table>
     </div>

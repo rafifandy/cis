@@ -44,7 +44,11 @@
                     @else
                     <td><img src="{{ asset('storage/'.$b->foto_barang) }}" style='height: 100px; width: 100px; object-fit: contain'></td>
                     @endif
+                    @if($b->harga_sementara == null)
                     <td>{{$b->harga_sementara}}</td>
+                    @else
+                    <td style="text-align:right">{{number_format($b->harga_sementara)}}</td>
+                    @endif
                     <td>{{$b->keterangan}}</td>
                     <td>{{$b->timestamp}}</td>
                     <td><button class="badge badge-info" data-toggle="modal" data-target="#editModal{{$b->id_barang}}">Edit</button></td>

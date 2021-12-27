@@ -45,13 +45,13 @@
                     <td style="width:30%">
                         <?php $total = 0 ?>
                         @foreach($p->barang as $b)
-							<li>{{ $b->nama_barang }} | Harga : {{ $b->pivot->harga_barang }}
+							<li>{{ $b->nama_barang }} | Harga : {{ number_format($b->pivot->harga_barang) }}
                             <br/>&emsp;&ensp;Jumlah : {{ $b->pivot->jumlah_barang }}
-                            <br/>&emsp;&ensp;Sub total : {{ $b->pivot->jumlah_barang * $b->pivot->harga_barang }}</li>
+                            <br/>&emsp;&ensp;Sub total : {{ number_format($b->pivot->jumlah_barang * $b->pivot->harga_barang) }}</li>
                         <?php $total += ($b->pivot->harga_barang * $b->pivot->jumlah_barang) ?>
 						@endforeach
                     </td>
-                    <td style="text-align:right">{{ $total }}</td>
+                    <td style="text-align:right">{{ number_format($total) }}</td>
                     <td>{{$p->keterangan}}</td>
                     <td>{{$p->timestamp}}</td>
                     <td><a href="{{ url('/penjualan/cetak/'.$p->id_penjualan) }}"><button class="badge badge-success">Cetak</button><a>
