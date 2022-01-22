@@ -25,6 +25,7 @@
 	    <table id="t" class="display cell-border">
             <thead>
                 <tr style="background-color:#BDDFFF">
+                    <th>No</th>
                     <th>ID</th>
                     <th>Nama</th>
                     <th>Gambar</th>
@@ -35,8 +36,11 @@
                 </tr>
             </thead>
             <tbody>
+            <?php $count = 0 ?>
             @foreach($barang as $b)
                 <tr>
+                    <?php $count = $count+1 ?>
+                    <td>{{$count}}</td>
                     <td>{{$b->id_barang}}</td>
                     <td>{{$b->nama_barang}}</td>
                     @if($b->foto_barang == null)

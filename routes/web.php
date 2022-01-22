@@ -19,6 +19,9 @@ use App\Http\Controllers\C_penjualan;
 Route::get('/', function () {
     return view('index');
 });
+Route::get('/home', function () {
+    return view('index');
+});
 
 //barang
 Route::get('/barang',[C_barang::class,'index']);
@@ -35,3 +38,8 @@ Route::get('/penjualan',[C_penjualan::class,'index']);
 Route::get('/penjualan/cetak/{id}',[C_penjualan::class,'cetak']);
 
 Route::get('/penjualan/n',[C_penjualan::class,'index2']);
+
+
+Auth::routes();
+
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

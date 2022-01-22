@@ -20,6 +20,7 @@
 	    <table id="t" class="display cell-border">
             <thead>
                 <tr style="background-color:#BDDFFF">
+                    <th>No</th>
                     <th>ID</th>
                     <th>Nama</th>
                     <th>Alamat</th>
@@ -30,8 +31,11 @@
                 </tr>
             </thead>
             <tbody>
+            <?php $count = 0 ?>
             @foreach($pelanggan as $p)
                 <tr>
+                    <?php $count = $count+1 ?>
+                    <td>{{$count}}</td>
                     <td>{{$p->id_pelanggan}}</td>
                     <td>{{$p->nama_pelanggan}}</td>
                     <td>{{$p->alamat_pelanggan}}</td>

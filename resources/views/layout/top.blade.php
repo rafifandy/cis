@@ -22,21 +22,25 @@
               </ul>
               <ul class="navbar-nav navbar-nav-right">
                 <li class="nav-item nav-profile dropdown">
+                  
                   <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-                    <div class="nav-profile-img">
+                    <!-- <div class="nav-profile-img">
                       <img src="../assets/images/faces/face1.jpg" alt="image" />
-                    </div>
+                    </div> -->
                     <div class="nav-profile-text">
-                      <p class="text-black font-weight-semibold m-0"> User </p>
+                      <p class="text-black font-weight-semibold m-0">{{ Auth::user()->name }}</p>
                       <span class="font-13 online-color">online <i class="mdi mdi-chevron-down"></i></span>
                     </div>
                   </a>
                   <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
-                    <a class="dropdown-item" href="#">
+                    <!-- <a class="dropdown-item" href="#">
                       <i class="mdi mdi-cached mr-2 text-success"></i> Activity Log </a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">
-                      <i class="mdi mdi-logout mr-2 text-primary"></i> Signout </a>
+                    <div class="dropdown-divider"></div> -->
+                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                      <i class="mdi mdi-logout mr-2 text-primary"></i> {{ __('Logout') }} </a>
+                      <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                      </form>
                   </div>
                 </li>
               </ul>

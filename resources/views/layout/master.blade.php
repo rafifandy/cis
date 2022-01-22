@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+@guest
+    <script>window.location = "/login";</script>
+@else
     <head>
         <!-- Required meta tags -->
         <meta charset="utf-8" />
@@ -66,4 +69,6 @@
     
         @yield('script')
     </body>
+
+@endguest
 </html>

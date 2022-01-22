@@ -1,5 +1,5 @@
-@extends('layout/master')
-@section('title','Toko')
+@extends('layouts/app')
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
