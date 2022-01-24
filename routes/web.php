@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\C_barang;
 use App\Http\Controllers\C_pelanggan;
 use App\Http\Controllers\C_penjualan;
+use App\Http\Controllers\C_pengadaan;
+use App\Http\Controllers\C_rekap;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,9 +37,22 @@ Route::post('/pelanggan/update/{id}',[C_pelanggan::class,'update']);
 
 //penjualan
 Route::get('/penjualan',[C_penjualan::class,'index']);
+Route::post('/penjualan/store',[C_penjualan::class,'store']);
+Route::post('/penjualan/update/{id}',[C_penjualan::class,'update']);
 Route::get('/penjualan/cetak/{id}',[C_penjualan::class,'cetak']);
+Route::post('/penjualan/detail/store/{id}',[C_penjualan::class,'storeDetail']);
+Route::post('/penjualan/detail/update/{id}/{id2}',[C_penjualan::class,'updateDetail']);
 
 Route::get('/penjualan/n',[C_penjualan::class,'index2']);
+
+//pengadaan
+Route::get('/pengadaan',[C_pengadaan::class,'index']);
+
+//rekap
+Route::get('/rekap',[C_rekap::class,'index']);
+Route::post('/rekap/store',[C_rekap::class,'store']);
+Route::post('/rekap/update/{id}',[C_rekap::class,'update']);
+
 
 
 Auth::routes();

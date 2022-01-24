@@ -67,7 +67,7 @@
                 <div class="submenu">
                   <ul class="submenu-item">
                     <li class="nav-item">
-                      <a class="nav-link" href="/pengadaan">Data Penjualan</a>
+                      <a class="nav-link" href="/pengadaan">Data Pengadaan</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" href="/pengadaan/tambah">Pengadaan Baru</a>

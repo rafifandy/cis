@@ -7,13 +7,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use App\Models\Rekap;
+use App\Models\Pengadaan;
 use App\Models\Penjualan;
-use App\Models\Pelanggan;
 use App\Models\Barang;
-use DB;
 use PDF;
 
-class C_penjualan extends Controller
+class C_rekap extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,44 +22,23 @@ class C_penjualan extends Controller
      */
     public function index()
     {
-        $penjualan = Penjualan::all();
-        $pelanggan = Pelanggan::all();
+        $rekap = Rekap::all();
         $barang = Barang::all();
-        return view('/penjualan/penjualan',compact('penjualan','pelanggan','barang'));
+        $penjualan = Penjualan::all();
+        $pengadaan = Pengadaan::all();
+        return view('/rekap/rekap',compact('pengadaan','penjualan','rekap','barang'));
     }
-    public function index2()
-    {
-        return view('/penjualan/nota_ex');
-    }
-    public function cetak(Request $request, $id)
-    {
-    	$penjualan = Penjualan::where('id_penjualan',$id)->get();
- 
-    	$pdf = PDF::loadview('/penjualan/cetak',compact('penjualan'));
-    	return $pdf->stream('nota');
-    }
-
+    
     public function update(Request $request, $id)
     {
-        Penjualan::where('id_penjualan',$id)
+        Rekap::where('id_rekap',$id)
         ->update([
-            'id_pelanggan' => $request->id_pelanggan,
-            'tgl_penjualan' => $request->tgl_penjualan,
+            'nama_rekap' => $request->nama_rekap,
+            'tgl_awal' => $request->tgl_awal,
+            'tgl_akhir' => $request->tgl_akhir,
             'keterangan' => $request->keterangan,
         ]);
-        return redirect('/penjualan')->with('status','Data Berhasil Diubah!!!');
-    }
-    public function updateDetail(Request $request, $id, $id2)
-    {
-        Penjualan::where('id_penjualan',$id)
-        ->update([
-            'status' => $request->status,
-        ]);
-        DB::table('detail_penjualan')->where('id_penjualan',$id)->where('id_barang',$id2)->update([
-			'harga_barang' => $request->harga_barang,
-			'jumlah_barang' => $request->jumlah_barang
-		]);
-        return redirect('/penjualan')->with('status','Data Berhasil Diubah!!!');
+        return redirect('/rekap')->with('status','Data Berhasil Diubah!!!');
     }
     /**
      * Show the form for creating a new resource.
@@ -79,26 +58,13 @@ class C_penjualan extends Controller
      */
     public function store(Request $request)
     {
-        Penjualan::create([
-            'id_pelanggan' => $request->id_pelanggan,
-            'tgl_penjualan' => $request->tgl_penjualan,
+        Rekap::create([
+            'nama_rekap' => $request->nama_rekap,
+            'tgl_awal' => $request->tgl_awal,
+            'tgl_akhir' => $request->tgl_akhir,
             'keterangan' => $request->keterangan,
         ]);
-        return redirect('/penjualan')->with('status','Data Berhasil Ditambahkan!!!'); 
-    }
-    public function storeDetail(Request $request, $id)
-    {
-        Penjualan::where('id_penjualan',$id)
-        ->update([
-            'status' => $request->status,
-        ]);
-        DB::table('detail_penjualan')->insert([
-			'id_penjualan' => $request->id_penjualan,
-			'id_barang' => $request->id_barang,
-			'harga_barang' => $request->harga_barang,
-			'jumlah_barang' => $request->jumlah_barang
-		]);
-        return redirect('/penjualan')->with('status','Barang Berhasil Ditambahkan!!!'); 
+        return redirect('/rekap')->with('status','Data Berhasil Ditambahkan!!!'); 
     }
 
     /**
