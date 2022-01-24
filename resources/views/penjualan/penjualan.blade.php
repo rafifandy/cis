@@ -86,13 +86,8 @@
                                                 <input type="hidden" class="form-control" id ="id_penjualan" name="id_penjualan" value="{{ $p->id_penjualan }}">
                                                 <input type="hidden" class="form-control" id ="status" name="status" value="{{ $p->status + 1}}">
                                                 <div class="form-group">
-                                                    <label for="exampleFormControlSelect1">Barang</label>
-                                                    <select class="form-control" name="id_barang" id="exampleFormControlSelect1" >
-                                                    <option selected value="{{$b->id_barang}}">{{$b->id_barang}} - {{$b->nama_barang}}</option>
-                                                        @foreach($barang as $brg)
-                                                        <option value="{{$brg->id_barang}}">{{$brg->id_barang}} - {{$brg->nama_barang}}</option>
-                                                        @endforeach
-                                                    </select>
+                                                    <label for="view">Barang</label>
+                                                    <input type="text" class="form-control" id ="view" name="view" value="{{$b->id_barang}} - {{$b->nama_barang}}" disabled>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="harga_barang">Harga</label>
@@ -136,13 +131,13 @@
                                                 <input type="hidden" class="form-control" id ="id_penjualan" name="id_penjualan" value="{{ $p->id_penjualan }}">
                                                 <input type="hidden" class="form-control" id ="status" name="status" value="{{ $p->status + 1}}">
                                                 <div class="form-group">
-                                                    <label for="exampleFormControlSelect1">Barang</label>
-                                                    <select class="form-control" name="id_barang" id="exampleFormControlSelect1" >
-                                                        <option selected>-- Pilih --</option>
+                                                    <label for="id_barang">ID Barang</label>
+                                                    <input type="text" class="form-control" name="id_barang" id ="id_barang" list="barang"">
+                                                        <datalist id="barang">
                                                         @foreach($barang as $brg)
-                                                        <option value="{{$brg->id_barang}}">{{$brg->id_barang}} - {{$brg->nama_barang}}</option>
+                                                        <option value="{{$brg->id_barang}}">{{$brg->nama_barang}}</option>
                                                         @endforeach
-                                                    </select>
+                                                        </datalist>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="harga_barang">Harga</label>
@@ -174,13 +169,13 @@
                                     <form autocomplete="off" method="post" action="{{ url('/penjualan/update/'.$p->id_penjualan) }}" enctype="multipart/form-data">
                                     @csrf
                                     <div class="form-group">
-                                        <label for="exampleFormControlSelect1">Pelanggan</label>
-                                        <select class="form-control" name="id_pelanggan" id="exampleFormControlSelect1" >
-                                            <option selected value="{{$p->pelanggan->id_pelanggan}}">{{$p->pelanggan->id_pelanggan}} - {{$p->pelanggan->nama_pelanggan}}</option>
+                                        <label for="id_pelanggan">ID Pelanggan</label>
+                                        <input type="text" class="form-control" name="id_pelanggan" id ="id_pelanggan" list="pelanggan" value="{{ $p->id_pelanggan }}">
+                                            <datalist id="pelanggan">
                                             @foreach($pelanggan as $pgn)
-                                            <option value="{{$pgn->id_pelanggan}}">{{$pgn->id_pelanggan}} - {{$pgn->nama_pelanggan}}</option>
+                                            <option value="{{$pgn->id_pelanggan}}">{{$pgn->nama_pelanggan}}</option>
                                             @endforeach
-                                        </select>
+                                            </datalist>
                                     </div>
                                     <div class="form-group">
                                         <label for="tgl_penjualan">Tanggal</label>
@@ -217,13 +212,13 @@
                     <form autocomplete="off" method="post" action="{{ url('/penjualan/store') }}" enctype="multipart/form-data">
                       @csrf
                         <div class="form-group">
-                            <label for="exampleFormControlSelect1">Pelanggan</label>
-                            <select class="form-control" name="id_pelanggan" id="exampleFormControlSelect1" >
-                                <option selected>-- Pilih --</option>
+                            <label for="id_pelanggan">ID Pelanggan</label>
+                            <input type="text" class="form-control" name="id_pelanggan" id ="id_pelanggan" list="pelanggan">
+                                <datalist id="pelanggan">
                                 @foreach($pelanggan as $pgn)
-                                <option value="{{$pgn->id_pelanggan}}">{{$pgn->id_pelanggan}} - {{$pgn->nama_pelanggan}}</option>
+                                <option value="{{$pgn->id_pelanggan}}">{{$pgn->nama_pelanggan}}</option>
                                 @endforeach
-                            </select>
+                                </datalist>
                         </div>
                         <div class="form-group">
                             <label for="tgl_penjualan">Tanggal</label>
