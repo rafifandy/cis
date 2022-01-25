@@ -26,7 +26,7 @@ class C_rekap extends Controller
         $barang = Barang::all();
         $penjualan = Penjualan::all();
         $pengadaan = Pengadaan::all();
-        return view('/rekap/rekap',compact('pengadaan','penjualan','rekap','barang'));
+        return view('/rekap/rekap',compact('pengadaan','penjualan','rekap','barang'),['x' => 'rekap']);
     }
     
     public function update(Request $request, $id)

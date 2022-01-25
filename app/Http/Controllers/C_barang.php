@@ -19,7 +19,7 @@ class C_barang extends Controller
     public function index()
     {
         $barang = Barang::all();
-        return view('/barang/barang',compact('barang'));
+        return view('/barang/barang',compact('barang'),['x' => 'barang']);
     }
 
     /**

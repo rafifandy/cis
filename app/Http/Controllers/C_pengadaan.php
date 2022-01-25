@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Models\Pengadaan;
 use App\Models\Barang;
-use PDF;
+use DB;
 
 class C_pengadaan extends Controller
 {
@@ -21,22 +21,31 @@ class C_pengadaan extends Controller
     public function index()
     {
         $pengadaan = Pengadaan::all();
-        return view('/pengadaan/pengadaan',compact('pengadaan'));
+        $barang = Barang::all();
+        return view('/pengadaan/pengadaan',compact('pengadaan','barang'),['x' => 'pengadaan']);
     }
     
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'nama_pelanggan' => 'required|max:100',
-        ]);
-        Pelanggan::where('id_pelanggan',$id)
+        Pengadaan::where('id_pengadaan',$id)
         ->update([
-            'nama_pelanggan' => $request->nama_pelanggan,
-            'alamat_pelanggan' => $request->alamat_pelanggan,
-            'no_telp_pelanggan' => $request->no_telp_pelanggan,
+            'nama_pemasok' => $request->nama_pemasok,
+            'tgl_pengadaan' => $request->tgl_pengadaan,
             'keterangan' => $request->keterangan,
         ]);
-        return redirect('/pelanggan')->with('status','Data Berhasil Diubah!!!');
+        return redirect('/pengadaan')->with('status','Data Berhasil Diubah!!!');
+    }
+    public function updateDetail(Request $request, $id, $id2)
+    {
+        Pengadaan::where('id_pengadaan',$id)
+        ->update([
+            'status' => $request->status,
+        ]);
+        DB::table('detail_pengadaan')->where('id_pengadaan',$id)->where('id_barang',$id2)->update([
+			'harga_barang' => $request->harga_barang,
+			'jumlah_barang' => $request->jumlah_barang
+		]);
+        return redirect('/pengadaan')->with('status','Data Berhasil Diubah!!!');
     }
     /**
      * Show the form for creating a new resource.
@@ -56,18 +65,27 @@ class C_pengadaan extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'nama_pelanggan' => 'required|max:100',
-        ]);
-        Pelanggan::create([
-            'nama_pelanggan' => $request->nama_pelanggan,
-            'alamat_pelanggan' => $request->alamat_pelanggan,
-            'no_telp_pelanggan' => $request->no_telp_pelanggan,
+        Pengadaan::create([
+            'nama_pemasok' => $request->nama_pemasok,
+            'tgl_pengadaan' => $request->tgl_pengadaan,
             'keterangan' => $request->keterangan,
         ]);
-        return redirect('/pelanggan')->with('status','Data Berhasil Ditambahkan!!!'); 
+        return redirect('/pengadaan')->with('status','Data Berhasil Ditambahkan!!!'); 
     }
-
+    public function storeDetail(Request $request, $id)
+    {
+        Pengadaan::where('id_pengadaan',$id)
+        ->update([
+            'status' => $request->status,
+        ]);
+        DB::table('detail_pengadaan')->insert([
+			'id_pengadaan' => $request->id_pengadaan,
+			'id_barang' => $request->id_barang,
+			'harga_barang' => $request->harga_barang,
+			'jumlah_barang' => $request->jumlah_barang
+		]);
+        return redirect('/pengadaan')->with('status','Barang Berhasil Ditambahkan!!!'); 
+    }
     /**
      * Display the specified resource.
      *

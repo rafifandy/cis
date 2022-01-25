@@ -19,7 +19,7 @@ class C_pelanggan extends Controller
     public function index()
     {
         $pelanggan = Pelanggan::all();
-        return view('/pelanggan/pelanggan',compact('pelanggan'));
+        return view('/pelanggan/pelanggan',compact('pelanggan'),['x' => 'pelanggan']);
     }
 
     /**

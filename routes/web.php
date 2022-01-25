@@ -19,10 +19,10 @@ use App\Http\Controllers\C_rekap;
 */
 
 Route::get('/', function () {
-    return view('index');
+    return view('index',['x' => 'home']);
 });
 Route::get('/home', function () {
-    return view('index');
+    return view('index',['x' => 'home']);
 });
 
 //barang
@@ -47,6 +47,10 @@ Route::get('/penjualan/n',[C_penjualan::class,'index2']);
 
 //pengadaan
 Route::get('/pengadaan',[C_pengadaan::class,'index']);
+Route::post('/pengadaan/store',[C_pengadaan::class,'store']);
+Route::post('/pengadaan/update/{id}',[C_pengadaan::class,'update']);
+Route::post('/pengadaan/detail/store/{id}',[C_pengadaan::class,'storeDetail']);
+Route::post('/pengadaan/detail/update/{id}/{id2}',[C_pengadaan::class,'updateDetail']);
 
 //rekap
 Route::get('/rekap',[C_rekap::class,'index']);

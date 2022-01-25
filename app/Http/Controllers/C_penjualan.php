@@ -25,7 +25,7 @@ class C_penjualan extends Controller
         $penjualan = Penjualan::all();
         $pelanggan = Pelanggan::all();
         $barang = Barang::all();
-        return view('/penjualan/penjualan',compact('penjualan','pelanggan','barang'));
+        return view('/penjualan/penjualan',compact('penjualan','pelanggan','barang'),['x' => 'penjualan']);
     }
     public function index2()
     {

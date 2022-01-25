@@ -65,7 +65,7 @@
                     <td style="text-align:right">{{ number_format($totalpj) }}</td>
                     <?php $totalpg = 0 ?>
                     @foreach($pengadaan as $pg)
-                        @if($pg->tgl_pengadaan >= $r->tgl_awal && $pj->tgl_penjualan <= $r->tgl_akhir)
+                        @if($pg->tgl_pengadaan >= $r->tgl_awal && $pg->tgl_pengadaan <= $r->tgl_akhir)
                         <?php $totalpgb = 0 ?>
                         @foreach($pg->barang as $b)
                             <?php $totalpgb += ($b->pivot->harga_barang * $b->pivot->jumlah_barang) ?>
