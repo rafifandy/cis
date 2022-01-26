@@ -18,7 +18,7 @@ class C_pelanggan extends Controller
      */
     public function index()
     {
-        $pelanggan = Pelanggan::all();
+        $pelanggan = Pelanggan::orderBy('timestamp','desc')->get();
         return view('/pelanggan/pelanggan',compact('pelanggan'),['x' => 'pelanggan']);
     }
 

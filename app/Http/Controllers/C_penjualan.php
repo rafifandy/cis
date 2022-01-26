@@ -22,7 +22,7 @@ class C_penjualan extends Controller
      */
     public function index()
     {
-        $penjualan = Penjualan::all();
+        $penjualan = Penjualan::orderBy('timestamp','desc')->get();
         $pelanggan = Pelanggan::all();
         $barang = Barang::all();
         return view('/penjualan/penjualan',compact('penjualan','pelanggan','barang'),['x' => 'penjualan']);
@@ -51,9 +51,15 @@ class C_penjualan extends Controller
     }
     public function updateDetail(Request $request, $id, $id2)
     {
+        $stok = $request->stok_barange - ($request->jumlah_barang - $request->stok_jumlah);
+        //dd($request->stok_barange);
         Penjualan::where('id_penjualan',$id)
         ->update([
             'status' => $request->status,
+        ]);
+        Barang::where('id_barang',$id2)
+        ->update([
+            'stok' => $stok,
         ]);
         DB::table('detail_penjualan')->where('id_penjualan',$id)->where('id_barang',$id2)->update([
 			'harga_barang' => $request->harga_barang,
@@ -88,9 +94,15 @@ class C_penjualan extends Controller
     }
     public function storeDetail(Request $request, $id)
     {
+        $stok = $request->stok_barang - $request->jumlah_barang;
+        //dd($request->stok_barang);
         Penjualan::where('id_penjualan',$id)
         ->update([
             'status' => $request->status,
+        ]);
+        Barang::where('id_barang',$request->id_barang)
+        ->update([
+            'stok' => $stok,
         ]);
         DB::table('detail_penjualan')->insert([
 			'id_penjualan' => $request->id_penjualan,

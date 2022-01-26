@@ -20,7 +20,7 @@ class C_pengadaan extends Controller
      */
     public function index()
     {
-        $pengadaan = Pengadaan::all();
+        $pengadaan = Pengadaan::orderBy('timestamp','desc')->get();
         $barang = Barang::all();
         return view('/pengadaan/pengadaan',compact('pengadaan','barang'),['x' => 'pengadaan']);
     }

@@ -18,7 +18,7 @@ class C_barang extends Controller
      */
     public function index()
     {
-        $barang = Barang::all();
+        $barang = Barang::orderBy('timestamp','desc')->get();
         return view('/barang/barang',compact('barang'),['x' => 'barang']);
     }
 
@@ -50,6 +50,7 @@ class C_barang extends Controller
             Barang::create([
                 'nama_barang' => $request->nama_barang,
                 'harga_sementara' => $request->harga_sementara,
+                'stok' => $request->stok,
                 'keterangan' => $request->keterangan,
                 'foto_barang' => $nama_barang,
             ]);
@@ -58,6 +59,7 @@ class C_barang extends Controller
             Barang::create([
                 'nama_barang' => $request->nama_barang,
                 'harga_sementara' => $request->harga_sementara,
+                'stok' => $request->stok,
                 'keterangan' => $request->keterangan,
             ]);
         }
@@ -106,6 +108,7 @@ class C_barang extends Controller
             ->update([
                 'nama_barang' => $request->nama_barang,
                 'harga_sementara' => $request->harga_sementara,
+                'stok' => $request->stok,
                 'keterangan' => $request->keterangan,
                 'foto_barang' => $nama_barang,
             ]);
@@ -115,6 +118,7 @@ class C_barang extends Controller
             ->update([
                 'nama_barang' => $request->nama_barang,
                 'harga_sementara' => $request->harga_sementara,
+                'stok' => $request->stok,
                 'keterangan' => $request->keterangan,
             ]);
         }

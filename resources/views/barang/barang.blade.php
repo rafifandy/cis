@@ -30,6 +30,7 @@
                     <th>Nama</th>
                     <th>Gambar</th>
                     <th>Harga Sementara</th>
+                    <th>Stok</th>
                     <th>Keterangan</th>
                     <th>Diperbarui</th>
                     <th>Opsi</th>
@@ -53,6 +54,7 @@
                     @else
                     <td style="text-align:right">{{number_format($b->harga_sementara)}}</td>
                     @endif
+                    <td>{{$b->stok}}</td>
                     <td>{{$b->keterangan}}</td>
                     <td>{{$b->timestamp}}</td>
                     <td><button class="badge badge-info" data-toggle="modal" data-target="#editModal{{$b->id_barang}}">Edit</button></td>
@@ -80,6 +82,10 @@
                                     <div class="form-group">
                                         <label for="harga_sementara">Harga Sementara</label>
                                         <input type="number" class="form-control" id ="harga_sementara" name="harga_sementara" value="{{ $b->harga_sementara }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="stok">Stok</label>
+                                        <input type="number" class="form-control" id ="stok" name="stok" value="{{ $b->stok }}">
                                     </div>
                                     <div class="form-group">
                                         <label for="keterangan">Keterangan</label>
@@ -123,6 +129,10 @@
                       <div class="form-group">
                         <label for="harga_sementara">Harga Sementara</label>
                         <input type="number" class="form-control" id ="harga_sementara" name="harga_sementara">
+                      </div>
+                      <div class="form-group">
+                        <label for="stok">Stok</label>
+                        <input type="number" class="form-control" id ="stok" name="stok" >
                       </div>
                       <div class="form-group">
                         <label for="keterangan">Keterangan</label>

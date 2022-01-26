@@ -36,7 +36,7 @@
                     <th>List</th>
                     <th>Total</th>
                     <th>Keterangan</th>
-                    <th>Diperbarui</th>
+                    <th>Tgl Diperbarui</th>
                     <th>Opsi</th>
                 </tr>
             </thead>
@@ -211,7 +211,7 @@
                         </div>
                         <div class="form-group">
                             <label for="tgl_pengadaan">Tanggal</label>
-                            <input type="date" class="form-control" id ="tgl_pengadaan" name="tgl_pengadaan">
+                            <input type="date" class="form-control" id ="tgl_pengadaan" name="tgl_pengadaan" value="<?php echo date('Y-m-d'); ?>">
                         </div>
                         <div class="form-group">
                             <label for="keterangan">Keterangan</label>

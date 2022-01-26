@@ -22,7 +22,7 @@ class C_rekap extends Controller
      */
     public function index()
     {
-        $rekap = Rekap::all();
+        $rekap = Rekap::orderBy('timestamp','desc')->get();
         $barang = Barang::all();
         $penjualan = Penjualan::all();
         $pengadaan = Pengadaan::all();
