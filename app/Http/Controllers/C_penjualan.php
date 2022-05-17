@@ -63,7 +63,8 @@ class C_penjualan extends Controller
         ]);
         DB::table('detail_penjualan')->where('id_penjualan',$id)->where('id_barang',$id2)->update([
 			'harga_barang' => $request->harga_barang,
-			'jumlah_barang' => $request->jumlah_barang
+			'jumlah_barang' => $request->jumlah_barang,
+			'total_harga_barang' => $request->harga_barang*$request->jumlah_barang,
 		]);
         return redirect('/penjualan')->with('status','Data Berhasil Diubah!!!');
     }
@@ -108,7 +109,8 @@ class C_penjualan extends Controller
 			'id_penjualan' => $request->id_penjualan,
 			'id_barang' => $request->id_barang,
 			'harga_barang' => $request->harga_barang,
-			'jumlah_barang' => $request->jumlah_barang
+			'jumlah_barang' => $request->jumlah_barang,
+			'total_harga_barang' => $request->harga_barang*$request->jumlah_barang,
 		]);
         return redirect('/penjualan')->with('status','Barang Berhasil Ditambahkan!!!'); 
     }

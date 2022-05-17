@@ -68,10 +68,10 @@
                                 <td style="font-size:11px">{{ $b->nama_barang }}</td>
                                 <td style="font-size:11px">{{ $b->pivot->jumlah_barang }}</td>
                                 <td style="font-size:11px">{{ number_format($b->pivot->harga_barang) }}</td>
-                                <td style="font-size:11px">{{ number_format($b->pivot->jumlah_barang * $b->pivot->harga_barang) }}</td>
+                                <td style="font-size:11px">{{ number_format($b->pivot->total_harga_barang) }}</td>
                                 <td style="font-size:11px"><button class="badge badge-info" data-toggle="modal" data-target="#editModalDetail{{$p->id_penjualan}}_{{$b->id_barang}}" style="font-size:10px">Edit</button></td>
                                 <!-- <li>{{ $b->pivot->jumlah_barang }} | {{ $b->nama_barang }} | {{ number_format($b->pivot->harga_barang) }} | {{ number_format($b->pivot->jumlah_barang * $b->pivot->harga_barang) }}</li> -->
-                                <?php $total += ($b->pivot->harga_barang * $b->pivot->jumlah_barang) ?>
+                                <?php $total += ($b->pivot->total_harga_barang) ?>
                             </tr>
                             <!-- Modal Edit Detail -->
                             <div class="modal fade" id="editModalDetail{{$p->id_penjualan}}_{{$b->id_barang}}" tabindex="-2" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

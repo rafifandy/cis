@@ -37,13 +37,20 @@ class C_pengadaan extends Controller
     }
     public function updateDetail(Request $request, $id, $id2)
     {
+        $stok = $request->stok_barange + ($request->jumlah_barang - $request->stok_jumlah);
+        //dd($request->stok_barange);
         Pengadaan::where('id_pengadaan',$id)
         ->update([
             'status' => $request->status,
         ]);
+        Barang::where('id_barang',$id2)
+        ->update([
+            'stok' => $stok,
+        ]);
         DB::table('detail_pengadaan')->where('id_pengadaan',$id)->where('id_barang',$id2)->update([
 			'harga_barang' => $request->harga_barang,
-			'jumlah_barang' => $request->jumlah_barang
+			'jumlah_barang' => $request->jumlah_barang,
+			'total_harga_barang' => $request->harga_barang*$request->jumlah_barang,
 		]);
         return redirect('/pengadaan')->with('status','Data Berhasil Diubah!!!');
     }
@@ -74,15 +81,22 @@ class C_pengadaan extends Controller
     }
     public function storeDetail(Request $request, $id)
     {
+        $stok = $request->stok_barang + $request->jumlah_barang;
+        //dd($request->stok_barang);
         Pengadaan::where('id_pengadaan',$id)
         ->update([
             'status' => $request->status,
+        ]);
+        Barang::where('id_barang',$request->id_barang)
+        ->update([
+            'stok' => $stok,
         ]);
         DB::table('detail_pengadaan')->insert([
 			'id_pengadaan' => $request->id_pengadaan,
 			'id_barang' => $request->id_barang,
 			'harga_barang' => $request->harga_barang,
-			'jumlah_barang' => $request->jumlah_barang
+			'jumlah_barang' => $request->jumlah_barang,
+			'total_harga_barang' => $request->harga_barang*$request->jumlah_barang,
 		]);
         return redirect('/pengadaan')->with('status','Barang Berhasil Ditambahkan!!!'); 
     }

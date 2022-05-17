@@ -68,10 +68,10 @@
                                 <td style="font-size:11px">{{ $b->nama_barang }}</td>
                                 <td style="font-size:11px">{{ $b->pivot->jumlah_barang }}</td>
                                 <td style="font-size:11px">{{ number_format($b->pivot->harga_barang) }}</td>
-                                <td style="font-size:11px">{{ number_format($b->pivot->jumlah_barang * $b->pivot->harga_barang) }}</td>
+                                <td style="font-size:11px">{{ number_format($b->pivot->total_harga_barang) }}</td>
                                 <td style="font-size:11px"><button class="badge badge-info" data-toggle="modal" data-target="#editModalDetail{{$p->id_pengadaan}}_{{$b->id_barang}}" style="font-size:10px">Edit</button></td>
                                 <!-- <li>{{ $b->pivot->jumlah_barang }} | {{ $b->nama_barang }} | {{ number_format($b->pivot->harga_barang) }} | {{ number_format($b->pivot->jumlah_barang * $b->pivot->harga_barang) }}</li> -->
-                                <?php $total += ($b->pivot->harga_barang * $b->pivot->jumlah_barang) ?>
+                                <?php $total += ($b->pivot->total_harga_barang) ?>
                             </tr>
                             <!-- Modal Edit Detail -->
                             <div class="modal fade" id="editModalDetail{{$p->id_pengadaan}}_{{$b->id_barang}}" tabindex="-2" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -83,19 +83,35 @@
                                                 <div class="modal-body">
                                                 <form autocomplete="off" method="post" action="{{ url('/pengadaan/detail/update/'.$p->id_pengadaan.'/'.$b->id_barang) }}" enctype="multipart/form-data">
                                                 @csrf
-                                                <input type="hidden" class="form-control" id ="id_pengadaan" name="id_pengadaan" value="{{ $p->id_pengadaan }}">
-                                                <input type="hidden" class="form-control" id ="status" name="status" value="{{ $p->status + 1}}">
-                                                <div class="form-group">
-                                                    <label for="view">Barang</label>
-                                                    <input type="text" class="form-control" id ="view" name="view" value="{{$b->id_barang}} - {{$b->nama_barang}}" disabled>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="harga_barang">Harga</label>
-                                                    <input type="number" class="form-control" id ="harga_barang" name="harga_barang" value="{{ $b->pivot->harga_barang }}">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="jumlah_barang">Jumlah</label>
-                                                    <input type="number" class="form-control" id ="jumlah_barang" name="jumlah_barang" value="{{ $b->pivot->jumlah_barang }}">
+                                                <div class="row">
+                                                    <input type="hidden" class="form-control" id ="id_pengadaan" name="id_pengadaan" value="{{ $p->id_pengadaan }}">
+                                                    <input type="hidden" class="form-control" id ="status" name="status" value="{{ $p->status + 1}}">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label for="view">Barang</label>
+                                                            <input type="text" class="form-control" id ="view" name="view" value="{{$b->id_barang}} - {{$b->nama_barang}}" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label for="stok_barang">Stok</label>
+                                                            <input type="number" class="form-control" id ="stok_be" name="stok_e" value="{{$b->stok}}" disabled>
+                                                            <input type="number" class="form-control" id ="stok_barange" name="stok_barange" value="{{$b->stok}}" hidden>
+                                                            <input type="number" class="form-control" id ="stok_jumlah" name="stok_jumlah" value="{{ $b->pivot->jumlah_barang }}" hidden>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label for="harga_barang">Harga</label>
+                                                            <input type="number" class="form-control" id ="harga_barang" name="harga_barang" value="{{ $b->pivot->harga_barang }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label for="jumlah_barang">Jumlah</label>
+                                                            <input type="number" class="form-control" id ="jumlah_barang" name="jumlah_barang" value="{{ $b->pivot->jumlah_barang }}">
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 </div>
                                                 </br>
@@ -129,22 +145,37 @@
                                             @csrf
                                                 <input type="hidden" class="form-control" id ="id_pengadaan" name="id_pengadaan" value="{{ $p->id_pengadaan }}">
                                                 <input type="hidden" class="form-control" id ="status" name="status" value="{{ $p->status + 1}}">
-                                                <div class="form-group">
-                                                    <label for="id_barang">ID Barang</label>
-                                                    <input type="text" class="form-control" name="id_barang" id ="id_barang" list="barang">
-                                                        <datalist id="barang">
-                                                        @foreach($barang as $brg)
-                                                        <option value="{{$brg->id_barang}}">{{$brg->nama_barang}}</option>
-                                                        @endforeach
-                                                        </datalist>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="harga_barang">Harga</label>
-                                                    <input type="number" class="form-control" id ="harga_barang" name="harga_barang">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="jumlah_barang">Jumlah</label>
-                                                    <input type="number" class="form-control" id ="jumlah_barang" name="jumlah_barang">
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label for="id_barang">ID Barang</label>
+                                                            <input type="text" class="form-control" name="id_barang" id ="id_barang" list="barang">
+                                                                <datalist id="barang">
+                                                                @foreach($barang as $brg)
+                                                                <option value="{{$brg->id_barang}}" hrg="{{$brg->harga_sementara}}" stk="{{$brg->stok}}">{{$brg->nama_barang}}</option>
+                                                                @endforeach
+                                                                </datalist>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label for="stok_barang">Stok</label>
+                                                            <input type="number" class="form-control" id ="stok_b" name="stok_b" disabled>
+                                                            <input type="number" class="form-control" id ="stok_barang" name="stok_barang" hidden>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label for="harga_barang">Harga</label>
+                                                            <input type="number" class="form-control" id ="harga_barang" name="harga_barang">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label for="jumlah_barang">Jumlah</label>
+                                                            <input type="number" class="form-control" id ="jumlah_barang" name="jumlah_barang">
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             </br>
@@ -235,5 +266,18 @@
 	$(document).ready( function () {
         $('#t').DataTable();
     } );
+
+    $('#id_barang').on('change', function(){
+        var value = $(this).val();
+        var harga = $('#barang [value="' + value + '"]').attr('hrg');
+        var stokb = $('#barang [value="' + value + '"]').attr('stk');
+        console.log(harga);
+        $('#stok_barang').val(stokb);
+        $('#stok_b').val(stokb);
+        $('#harga_barang').val(harga);
+    })
+    
+    // init
+    $('#id_barang').change();
 </script>
 @endsection
