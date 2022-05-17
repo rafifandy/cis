@@ -11,7 +11,7 @@ class Pengadaan extends Model
     
     protected $table = 'pengadaan';
     protected $primaryKey = 'id_pengadaan';
-    protected $fillable = ['id_pengadaan','nama_pemasok','tgl_pengadaan','total','keterangan'];
+    protected $fillable = ['id_pengadaan','nama_pemasok','tgl_pengadaan','total','keterangan','status','timestamp'];
     
     public $timestamps = false;
     public $incrementing = false;
