@@ -17,7 +17,7 @@ class CreatePengadaanTable extends Migration
             $table->id('id_pengadaan');
             $table->string('nama_pemasok',100);
             $table->date('tgl_pengadaan');
-            $table->bigInteger('total');
+            $table->bigInteger('total')->nullable();
             $table->string('keterangan',100)->nullable();
             $table->integer('status')->nullable();
             $table->timestamp('timestamp');
