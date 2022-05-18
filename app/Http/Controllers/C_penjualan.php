@@ -53,9 +53,19 @@ class C_penjualan extends Controller
     {
         $stok = $request->stok_barange - ($request->jumlah_barang - $request->stok_jumlah);
         //dd($request->stok_barange);
+        $barang_tot = DB::table('detail_penjualan')->where('id_penjualan',$id)->where('id_barang',$id2)->get();
+        foreach ($barang_tot as $bt){
+            $btotal = $bt->total_harga_barang;
+        }
+        $penjualan_tot = Penjualan::where('id_penjualan',$id)->get();
+        foreach ($penjualan_tot as $pt){
+            $total = $pt->total;
+        }
+        $total = $total + ($request->harga_barang*$request->jumlah_barang - $btotal);
         Penjualan::where('id_penjualan',$id)
         ->update([
             'status' => $request->status,
+            'total' => $total,
         ]);
         Barang::where('id_barang',$id2)
         ->update([
@@ -97,9 +107,15 @@ class C_penjualan extends Controller
     {
         $stok = $request->stok_barang - $request->jumlah_barang;
         //dd($request->stok_barang);
+        $penjualan_tot = Penjualan::where('id_penjualan',$id)->get();
+        foreach ($penjualan_tot as $pt){
+            $total = $pt->total;
+        }
+        $total = $total + ($request->harga_barang*$request->jumlah_barang);
         Penjualan::where('id_penjualan',$id)
         ->update([
             'status' => $request->status,
+            'total' => $total,
         ]);
         Barang::where('id_barang',$request->id_barang)
         ->update([
