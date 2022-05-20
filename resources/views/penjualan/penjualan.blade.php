@@ -131,8 +131,8 @@
                     <td style="text-align:right">{{ number_format($p->total) }}</td>
                     <td>{{$p->keterangan}}</td>
                     <td>{{$p->timestamp}}</td>
-                    <td style="width:12%"><a href="{{ url('/penjualan/cetak/'.$p->id_penjualan) }}"><button class="badge badge-success">Cetak</button><a>
-                    &nbsp;<button class="badge badge-info" data-toggle="modal" data-target="#editModal{{$p->id_penjualan}}">Edit</button></td>
+                    <td style="width"><a href="{{ url('/penjualan/cetak/'.$p->id_penjualan) }}"><button class="badge badge-success" style="width:80px;margin:5px">Cetak</button><a>
+                    <br/><button class="badge badge-info" style="width:80px;margin:5px" data-toggle="modal" data-target="#editModal{{$p->id_penjualan}}">Edit</button></td>
                 </tr>
                 <!-- Modal Tambah Detail -->
                 <div class="modal fade" id="tambahModalDetail{{$p->id_penjualan}}" tabindex="-2" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

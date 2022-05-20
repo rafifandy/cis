@@ -14,8 +14,14 @@ class CreatePembayaranTable extends Migration
     public function up()
     {
         Schema::create('pembayaran', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->id('id_pembayaran');
+            $table->bigInteger('id_penjualan')->unsigned();
+            $table->date('tgl_pembayaran');
+            $table->bigInteger('jumlah_bayar')->nullable();
+            $table->string('keterangan',100)->nullable();
+            $table->integer('status')->nullable();
+            $table->timestamp('timestamp');
+            $table->foreign('id_penjualan')->references('id_penjualan')->on('penjualan');
         });
     }
 
