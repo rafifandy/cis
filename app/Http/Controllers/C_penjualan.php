@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\File;
 use App\Models\Penjualan;
 use App\Models\Pelanggan;
 use App\Models\Barang;
+use App\Models\Pembayaran;
 use DB;
 use PDF;
 
@@ -25,6 +26,7 @@ class C_penjualan extends Controller
         $penjualan = Penjualan::orderBy('timestamp','desc')->get();
         $pelanggan = Pelanggan::all();
         $barang = Barang::all();
+        $pembayaran = Pembayaran::all();
         return view('/penjualan/penjualan',compact('penjualan','pelanggan','barang'),['x' => 'penjualan']);
     }
     public function index2()

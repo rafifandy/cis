@@ -26,6 +26,6 @@ class Penjualan extends Model
     }
     public function pembayaran()
     {
-        return $this->hasMany(Pembayaran::class,'id_pembayaran');
+        return $this->hasMany(Pembayaran::class,'id_penjualan');
     }
 }
