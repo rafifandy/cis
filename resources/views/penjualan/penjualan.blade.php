@@ -53,6 +53,7 @@
                     <?php $total = 0; $lunas = 0 ?>
                         <!--<button class="badge badge-success" data-toggle="modal" data-target="#tambahModalDetail{{$p->id_penjualan}}" style="width:80px;margin:5px">Tambah</button>-->
                         <button class="badge badge-info" data-toggle="modal" data-target="#modalDetail{{$p->id_penjualan}}" style="width:80px;margin:5px">List</button>
+                        <hr/>Total : {{ number_format($p->total) }}
                         <!-- Modal Edit Detail -->
                         <div class="modal fade" id="modalDetail{{$p->id_penjualan}}" tabindex="-2" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
@@ -149,13 +150,16 @@
                     @foreach($p->pembayaran as $pb)
                         <?php $lunas = $lunas - ($pb->jumlah_bayar) ?>
                     @endforeach
+                    <td>
                     @if($lunas == $p->total)
-                        <td style="text-align:right">{{ number_format($p->total) }}<hr/><button class="badge badge-danger" style="width:80px;margin:5px">Detail</button></td>
+                        <button class="badge badge-danger" style="width:120px;margin:5px">Pembayaran</button>
                     @elseif($lunas == 0)
-                        <td style="text-align:right">{{ number_format($p->total) }}<hr/><button class="badge badge-success" style="width:80px;margin:5px">Detail</button></td>
+                        <button class="badge badge-success" style="width:120px;margin:5px">Pembayaran</button>
                     @else
-                        <td style="text-align:right">{{ number_format($p->total) }}<hr/><button class="badge badge-secondary" style="width:80px;margin:5px">Detail</button></td>
+                        <button class="badge badge-secondary" style="width:120px;margin:5px">Pembayaran</button>
                     @endif
+                    <hr/>Total Terbayar : {{ number_format($p->total - $lunas) }}
+                    </td>
                     <td>{{$lunas}}</td>
                     <td>{{$p->timestamp}}</td>
                     <td style="width"><a href="{{ url('/penjualan/cetak/'.$p->id_penjualan) }}"><button class="badge badge-success" style="width:80px;margin:5px">Cetak</button><a>
