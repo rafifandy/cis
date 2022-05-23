@@ -13,6 +13,7 @@ use App\Models\Barang;
 use App\Models\Pembayaran;
 use DB;
 use PDF;
+use DomPDF;
 
 class C_penjualan extends Controller
 {
@@ -37,8 +38,10 @@ class C_penjualan extends Controller
     {
     	$penjualan = Penjualan::where('id_penjualan',$id)->get();
  
-    	$pdf = PDF::loadview('/penjualan/cetak',compact('penjualan'));
-    	return $pdf->stream('nota');
+    	//$pdf = DomPDF::loadview('/penjualan/cetak',compact('penjualan'));
+    	//return $pdf->stream('nota');
+        //return view ('/penjualan/cetak');
+        return view ('/penjualan/cetak',compact('penjualan'));
     }
 
     public function update(Request $request, $id)

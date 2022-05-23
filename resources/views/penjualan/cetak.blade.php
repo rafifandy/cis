@@ -1,170 +1,75 @@
-<!doctype html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <title>Nota Penjualan</title>
-
-    <style>
-    .invoice-box {
-        max-width: 800px;
-        margin: auto;
-        padding: 30px;
-        border: 1px solid #eee;
-        box-shadow: 0 0 10px rgba(0, 0, 0, .15);
-        font-size: 16px;
-        line-height: 24px;
-        font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
-        color: #555;
-    }
-
-    .invoice-box table {
-        width: 100%;
-        line-height: inherit;
-        text-align: left;
-    }
-
-    .invoice-box table td {
-        padding: 5px;
-        vertical-align: top;
-    }
-
-    .invoice-box table tr td:nth-child(2) {
-        text-align: right;
-    }
-
-    .invoice-box table tr.top table td {
-        padding-bottom: 20px;
-    }
-
-    .invoice-box table tr.top table td.title {
-        font-size: 45px;
-        line-height: 45px;
-        color: #333;
-    }
-
-    .invoice-box table tr.information table td {
-        padding-bottom: 40px;
-    }
-
-    .invoice-box table tr.heading td {
-        background: #eee;
-        border-bottom: 1px solid #ddd;
-        font-weight: bold;
-    }
-
-    .invoice-box table tr.details td {
-        padding-bottom: 20px;
-    }
-
-    .invoice-box table tr.item td{
-        border-bottom: 1px solid #eee;
-    }
-
-    .invoice-box table tr.item.last td {
-        border-bottom: none;
-    }
-
-    .invoice-box table tr.total td:nth-child(2) {
-        border-top: 2px solid #eee;
-        font-weight: bold;
-    }
-
-    @media only screen and (max-width: 600px) {
-        .invoice-box table tr.top table td {
-            width: 100%;
-            display: block;
-            text-align: center;
-        }
-
-        .invoice-box table tr.information table td {
-            width: 100%;
-            display: block;
-            text-align: center;
-        }
-    }
-
-    /** RTL **/
-    .rtl {
-        direction: rtl;
-        font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
-    }
-
-    .rtl table {
-        text-align: right;
-    }
-
-    .rtl table tr td:nth-child(2) {
-        text-align: left;
-    }
-    </style>
-</head>
-
-<body>
 @foreach($penjualan as $p)
-    <div class="invoice-box">
-        <table cellpadding="0" cellspacing="0">
-            <tr class="top">
-                <td colspan="4">
-                    <table>
-                        <tr>
-                            <td class="title" style="font-size:36px">
-                                Nota Pembelian
-                            </td>
+<head>
+<h2><font face="" size="5">Toko Rahayu Bahan Kue dan </font></h2>
+<h2><font face="" size="5">Bahan Makanan Kemasan</font></h2>
+<h4><font face="Courier New">Surabaya, 081357993720</font></h4>
+<body>
+<font face="Courier New"/>
 
-                            <td>
-                                id : {{$p->id_penjualan}}<br>
-                                {{ \Carbon\Carbon::parse($p->tgl_penjualan)->format('d M Y')}}<br>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
+<?php
+$cat = "CATYLAC";
+$beli = 5;
+?>
 
-            <tr class="information">
-                <td colspan="4">
-                    <table>
-                        <tr>
-                            <td>
-                                Jl. Bratang Gede VI-E/10<br>
-                                60245 Ngagelrejo, Wonokromo<br>
-                                Surabaya<br><br><br>
-                                Pembeli : {{$p->pelanggan->nama_pelanggan}}
-                            </td>
+<table>
 
-                            <td>
-                                Toko Rahayu<br>
-                                Karyono<br>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
+<td colspan="4">------------------------------------------------------</td>
 
-            <tr class="heading">
-                <td>Barang</td>
-                <td style="text-align:right">Harga satuan</td>
-                <td style="text-align:right">Jumlah</td>
-                <td style="text-align:right">Sub total</td>
-            </tr>
-            <?php $total = 0 ?>
-            @foreach($p->barang as $b)
-            <tr class="item">
-                <td>{{$b->nama_barang}}</td>
-                <td style="text-align:right">{{number_format($b->pivot->harga_barang)}}</td>
-                <td style="text-align:right">{{$b->pivot->jumlah_barang}}</td>
-                <td style="text-align:right">{{number_format($b->pivot->harga_barang * $b->pivot->jumlah_barang)}}</td>
-            </tr>
-            <?php $total += ($b->pivot->harga_barang * $b->pivot->jumlah_barang) ?>
-            @endforeach
+<tr>
+<td>{{ ($p->tgl_penjualan) }}</td><td></td>
+<td></td>
+</tr>
 
-            <tr class="total">
-                <td></td>
-                <td></td>
-                <td style="text-align:right">Total : </td>
-                <td style="text-align:right">{{ number_format($total) }}</td>
-            </tr>
-        </table>
-    </div>
-@endforeach
+<tr>
+<td>ID</td><td>:</td>
+<td>{{ ($p->id_penjualan) }}</td>
+</tr>
+
+@if($p->pelanggan->id_pelanggan != 1)
+<tr>
+<td>Nama Costumer</td><td>:</td>
+<td>{{ ($p->pelanggan->nama_pelanggan) }}</td>
+</tr>
+
+<tr>
+<td>Alamat</td><td>:</td>
+<td>{{ ($p->pelanggan->alamat_pelanggan) }}</td>
+</tr>
+@endif
+
+<td colspan="4">------------------------------------------------------</td>
+
+    @foreach($p->barang as $b)
+    <tr>
+    <td style="width:250px">{{$b->nama_barang}}</td><td></td>
+    <td style="padding-left: 180px">{{$b->pivot->total_harga_barang}}</td>
+    </tr>
+
+    <tr>
+    <td>{{$b->pivot->harga_barang}}</td><td>x</td>
+    <td>{{$b->pivot->jumlah_barang}}</td>
+    </tr>
+    @endforeach
+<td colspan="4">------------------------------------------------------ (*)</td>
+
+<tr>
+<td>Total Harga</td><td>:</td>
+<td style="padding-left: 180px">{{$p->total}}</td>
+</tr>
+
+<td colspan="4">------------------------------------------------------ (-)</td>
+
+<tr>
+</tr>
+
+<td colspan="4">------------------------------------------------------</td>
+
+<tr>
+<td></br><a href="form_cat.php">Kembali</a></td>
+</tr>
+
+</table>
 </body>
+@endforeach
 </html>
