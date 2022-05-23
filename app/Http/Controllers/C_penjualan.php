@@ -37,6 +37,14 @@ class C_penjualan extends Controller
     public function cetak(Request $request, $id)
     {
     	$penjualan = Penjualan::where('id_penjualan',$id)->get();
+        foreach ($penjualan as $p){
+            $status = $p->status + 1;
+        }
+        Penjualan::where('id_penjualan',$id)
+        ->update([
+            'status' => $status,
+        ]);
+        //$pembayaran = Pembayaran::where('id_penjualan',$id)->get();
  
     	//$pdf = DomPDF::loadview('/penjualan/cetak',compact('penjualan'));
     	//return $pdf->stream('nota');
