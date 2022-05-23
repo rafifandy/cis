@@ -54,7 +54,6 @@
                         <!--<button class="badge badge-success" data-toggle="modal" data-target="#tambahModalDetail{{$p->id_penjualan}}" style="width:80px;margin:5px">Tambah</button>-->
                         <button class="badge badge-info" data-toggle="modal" data-target="#modalDetail{{$p->id_penjualan}}" style="width:80px;margin:5px">List</button>
                         <hr/>Total : {{ number_format($p->total) }}
-                        <!-- Modal Edit Detail -->
                         <div class="modal fade" id="modalDetail{{$p->id_penjualan}}" tabindex="-2" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
@@ -62,10 +61,11 @@
                                         <h5 class="modal-title" id="exampleModalLabel">{{ $p->id_penjualan }} -  Barang</h5>
                                     </div>
                                     <div class="modal-body">
-                                        <button class="badge badge-success" data-dismiss="modal" data-toggle="modal" data-target="#tambahModalDetail{{$p->id_penjualan}}" style="width:80px;margin:5px">Tambah</button>
+                                        <button class="badge badge-success" data-dismiss="modal" data-toggle="modal" data-target="#tambahModalDetail{{$p->id_penjualan}}" style="width:80px;margin:5px">Tambah</button><hr/>
                                         <table id="t">
                                             <thead>
                                                 <tr>
+                                                    <th>No</th>
                                                     <th>Barang</th>
                                                     <th>Jumlah</th>
                                                     <th>Harga</th>
@@ -74,8 +74,11 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                            <?php $countb = 0 ?>
                                             @foreach($p->barang as $b)
                                             <tr>
+                                                <?php $countb = $countb+1 ?>
+                                                <td>{{$countb}}</td>
                                                 <td>{{ $b->nama_barang }}</td>
                                                 <td>{{ $b->pivot->jumlah_barang }}</td>
                                                 <td>{{ number_format($b->pivot->harga_barang) }}</td>
@@ -152,12 +155,92 @@
                     @endforeach
                     <td>
                     @if($lunas == $p->total)
-                        <button class="badge badge-danger" style="width:120px;margin:5px">Pembayaran</button>
+                        <button class="badge badge-danger" data-toggle="modal" data-target="#modalPembayaran{{$p->id_penjualan}}" style="width:120px;margin:5px">Pembayaran</button>
                     @elseif($lunas == 0)
-                        <button class="badge badge-success" style="width:120px;margin:5px">Pembayaran</button>
+                        <button class="badge badge-success" data-toggle="modal" data-target="#modalPembayaran{{$p->id_penjualan}}" style="width:120px;margin:5px">Pembayaran</button>
                     @else
-                        <button class="badge badge-secondary" style="width:120px;margin:5px">Pembayaran</button>
+                        <button class="badge badge-secondary" data-toggle="modal" data-target="#modalPembayaran{{$p->id_penjualan}}" style="width:120px;margin:5px">Pembayaran</button>
                     @endif
+                    <div class="modal fade" id="modalPembayaran{{$p->id_penjualan}}" tabindex="-2" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" style="width:100%;max-width:800px" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">{{ $p->id_penjualan }} -  Pembayaran</h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        <button class="badge badge-success" data-dismiss="modal" data-toggle="modal" data-target="#tambahModalPembayaran{{$p->id_penjualan}}" style="width:80px;margin:5px">Tambah</button><hr/>
+                                        <table id="t">
+                                            <thead>
+                                                <tr>
+                                                    <th>No</th>
+                                                    <th>ID</th>
+                                                    <th>Tgl Pembayaran</th>
+                                                    <th>Jumlah Pembayaran</th>
+                                                    <th>Keterangan</th>
+                                                    <th>Tgl Diperbarui</th>
+                                                    <th>Opsi</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php $countpb = 0 ?>
+                                            @foreach($p->pembayaran as $pb)
+                                            <tr>
+                                                <?php $countpb = $countpb+1 ?>
+                                                <td>{{$countpb}}</td>
+                                                <td>{{ $pb->id_pembayaran}}</td>
+                                                <td>{{ \Carbon\Carbon::parse($pb->tgl_pembayaran)->format('d M Y') }}</td>
+                                                <td>{{ number_format($pb->jumlah_bayar) }}</td>
+                                                <td>{{ $pb->keterangan }}</td>
+                                                <td>{{ $pb->timestamp }}</td>
+                                                <td><button class="badge badge-info" data-toggle="modal" data-target="#editModalPembayaran{{$pb->id_pembayaran}}">Edit</button></td>
+                                                <!-- <li>{{ $b->pivot->jumlah_barang }} | {{ $b->nama_barang }} | {{ number_format($b->pivot->harga_barang) }} | {{ number_format($b->pivot->jumlah_barang * $b->pivot->harga_barang) }}</li> -->
+                                                <?php //$total += ($b->pivot->total_harga_barang) ?>
+                                            </tr>
+                                            <!-- Modal Edit Pembayaran -->
+                                            <div class="modal fade" id="editModalPembayaran{{$pb->id_pembayaran}}" tabindex="-2" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" style="width:100%;max-width:800px" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">{{$pb->id_pembayaran}}  -  Edit Pembayaran</h5>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form autocomplete="off" method="post" action="{{ url('/pembayaran/update/'.$p->id_penjualan.'/'.$pb->id_pembayaran) }}" enctype="multipart/form-data">
+                                                            @csrf
+                                                            <input type="hidden" class="form-control" id ="id_penjualan" name="id_penjualan" value="{{ $p->id_penjualan }}">
+                                                            <input type="hidden" class="form-control" id ="status" name="status" value="{{ $p->status + 1}}">
+                                                            <div class="form-group">
+                                                                <label for="tgl_pembayaran">Tanggal</label>
+                                                                <input type="date" class="form-control" id ="tgl_pembayaran" name="tgl_pembayaran" value="{{ $pb->tgl_pembayaran }}">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                    <label for="jumlah_bayar">Jumlah pembayaran</label>
+                                                                    <input type="number" class="form-control" id ="jumlah_bayar" name="jumlah_bayar" value="{{ $pb->jumlah_bayar }}">
+                                                                </div>
+                                                            <div class="form-group">
+                                                                <label for="keterangan">Keterangan</label>
+                                                                <input type="text" class="form-control" id ="keterangan" name="keterangan" value="{{ $pb->keterangan }}">
+                                                            </div>
+                                                        </div>
+                                                        </br>
+                                                        <div class="modal-footer">
+                                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                                            </form>
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    </br>
+                                    <div class="modal-footer">
+                                        <button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     <hr/>Total Terbayar : {{ number_format($p->total - $lunas) }}
                     </td>
                     <td>{{$lunas}}</td>
@@ -215,6 +298,40 @@
                                 <button type="submit" class="btn btn-primary">Submit</button>
                                 </form>
                                 <button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal Tambah Pembayaran -->
+                <div class="modal fade" id="tambahModalPembayaran{{ $p->id_penjualan}}" tabindex="-2" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" style="width:100%;max-width:800px" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">{{$p->id_penjualan}}  -  Tambah Pembayaran</h5>
+                            </div>
+                            <div class="modal-body">
+                                <form autocomplete="off" method="post" action="{{ url('/pembayaran/store/'.$p->id_penjualan) }}" enctype="multipart/form-data">
+                                @csrf
+                                <input type="hidden" class="form-control" id ="id_penjualan" name="id_penjualan" value="{{ $p->id_penjualan }}">
+                                <input type="hidden" class="form-control" id ="status" name="status" value="{{ $p->status + 1}}">
+                                <div class="form-group">
+                                    <label for="tgl_pembayaran">Tanggal</label>
+                                    <input type="date" class="form-control" id ="tgl_pembayaran" name="tgl_pembayaran" value="<?php echo date('Y-m-d'); ?>">
+                                </div>
+                                <div class="form-group">
+                                        <label for="jumlah_bayar">Jumlah pembayaran</label>
+                                        <input type="number" class="form-control" id ="jumlah_bayar" name="jumlah_bayar">
+                                    </div>
+                                <div class="form-group">
+                                    <label for="keterangan">Keterangan</label>
+                                    <input type="text" class="form-control" id ="keterangan" name="keterangan">
+                                </div>
+                            </div>
+                            </br>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                </form>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>

@@ -80,6 +80,20 @@ class C_penjualan extends Controller
 		]);
         return redirect('/penjualan')->with('status','Data Berhasil Diubah!!!');
     }
+    public function updatePembayaran(Request $request, $id, $id2)
+    {
+        Penjualan::where('id_penjualan',$id)
+        ->update([
+            'status' => $request->status,
+        ]);
+        Pembayaran::where('id_pembayaran',$id2)
+        ->update([
+            'tgl_pembayaran' => $request->tgl_pembayaran,
+            'jumlah_bayar' => $request->jumlah_bayar,
+            'keterangan' => $request->keterangan,
+        ]);
+        return redirect('/penjualan')->with('status','Data Berhasil Diubah!!!');
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -130,6 +144,20 @@ class C_penjualan extends Controller
 			'jumlah_barang' => $request->jumlah_barang,
 			'total_harga_barang' => $request->harga_barang*$request->jumlah_barang,
 		]);
+        return redirect('/penjualan')->with('status','Barang Berhasil Ditambahkan!!!'); 
+    }
+    public function storePembayaran(Request $request, $id)
+    {
+        Penjualan::where('id_penjualan',$id)
+        ->update([
+            'status' => $request->status,
+        ]);
+        Pembayaran::create([
+            'id_penjualan' => $id,
+            'tgl_pembayaran' => $request->tgl_pembayaran,
+            'jumlah_bayar' => $request->jumlah_bayar,
+            'keterangan' => $request->keterangan,
+        ]);
         return redirect('/penjualan')->with('status','Barang Berhasil Ditambahkan!!!'); 
     }
 

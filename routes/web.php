@@ -42,6 +42,9 @@ Route::post('/penjualan/update/{id}',[C_penjualan::class,'update']);
 Route::get('/penjualan/cetak/{id}',[C_penjualan::class,'cetak']);
 Route::post('/penjualan/detail/store/{id}',[C_penjualan::class,'storeDetail']);
 Route::post('/penjualan/detail/update/{id}/{id2}',[C_penjualan::class,'updateDetail']);
+//pembayaran
+Route::post('/pembayaran/store/{id}',[C_penjualan::class,'storePembayaran']);
+Route::post('/pembayaran/update/{id}/{id2}',[C_penjualan::class,'updatePembayaran']);
 
 Route::get('/penjualan/n',[C_penjualan::class,'index2']);
 
