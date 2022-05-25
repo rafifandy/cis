@@ -39,9 +39,19 @@ class C_pengadaan extends Controller
     {
         $stok = $request->stok_barange + ($request->jumlah_barang - $request->stok_jumlah);
         //dd($request->stok_barange);
+        $barang_tot = DB::table('detail_pengadaan')->where('id_pengadaan',$id)->where('id_barang',$id2)->get();
+        foreach ($barang_tot as $bt){
+            $btotal = $bt->total_harga_barang;
+        }
+        $pengadaan_tot = Pengadaan::where('id_pengadaan',$id)->get();
+        foreach ($pengadaan_tot as $pt){
+            $total = $pt->total;
+        }
+        $total = $total + ($request->harga_barang*$request->jumlah_barang - $btotal);
         Pengadaan::where('id_pengadaan',$id)
         ->update([
             'status' => $request->status,
+            'total' => $total,
         ]);
         Barang::where('id_barang',$id2)
         ->update([
@@ -83,9 +93,15 @@ class C_pengadaan extends Controller
     {
         $stok = $request->stok_barang + $request->jumlah_barang;
         //dd($request->stok_barang);
+        $pengadaan_tot = Pengadaan::where('id_pengadaan',$id)->get();
+        foreach ($pengadaan_tot as $pt){
+            $total = $pt->total;
+        }
+        $total = $total + ($request->harga_barang*$request->jumlah_barang);
         Pengadaan::where('id_pengadaan',$id)
         ->update([
             'status' => $request->status,
+            'total' => $total,
         ]);
         Barang::where('id_barang',$request->id_barang)
         ->update([
@@ -131,17 +147,7 @@ class C_pengadaan extends Controller
      */
     public function update2(Request $request, $id)
     {
-        $request->validate([
-            'nama_pelanggan' => 'required|max:100',
-        ]);
-        Pelanggan::where('id_pelanggan',$id)
-        ->update([
-            'nama_pelanggan' => $request->nama_pelanggan,
-            'alamat_pelanggan' => $request->alamat_pelanggan,
-            'no_telp_pelanggan' => $request->no_telp_pelanggan,
-            'keterangan' => $request->keterangan,
-        ]);
-        return redirect('/pelanggan')->with('status','Data Berhasil Diubah!!!');
+        //
     }
 
     /**

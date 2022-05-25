@@ -203,17 +203,7 @@ class C_penjualan extends Controller
      */
     public function update2(Request $request, $id)
     {
-        $request->validate([
-            'nama_pelanggan' => 'required|max:100',
-        ]);
-        Pelanggan::where('id_pelanggan',$id)
-        ->update([
-            'nama_pelanggan' => $request->nama_pelanggan,
-            'alamat_pelanggan' => $request->alamat_pelanggan,
-            'no_telp_pelanggan' => $request->no_telp_pelanggan,
-            'keterangan' => $request->keterangan,
-        ]);
-        return redirect('/pelanggan')->with('status','Data Berhasil Diubah!!!');
+        //
     }
 
     /**
