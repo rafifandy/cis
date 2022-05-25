@@ -1,0 +1,1 @@
+select id_barang, sum(jumlah_barang) from detail_penjualan group by id_barang

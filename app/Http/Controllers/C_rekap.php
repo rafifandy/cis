@@ -22,11 +22,13 @@ class C_rekap extends Controller
      */
     public function index()
     {
-        $rekap = Rekap::orderBy('timestamp','desc')->get();
+        //$rekap = Rekap::orderBy('timestamp','desc')->get();
         $barang = Barang::all();
         $penjualan = Penjualan::all();
         $pengadaan = Pengadaan::all();
-        return view('/rekap/rekap',compact('pengadaan','penjualan','rekap','barang'),['x' => 'rekap']);
+        $tgl = ['2022-05-17'];
+        //$rbarang = Barang::groupBy('id_barang')->get();
+        return view('/rekap/rekap',compact('pengadaan','penjualan','barang','tgl'),['x' => 'rekap']);
     }
     
     public function update(Request $request, $id)
