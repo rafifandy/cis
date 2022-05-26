@@ -7,7 +7,7 @@ body {
 .topnav {
   position: relative;
   overflow: hidden;
-  background-color: #333;
+  background-color: #824610;
 }
 
 .topnav a {

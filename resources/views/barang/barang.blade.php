@@ -9,13 +9,13 @@
 @endsection
 @section('content')
 <body>
-	<center>
-        <br/>
-		<h1>Barang</h1>
-	</center>
-	<br/>
-	<br/>
+	
+	
     <div class="container">
+        
+        <br/>
+            <h1>Barang</h1>
+        <br/>
         <button class="badge badge-success" data-toggle="modal" data-target="#tambahModal">Tambah Data Barang</button><hr/>
         @if (session('status'))
               <div class="alert alert-success">
