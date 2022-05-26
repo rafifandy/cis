@@ -21,6 +21,12 @@ class CreatePelangganTable extends Migration
             $table->string('keterangan',100)->nullable();
             $table->timestamp('timestamp');
         });
+        DB::table('pelanggan')->insert(
+            array(
+                'nama_pelanggan' => '(public)',
+                'keterangan' => 'pelanggan umum'
+            )
+        );
     }
 
     /**

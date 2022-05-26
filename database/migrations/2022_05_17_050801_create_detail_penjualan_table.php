@@ -13,10 +13,17 @@ class CreateDetailPenjualanTable extends Migration
      */
     public function up()
     {
-        // Schema::create('detail_penjualan', function (Blueprint $table) {
-        //     $table->id();
-        //     $table->timestamps();
-        // });
+        Schema::create('detail_penjualan', function (Blueprint $table) {
+            $table->engine = 'MyISAM';
+            $table->bigInteger('id_penjualan')->unsigned();
+            $table->bigInteger('id_barang')->unsigned();
+            $table->integer('jumlah_barang')->nullable();
+            $table->bigInteger('harga_barang')->nullable();
+            $table->bigInteger('total_harga_barang')->nullable();
+            $table->primary(array('id_penjualan','id_barang'));
+            $table->foreign('id_penjualan')->references('id_penjualan')->on('penjualan');
+            $table->foreign('id_barang')->references('id_barang')->on('barang');
+        });
     }
 
     /**
