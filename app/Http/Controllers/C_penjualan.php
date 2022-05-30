@@ -54,12 +54,38 @@ class C_penjualan extends Controller
 
     public function update(Request $request, $id)
     {
-        Penjualan::where('id_penjualan',$id)
-        ->update([
-            'id_pelanggan' => $request->id_pelanggan,
-            'tgl_penjualan' => $request->tgl_penjualan,
-            'keterangan' => $request->keterangan,
-        ]);
+        if($request->tipe_p == 0){
+            Penjualan::where('id_penjualan',$id)
+            ->update([
+                'id_pelanggan' => $request->id_pelanggan,
+                'tgl_penjualan' => $request->tgl_penjualan,
+                'keterangan' => $request->keterangan,
+            ]);
+        }
+        elseif($request->tipe_p == 1){
+            $potongan = $request->total - ($request->total*$request->potongan_penjualan/100);
+            Penjualan::where('id_penjualan',$id)
+            ->update([
+                'id_pelanggan' => $request->id_pelanggan,
+                'tgl_penjualan' => $request->tgl_penjualan,
+                'keterangan' => $request->keterangan,
+                'tipe_potongan_pnj' => $request->tipe_p,
+                'potongan_penjualan_t1' => $request->potongan_penjualan,
+                'total_akhir' => $potongan,
+            ]);
+        }
+        elseif($request->tipe_p == 2){
+            $potongan = $request->total - $request->potongan_penjualan;
+            Penjualan::where('id_penjualan',$id)
+            ->update([
+                'id_pelanggan' => $request->id_pelanggan,
+                'tgl_penjualan' => $request->tgl_penjualan,
+                'keterangan' => $request->keterangan,
+                'tipe_potongan_pnj' => $request->tipe_p,
+                'potongan_penjualan_t2' => $request->potongan_penjualan,
+                'total_akhir' => $potongan,
+            ]);
+        }
         return redirect('/penjualan')->with('status','Data Berhasil Diubah!!!');
     }
     public function updateDetail(Request $request, $id, $id2)
@@ -79,6 +105,7 @@ class C_penjualan extends Controller
         ->update([
             'status' => $request->status,
             'total' => $total,
+            'total_akhir' => $total,
         ]);
         Barang::where('id_barang',$id2)
         ->update([
@@ -143,6 +170,7 @@ class C_penjualan extends Controller
         ->update([
             'status' => $request->status,
             'total' => $total,
+            'total_akhir' => $total,
         ]);
         Barang::where('id_barang',$request->id_barang)
         ->update([

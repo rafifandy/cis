@@ -18,6 +18,10 @@ class CreatePenjualanTable extends Migration
             $table->bigInteger('id_pelanggan')->unsigned();
             $table->date('tgl_penjualan');
             $table->bigInteger('total')->nullable();
+            $table->integer('tipe_potongan_pnj')->nullable();
+            $table->float('potongan_penjualan_t1')->nullable();
+            $table->bigInteger('potongan_penjualan_t2')->nullable();
+            $table->bigInteger('total_akhir')->nullable();
             $table->string('keterangan',100)->nullable();
             $table->integer('status')->nullable();
             $table->timestamp('timestamp');

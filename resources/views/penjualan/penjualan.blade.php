@@ -360,6 +360,51 @@
                                     <input type="date" class="form-control" id ="tgl_penjualan" name="tgl_penjualan" value="{{ $p->tgl_penjualan }}">
                                 </div>
                                 <div class="form-group">
+                                    <label for="total2">Total</label>
+                                    <input type="number" class="form-control" id ="total2" name="total2" value="{{ $p->total }}" disabled>
+                                    <input type="hidden" class="form-control" id ="total" name="total" value="{{ $p->total }}">
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <label for="potongan_penjualan">Tipe Potongan</label>
+                                            <select class="form-control" id ="tipe_p" name="tipe_p">
+                                            @if($p->tipe_potongan_pnj == 1)
+                                                <option value="1">%</option>
+                                                <option value="2">Rp</option>
+                                            @elseif($p->tipe_potongan_pnj == 2)
+                                                <option value="2">Rp</option>
+                                                <option value="1">%</option>
+                                            @else
+                                                <option value="0">Tanpa Potongan</option>
+                                                <option value="1">%</option>
+                                                <option value="2">Rp</option>
+                                            @endif
+                                            </select>
+                                        </div>
+                                        @if($p->tipe_potongan_pnj == 1)
+                                        <div class="col-sm-8">
+                                            <label for="potongan_penjualan">Potongan/Disc</label>
+                                            <input type="number" class="form-control" id ="potongan_penjualan" name="potongan_penjualan" step=".01" value="{{$p->potongan_penjualan_t1}}">
+                                        </div>
+                                        @elseif($p->tipe_potongan_pnj == 2)
+                                        <div class="col-sm-8">
+                                            <label for="potongan_penjualan">Potongan/Disc</label>
+                                            <input type="number" class="form-control" id ="potongan_penjualan" name="potongan_penjualan" step=".01" value="{{$p->potongan_penjualan_t1}}">
+                                        </div>
+                                        @else
+                                        <div class="col-sm-8">
+                                            <label for="potongan_penjualan">Potongan/Disc</label>
+                                            <input type="number" class="form-control" id ="potongan_penjualan" name="potongan_penjualan" step=".01">
+                                        </div>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="total_akhir">Total Akhir</label>
+                                    <input type="number" class="form-control" id ="total_akhir" name="total_akhir" value="{{ $p->total_akhir }}" disabled>
+                                </div>
+                                <div class="form-group">
                                     <label for="keterangan">Keterangan</label>
                                     <input type="text" class="form-control" id ="keterangan" name="keterangan" value="{{ $p->keterangan }}">
                                 </div>

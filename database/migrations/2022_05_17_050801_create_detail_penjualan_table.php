@@ -19,7 +19,11 @@ class CreateDetailPenjualanTable extends Migration
             $table->bigInteger('id_barang')->unsigned();
             $table->integer('jumlah_barang')->nullable();
             $table->bigInteger('harga_barang')->nullable();
+            $table->integer('tipe_potongan_brg')->nullable();
+            $table->float('potongan_barang_t1')->nullable();
+            $table->bigInteger('potongan_barang_t2')->nullable();
             $table->bigInteger('total_harga_barang')->nullable();
+            $table->bigInteger('total_harga_barang_akhir')->nullable();
             $table->primary(array('id_penjualan','id_barang'));
             $table->foreign('id_penjualan')->references('id_penjualan')->on('penjualan');
             $table->foreign('id_barang')->references('id_barang')->on('barang');
