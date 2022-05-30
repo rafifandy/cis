@@ -17,7 +17,8 @@ class CreateBarangTable extends Migration
             $table->id('id_barang');
             $table->bigInteger('id_kategori')->unsigned();
             $table->string('nama_barang',100);
-            $table->bigInteger('harga_sementara')->nullable();
+            $table->bigInteger('harga_beli')->nullable();
+            $table->bigInteger('harga_jual')->nullable();
             $table->integer('stok')->nullable();
             $table->string('keterangan',100)->nullable();
             $table->string('foto_barang')->nullable();
