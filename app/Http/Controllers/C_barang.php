@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Models\Barang;
+use App\Models\Kategori_barang;
 
 class C_barang extends Controller
 {
@@ -19,13 +20,15 @@ class C_barang extends Controller
     public function index()
     {
         $barang = Barang::orderBy('timestamp','desc')->get();
-        return view('/barang/barang',compact('barang'),['x' => 'barang']);
+        $kategori_barang = Kategori_barang::all();
+        return view('/barang/barang',compact('barang','kategori_barang'),['x' => 'barang','k' => '0']);
     }
 
     public function indexKat($id)
     {
         $barang = Barang::orderBy('timestamp','desc')->where('id_kategori',$id)->get();
-        return view('/barang/barang',compact('barang'),['x' => 'barang']);
+        $kategori_barang = Kategori_barang::all();
+        return view('/barang/barang',compact('barang','kategori_barang'),['x' => 'barang','k' => $id]);
     }
 
     /**
@@ -55,6 +58,7 @@ class C_barang extends Controller
             Storage::disk('local')->put($nama_barang, file_get_contents($file));
             Barang::create([
                 'nama_barang' => $request->nama_barang,
+                'id_kategori' => $request->id_kategori,
                 'harga_beli' => $request->harga_beli,
                 'harga_jual' => $request->harga_jual,
                 'stok' => $request->stok,
@@ -65,6 +69,7 @@ class C_barang extends Controller
         else{
             Barang::create([
                 'nama_barang' => $request->nama_barang,
+                'id_kategori' => $request->id_kategori,
                 'harga_beli' => $request->harga_beli,
                 'harga_jual' => $request->harga_jual,
                 'stok' => $request->stok,
@@ -115,6 +120,7 @@ class C_barang extends Controller
             Barang::where('id_barang',$id)
             ->update([
                 'nama_barang' => $request->nama_barang,
+                'id_kategori' => $request->id_kategori,
                 'harga_beli' => $request->harga_beli,
                 'harga_jual' => $request->harga_jual,
                 'stok' => $request->stok,
@@ -126,6 +132,7 @@ class C_barang extends Controller
             Barang::where('id_barang',$id)
             ->update([
                 'nama_barang' => $request->nama_barang,
+                'id_kategori' => $request->id_kategori,
                 'harga_beli' => $request->harga_beli,
                 'harga_jual' => $request->harga_jual,
                 'stok' => $request->stok,

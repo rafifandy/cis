@@ -2,10 +2,10 @@
 @section('title','Barang')
 @section('css')
 <style>
-        td{
-            font-size: 16px;
-        }
-    </style>
+    td{
+        font-size: 16px;
+    }
+</style>
 @endsection
 @section('content')
 <body>
@@ -15,7 +15,9 @@
         
         <br/>
             <h1>Barang</h1>
+            @include('barang/kategori_btn')
         <br/>
+        <hr/>
         <button class="badge badge-success" data-toggle="modal" data-target="#tambahModal">Tambah Data Barang</button><hr/>
         @if (session('status'))
               <div class="alert alert-success">
@@ -80,6 +82,17 @@
                                         <label for="nama_barang">Nama Barang</label>
                                         <input type="text" class="form-control" id ="nama_barang" name="nama_barang" value="{{ $b->nama_barang }}">
                                     </div>
+                                    @if($k == 0 )
+                                    <div class="form-group">
+                                        <label for="id_pelanggan">ID Kategori</label>
+                                        <input type="text" class="form-control" name="id_kategori" id ="id_kategori" list="kategori2" value="{{ $b->id_kategori }}">
+                                        <datalist id="kategori2">
+                                            @foreach($kategori_barang as $ktg)
+                                            <option value="{{$ktg->id_kategori}}">{{$ktg->nama_kategori}}</option>
+                                            @endforeach
+                                        </datalist>
+                                    </div>
+                                    @endif
                                     <div class="form-group">
                                         <label for="foto_barang">Upload Foto Barang</label><br/>
                                         <input type="file" id="foto_barang" onchange="readURL2(this);" name="foto_barang" accept=".jpg, .jpeg, .png">
@@ -131,6 +144,19 @@
                         <label for="nama_barang">Nama Barang</label>
                         <input type="text" class="form-control" id ="nama_barang" name="nama_barang">
                       </div>
+                    @if($k == 0)
+                      <div class="form-group">
+                        <label for="id_kategori">ID Kategori</label>
+                        <input type="text" class="form-control" name="id_kategori" id ="id_kategori" list="kategori">
+                        <datalist id="kategori">
+                            @foreach($kategori_barang as $ktg)
+                            <option value="{{$ktg->id_kategori}}">{{$ktg->nama_kategori}}</option>
+                            @endforeach
+                        </datalist>
+                      </div>
+                    @else
+                    <input type="hidden" class="form-control" id ="id_kategori" name="id_kategori" value="{{ $k }}">
+                    @endif
                       <div class="form-group">
                         <label for="foto_barang">Upload Foto Barang</label><br/>
 						<input type="file" id="foto_barang" onchange="readURL(this);" name="foto_barang" accept=".jpg, .jpeg, .png">

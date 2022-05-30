@@ -16,9 +16,9 @@ class Barang extends Model
     public $timestamps = false;
     public $incrementing = false;
 
-    public function kategoriBarang()
+    public function kategori_barang()
     {
-        return $this->belongsTo(kategoriBarang::class,'id_kategori');
+        return $this->belongsTo(Kategori_barang::class,'id_kategori');
     }
     public function penjualan()
     {
