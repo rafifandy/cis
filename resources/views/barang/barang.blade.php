@@ -29,7 +29,8 @@
                     <th>ID</th>
                     <th>Nama</th>
                     <th>Gambar</th>
-                    <th>Harga Sementara</th>
+                    <th>Harga Beli</th>
+                    <th>Harga Jual</th>
                     <th>Stok</th>
                     <th>Keterangan</th>
                     <th>Diperbarui</th>
@@ -49,10 +50,15 @@
                     @else
                     <td><img src="{{ asset('storage/'.$b->foto_barang) }}" style='height: 100px; width: 100px; object-fit: contain'></td>
                     @endif
-                    @if($b->harga_sementara == null)
-                    <td>{{$b->harga_sementara}}</td>
+                    @if($b->harga_beli == null)
+                    <td>{{$b->harga_beli}}</td>
                     @else
-                    <td style="text-align:right">{{number_format($b->harga_sementara)}}</td>
+                    <td style="text-align:right">{{number_format($b->harga_beli)}}</td>
+                    @endif
+                    @if($b->harga_jual == null)
+                    <td>{{$b->harga_jual}}</td>
+                    @else
+                    <td style="text-align:right">{{number_format($b->harga_jual)}}</td>
                     @endif
                     <td>{{$b->stok}}</td>
                     <td>{{$b->keterangan}}</td>
@@ -80,8 +86,12 @@
                                         <img id="blah2" src="http://placehold.it/1" style='height: 150px; width: 150px; object-fit: contain' alt="your image" />
                                     </div>
                                     <div class="form-group">
-                                        <label for="harga_sementara">Harga Sementara</label>
-                                        <input type="number" class="form-control" id ="harga_sementara" name="harga_sementara" value="{{ $b->harga_sementara }}">
+                                        <label for="harga_beli">Harga Beli</label>
+                                        <input type="number" class="form-control" id ="harga_beli" name="harga_beli" value="{{ $b->harga_beli }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="harga_jual">Harga Jual</label>
+                                        <input type="number" class="form-control" id ="harga_jual" name="harga_jual" value="{{ $b->harga_jual }}">
                                     </div>
                                     <div class="form-group">
                                         <label for="stok">Stok</label>
@@ -127,8 +137,12 @@
                         <img id="blah" src="http://placehold.it/1" style='height: 150px; width: 150px; object-fit: contain' alt="your image" />
 					  </div>
                       <div class="form-group">
-                        <label for="harga_sementara">Harga Sementara</label>
-                        <input type="number" class="form-control" id ="harga_sementara" name="harga_sementara">
+                        <label for="harga_beli">Harga Beli</label>
+                        <input type="number" class="form-control" id ="harga_beli" name="harga_beli">
+                      </div>
+                      <div class="form-group">
+                        <label for="harga_jual">Harga Jual</label>
+                        <input type="number" class="form-control" id ="harga_jual" name="harga_jual">
                       </div>
                       <div class="form-group">
                         <label for="stok">Stok</label>

@@ -267,7 +267,7 @@
                                             <input type="text" class="form-control" name="id_barang" id ="id_barang" list="barang">
                                             <datalist id="barang">
                                                 @foreach($barang as $brg)
-                                                <option value="{{$brg->id_barang}}" hrg="{{$brg->harga_sementara}}" stk="{{$brg->stok}}">{{$brg->nama_barang}}</option>
+                                                <option value="{{$brg->id_barang}}" hrg="{{$brg->harga_jual}}" stk="{{$brg->stok}}">{{$brg->nama_barang}}</option>
                                                 @endforeach
                                             </datalist>
                                         </div>

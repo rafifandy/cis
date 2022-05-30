@@ -49,7 +49,8 @@ class C_barang extends Controller
             Storage::disk('local')->put($nama_barang, file_get_contents($file));
             Barang::create([
                 'nama_barang' => $request->nama_barang,
-                'harga_sementara' => $request->harga_sementara,
+                'harga_beli' => $request->harga_beli,
+                'harga_jual' => $request->harga_jual,
                 'stok' => $request->stok,
                 'keterangan' => $request->keterangan,
                 'foto_barang' => $nama_barang,
@@ -58,7 +59,8 @@ class C_barang extends Controller
         else{
             Barang::create([
                 'nama_barang' => $request->nama_barang,
-                'harga_sementara' => $request->harga_sementara,
+                'harga_beli' => $request->harga_beli,
+                'harga_jual' => $request->harga_jual,
                 'stok' => $request->stok,
                 'keterangan' => $request->keterangan,
             ]);
@@ -107,7 +109,8 @@ class C_barang extends Controller
             Barang::where('id_barang',$id)
             ->update([
                 'nama_barang' => $request->nama_barang,
-                'harga_sementara' => $request->harga_sementara,
+                'harga_beli' => $request->harga_beli,
+                'harga_jual' => $request->harga_jual,
                 'stok' => $request->stok,
                 'keterangan' => $request->keterangan,
                 'foto_barang' => $nama_barang,
@@ -117,7 +120,8 @@ class C_barang extends Controller
             Barang::where('id_barang',$id)
             ->update([
                 'nama_barang' => $request->nama_barang,
-                'harga_sementara' => $request->harga_sementara,
+                'harga_beli' => $request->harga_beli,
+                'harga_jual' => $request->harga_jual,
                 'stok' => $request->stok,
                 'keterangan' => $request->keterangan,
             ]);

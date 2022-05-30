@@ -11,11 +11,15 @@ class Barang extends Model
     
     protected $table = 'barang';
     protected $primaryKey = 'id_barang';
-    protected $fillable = ['id_barang','nama_barang','foto_barang','harga_sementara','stok','keterangan'];
+    protected $fillable = ['id_barang','id_kategori','nama_barang','foto_barang','harga_beli','harga_jual','stok','keterangan'];
     
     public $timestamps = false;
     public $incrementing = false;
 
+    public function kategoriBarang()
+    {
+        return $this->belongsTo(kategoriBarang::class,'id_kategori');
+    }
     public function penjualan()
     {
         return $this->belongsToMany(Penjualan::class,'detail_penjualan','id_barang','id_penjualan')->withPivot('harga_barang', 'jumlah_barang');
