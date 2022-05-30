@@ -157,12 +157,12 @@
                             </div>
                         </div>
                     </td>
-                    <?php $lunas = ($p->total) ?>
+                    <?php $lunas = ($p->total_akhir) ?>
                     @foreach($p->pembayaran as $pb)
                         <?php $lunas = $lunas - ($pb->jumlah_bayar) ?>
                     @endforeach
                     <td>
-                    @if($lunas == $p->total)
+                    @if($lunas == $p->total_akhir)
                         <button class="badge badge-danger" data-toggle="modal" data-target="#modalPembayaran{{$p->id_penjualan}}" style="width:120px;margin:5px">Pembayaran</button>
                     @elseif($lunas == 0)
                         <button class="badge badge-success" data-toggle="modal" data-target="#modalPembayaran{{$p->id_penjualan}}" style="width:120px;margin:5px">Pembayaran</button>
@@ -249,7 +249,7 @@
                                 </div>
                             </div>
                         </div>
-                    <hr/>Total Terbayar : {{ number_format($p->total - $lunas) }}
+                    <hr/>Total Terbayar : {{ number_format($p->total_akhir - $lunas) }}
                     <br/>Belum Terbayar : {{ number_format($lunas) }}
                     </td>
                     <td>{{$p->keteragan}}</td>
