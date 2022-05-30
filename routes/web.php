@@ -27,6 +27,7 @@ Route::get('/home', function () {
 
 //barang
 Route::get('/barang',[C_barang::class,'index']);
+Route::get('/barang/{id}',[C_barang::class,'indexKat']);
 Route::post('/barang/store',[C_barang::class,'store']);
 Route::post('/barang/update/{id}',[C_barang::class,'update']);
 

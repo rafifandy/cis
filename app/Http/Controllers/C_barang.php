@@ -22,6 +22,12 @@ class C_barang extends Controller
         return view('/barang/barang',compact('barang'),['x' => 'barang']);
     }
 
+    public function indexKat($id)
+    {
+        $barang = Barang::orderBy('timestamp','desc')->where('id_kategori',$id)->get();
+        return view('/barang/barang',compact('barang'),['x' => 'barang']);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
