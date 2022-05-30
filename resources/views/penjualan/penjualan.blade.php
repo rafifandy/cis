@@ -54,6 +54,14 @@
                         <!--<button class="badge badge-success" data-toggle="modal" data-target="#tambahModalDetail{{$p->id_penjualan}}" style="width:80px;margin:5px">Tambah</button>-->
                         <button class="badge badge-info" data-toggle="modal" data-target="#modalDetail{{$p->id_penjualan}}" style="width:80px;margin:5px">List</button>
                         <hr/>Total : {{ number_format($p->total) }}
+                        @if($p->tipe_potongan_pnj == 1)
+                        <br/>Potongan = {{ ($p->potongan_penjualan_t1) }} %
+                        @elseif($p->tipe_potongan_pnj == 2)
+                        <br/>Potongan : {{ number_format($p->potongan_penjualan_t2) }}
+                        @else
+                        <br/> Potongan : 0
+                        @endif
+                        <br/>Total Akhir : {{ number_format($p->total_akhir) }}
                         <div class="modal fade" id="modalDetail{{$p->id_penjualan}}" tabindex="-2" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
@@ -242,8 +250,9 @@
                             </div>
                         </div>
                     <hr/>Total Terbayar : {{ number_format($p->total - $lunas) }}
+                    <br/>Belum Terbayar : {{ number_format($lunas) }}
                     </td>
-                    <td>{{$lunas}}</td>
+                    <td>{{$p->keteragan}}</td>
                     <td>{{$p->timestamp}}</td>
                     <td style="width"><a href="{{ url('/penjualan/cetak/'.$p->id_penjualan) }}"><button class="badge badge-success" style="width:80px;margin:5px">Cetak</button><a>
                     <br/><button class="badge badge-info" style="width:80px;margin:5px" data-toggle="modal" data-target="#editModal{{$p->id_penjualan}}">Edit</button></td>
@@ -390,7 +399,7 @@
                                         @elseif($p->tipe_potongan_pnj == 2)
                                         <div class="col-sm-8">
                                             <label for="potongan_penjualan">Potongan/Disc</label>
-                                            <input type="number" class="form-control" id ="potongan_penjualan" name="potongan_penjualan" step=".01" value="{{$p->potongan_penjualan_t1}}">
+                                            <input type="number" class="form-control" id ="potongan_penjualan" name="potongan_penjualan" step=".01" value="{{$p->potongan_penjualan_t2}}">
                                         </div>
                                         @else
                                         <div class="col-sm-8">
