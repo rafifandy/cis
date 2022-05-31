@@ -55,6 +55,35 @@
             <td>Total Harga</td><td>:</td>
             <td style="padding-right:40px;text-align:right">{{number_format($p->total)}}</td>
             </tr>
+               
+            @if($p->tipe_potongan_pnj == 1)
+                <tr>
+                <td>Potongan Harga</td><td>:</td>
+                <td style="padding-right:40px;text-align:right">{{$p->potongan_penjualan_t1}} %</td>
+                </tr>
+                <tr>
+                <td>Total Akhir</td><td>:</td>
+                <td style="padding-right:40px;text-align:right">{{number_format($p->total_akhir)}}</td>
+                </tr>
+            @elseif($p->tipe_potongan_pnj == 2)
+                <tr>
+                <td>Potongan Harga</td><td>:</td>
+                <td style="padding-right:40px;text-align:right">{{number_format($p->potongan_penjualan_t2)}}</td>
+                </tr>
+                <tr>
+                <td>Total Akhir</td><td>:</td>
+                <td style="padding-right:40px;text-align:right">{{number_format($p->total_akhir)}}</td>
+                </tr>
+            @else
+            <tr>
+                <td>Potongan Harga</td><td>:</td>
+                <td style="padding-right:40px;text-align:right">0</td>
+                </tr>
+                <tr>
+                <td>Total Akhir</td><td>:</td>
+                <td style="padding-right:40px;text-align:right">{{number_format($p->total_akhir)}}</td>
+                </tr>
+            @endif
 
             <?php $countpb = 0; $totalpb = 0 ?>
             @foreach($p->pembayaran as $pb)
@@ -71,10 +100,10 @@
                 <td style="padding-right:40px;text-align:right">{{number_format($pb->jumlah_bayar)}}</td>
                 </tr>
                 <td colspan="4">------------------------------------------------------ (-)</td>
-                    @if($p->total - $pb->jumlah_bayar != 0)
+                    @if($p->total_akhir - $pb->jumlah_bayar != 0)
                     <tr>
                     <td>Belum Terbayar</td><td>:</td>
-                    <td style="padding-right:40px;text-align:right">{{number_format($p->total - $pb->jumlah_bayar)}}</td>
+                    <td style="padding-right:40px;text-align:right">{{number_format($p->total_akhir - $pb->jumlah_bayar)}}</td>
                     </tr>
                     @endif
                 @endforeach
@@ -88,15 +117,16 @@
                 </tr>
                 <?php $total = $total + $pb->jumlah_bayar; ?>
                 @endforeach
-                    @if($p->total - $total != 0)
+                    @if($p->total_akhir - $total != 0)
                     <td colspan="4">------------------------------------------------------ (-)</td>
                     <tr>
                     <td>Belum Terbayar</td><td>:</td>
-                    <td style="padding-right:40px;text-align:right">{{number_format($p->total - $total)}}</td>
+                    <td style="padding-right:40px;text-align:right">{{number_format($p->total_akhir - $total)}}</td>
                     </tr>
                     @else
                     <tr></tr>
                     @endif
+            <td colspan="4">------------------------------------------------------</td>
             @endif
 
 
@@ -104,7 +134,6 @@
 
 
 
-<td colspan="4">------------------------------------------------------</td>
 
 <tr>
 <td></br><a href="form_cat.php">Kembali</a></td>

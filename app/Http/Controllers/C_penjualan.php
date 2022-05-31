@@ -64,6 +64,7 @@ class C_penjualan extends Controller
         }
         elseif($request->tipe_p == 1){
             $potongan = $request->total - ($request->total*$request->potongan_penjualan/100);
+            $t2 = null;
             Penjualan::where('id_penjualan',$id)
             ->update([
                 'id_pelanggan' => $request->id_pelanggan,
@@ -71,17 +72,20 @@ class C_penjualan extends Controller
                 'keterangan' => $request->keterangan,
                 'tipe_potongan_pnj' => $request->tipe_p,
                 'potongan_penjualan_t1' => $request->potongan_penjualan,
+                'potongan_penjualan_t2' => $t2,
                 'total_akhir' => $potongan,
             ]);
         }
         elseif($request->tipe_p == 2){
             $potongan = $request->total - $request->potongan_penjualan;
+            $t1 = null;
             Penjualan::where('id_penjualan',$id)
             ->update([
                 'id_pelanggan' => $request->id_pelanggan,
                 'tgl_penjualan' => $request->tgl_penjualan,
                 'keterangan' => $request->keterangan,
                 'tipe_potongan_pnj' => $request->tipe_p,
+                'potongan_penjualan_t1' => $t1,
                 'potongan_penjualan_t2' => $request->potongan_penjualan,
                 'total_akhir' => $potongan,
             ]);
