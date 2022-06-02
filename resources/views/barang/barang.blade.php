@@ -50,7 +50,7 @@
                     @if($b->foto_barang == null)
                     <td></td>
                     @else
-                    <td><img src="{{ asset('storage/'.$b->foto_barang) }}" style='height: 100px; width: 100px; object-fit: contain'></td>
+                    <td><a href="{{ asset('storage/'.$b->foto_barang) }}" download><img src="{{ asset('storage/'.$b->foto_barang) }}" style='height: 100px; width: 100px; object-fit: contain'></a></td>
                     @endif
                     @if($b->harga_beli == null)
                     <td>{{$b->harga_beli}}</td>

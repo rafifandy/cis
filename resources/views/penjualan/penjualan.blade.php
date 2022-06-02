@@ -13,10 +13,8 @@
 @endsection
 @section('content')
 <body>
-	<center>
         <br/>
 		<h1>Penjualan</h1>
-	</center>
 	<br/>
 	<br/>
     <div class="container">
