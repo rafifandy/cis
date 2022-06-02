@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Models\Barang;
 use App\Models\Kategori_barang;
+use App\Models\Gambar_barang;
 
 class C_barang extends Controller
 {

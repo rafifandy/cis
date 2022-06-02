@@ -47,21 +47,28 @@
                     <td>{{$count}}</td>
                     <td>{{$b->id_barang}}</td>
                     <td>{{$b->nama_barang}}</td>
-                    @if($b->foto_barang == null)
-                    <td></td>
-                    @else
-                    <td><a href="{{ asset('storage/'.$b->foto_barang) }}" download><img src="{{ asset('storage/'.$b->foto_barang) }}" style='height: 100px; width: 100px; object-fit: contain'></a></td>
-                    @endif
-                    @if($b->harga_beli == null)
-                    <td>{{$b->harga_beli}}</td>
-                    @else
-                    <td style="text-align:right">{{number_format($b->harga_beli)}}</td>
-                    @endif
-                    @if($b->harga_jual == null)
-                    <td>{{$b->harga_jual}}</td>
-                    @else
-                    <td style="text-align:right">{{number_format($b->harga_jual)}}</td>
-                    @endif
+                    <!-- <td>
+                        @foreach($b->gambar_barang as $g)
+
+                        @endforeach
+                    </td> -->
+                    
+                        @if($b->foto_barang == null)
+                        <td></td>
+                        @else
+                        <td><a href="{{ asset('storage/'.$b->foto_barang) }}" download><img src="{{ asset('storage/'.$b->foto_barang) }}" style='height: 100px; width: 100px; object-fit: contain'></a></td>
+                        @endif
+                        @if($b->harga_beli == null)
+                        <td>{{$b->harga_beli}}</td>
+                        @else
+                        <td style="text-align:right">{{number_format($b->harga_beli)}}</td>
+                        @endif
+                        @if($b->harga_jual == null)
+                        <td>{{$b->harga_jual}}</td>
+                        @else
+                        <td style="text-align:right">{{number_format($b->harga_jual)}}</td>
+                        @endif
+
                     <td>{{$b->stok}}</td>
                     <td>{{$b->keterangan}}</td>
                     <td>{{$b->timestamp}}</td>

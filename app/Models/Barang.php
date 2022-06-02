@@ -20,6 +20,10 @@ class Barang extends Model
     {
         return $this->belongsTo(Kategori_barang::class,'id_kategori');
     }
+    public function gambar_barang()
+    {
+        return $this->hasMany(Gambar_barang::class,'id_gambar');
+    }
     public function penjualan()
     {
         return $this->belongsToMany(Penjualan::class,'detail_penjualan','id_barang','id_penjualan')->withPivot('harga_barang', 'jumlah_barang');

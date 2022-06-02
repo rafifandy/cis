@@ -21,7 +21,6 @@ class CreateBarangTable extends Migration
             $table->bigInteger('harga_jual')->nullable();
             $table->integer('stok')->nullable();
             $table->string('keterangan',100)->nullable();
-            $table->string('foto_barang')->nullable();
             $table->timestamp('timestamp');
             $table->foreign('id_kategori')->references('id_kategori')->on('kategori_barang');
         });
