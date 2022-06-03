@@ -47,11 +47,116 @@
                     <td>{{$count}}</td>
                     <td>{{$b->id_barang}}</td>
                     <td>{{$b->nama_barang}}</td>
-                    <!-- <td>
+                    <td>
+                        
+                        <?php $countg = 0 ?>
                         @foreach($b->gambar_barang as $g)
-
+                            <?php $countgb = $countgb+1 ?>
                         @endforeach
-                    </td> -->
+                        @foreach($b->gambar_barang as $g)
+                            @if($countgb > 0 and $g->id_gambar == 1)
+                            <a href="{{ asset('storage/'.$g->foto_barang) }}" download><img src="{{ asset('storage/'.$g->foto_barang) }}" style='height: 100px; width: 100px; object-fit: contain'></a>
+                            @endif
+                        @endforeach
+                        <hr/>
+                        <button class="badge badge-info" data-toggle="modal" data-target="#modalGambar{{$b->id_barang}}" style="width:80px;margin:5px">More..</button>
+                        
+                        <div class="modal fade" id="modalGambar{{$b->id_barang}}" tabindex="-2" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">{{ $b->id_barang }} -  Gambar</h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        <button class="badge badge-success" data-dismiss="modal" data-toggle="modal" data-target="#tambahModalDetail{{$p->id_penjualan}}" style="width:80px;margin:5px">Tambah</button><hr/>
+                                        <table id="t">
+                                            <thead>
+                                                <tr>
+                                                    <th>No</th>
+                                                    <th>Barang</th>
+                                                    <th>Jumlah</th>
+                                                    <th>Harga</th>
+                                                    <th>Subtotal</th>
+                                                    <th>Opsi</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php $countgg = 0 ?>
+                                            @foreach($p->barang as $b)
+                                            <tr>
+                                                <?php $countgg = $countgg+1 ?>
+                                                <td>{{$countgg}}</td>
+                                                <td>{{ $b->nama_barang }}</td>
+                                                <td>{{ $b->pivot->jumlah_barang }}</td>
+                                                <td>{{ number_format($b->pivot->harga_barang) }}</td>
+                                                <td>{{ number_format($b->pivot->total_harga_barang) }}</td>
+                                                <td><button class="badge badge-info" data-toggle="modal" data-target="#editModalDetail{{$p->id_penjualan}}_{{$b->id_barang}}">Edit</button></td>
+                                                <!-- <li>{{ $b->pivot->jumlah_barang }} | {{ $b->nama_barang }} | {{ number_format($b->pivot->harga_barang) }} | {{ number_format($b->pivot->jumlah_barang * $b->pivot->harga_barang) }}</li> -->
+                                                <?php //$total += ($b->pivot->total_harga_barang) ?>
+                                            </tr>
+                                            <!-- Modal Edit Detail -->
+                                            <div class="modal fade" id="editModalDetail{{$p->id_penjualan}}_{{$b->id_barang}}" tabindex="-2" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">{{ $p->id_penjualan }} - {{$b->id_barang}}  -  Edit Barang</h5>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form autocomplete="off" method="post" action="{{ url('/penjualan/detail/update/'.$p->id_penjualan.'/'.$b->id_barang) }}" enctype="multipart/form-data">
+                                                            @csrf
+                                                            <div class="row">
+                                                                <input type="hidden" class="form-control" id ="id_penjualan" name="id_penjualan" value="{{ $p->id_penjualan }}">
+                                                                <input type="hidden" class="form-control" id ="status" name="status" value="{{ $p->status + 1}}">
+                                                                <div class="col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label for="view">Barang</label>
+                                                                        <input type="text" class="form-control" id ="view" name="view" value="{{$b->id_barang}} - {{$b->nama_barang}}" disabled>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label for="stok_barang">Stok</label>
+                                                                        <input type="number" class="form-control" id ="stok_be" name="stok_e" value="{{$b->stok}}" disabled>
+                                                                        <input type="number" class="form-control" id ="stok_barange" name="stok_barange" value="{{$b->stok}}" hidden>
+                                                                        <input type="number" class="form-control" id ="stok_jumlah" name="stok_jumlah" value="{{ $b->pivot->jumlah_barang }}" hidden>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label for="harga_barang">Harga</label>
+                                                                        <input type="number" class="form-control" id ="harga_barang" name="harga_barang" value="{{ $b->pivot->harga_barang }}">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                    <div class="form-group">
+                                                                        <label for="jumlah_barang">Jumlah</label>
+                                                                        <input type="number" class="form-control" id ="jumlah_barang" name="jumlah_barang" value="{{ $b->pivot->jumlah_barang }}">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        </br>
+                                                        <div class="modal-footer">
+                                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                                            </form>
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    </br>
+                                    <div class="modal-footer">
+                                        <button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    </td>
                     
                         @if($b->foto_barang == null)
                         <td></td>
