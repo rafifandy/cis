@@ -24,15 +24,16 @@ class C_barang extends Controller
     {
         $barang = Barang::orderBy('timestamp','desc')->get();
         $kategori_barang = Kategori_barang::all();
-        $gambar_barang = Gambar_barang::all();
-        return view('/barang/barang',compact('barang','kategori_barang'),['x' => 'barang','k' => '0']);
+        $gambar = Gambar_barang::all();
+        return view('/barang/barang',compact('barang','kategori_barang','gambar'),['x' => 'barang','k' => '0']);
     }
 
     public function indexKat($id)
     {
         $barang = Barang::orderBy('timestamp','desc')->where('id_kategori',$id)->get();
         $kategori_barang = Kategori_barang::all();
-        return view('/barang/barang',compact('barang','kategori_barang'),['x' => 'barang','k' => $id]);
+        $gambar = Gambar_barang::all();
+        return view('/barang/barang',compact('barang','kategori_barang','gambar'),['x' => 'barang','k' => $id]);
     }
 
     /**
@@ -56,30 +57,25 @@ class C_barang extends Controller
         $request->validate([
             'nama_barang' => 'required|max:100',
         ]);
-        if($request->file('foto_barang') != null){
-            $file = $request->file('foto_barang');
-            $nama_barang = time().'-'.$file->getClientOriginalName();
-            Storage::disk('local')->put($nama_barang, file_get_contents($file));
-            Barang::create([
-                'nama_barang' => $request->nama_barang,
-                'id_kategori' => $request->id_kategori,
-                'harga_beli' => $request->harga_beli,
-                'harga_jual' => $request->harga_jual,
-                'stok' => $request->stok,
-                'keterangan' => $request->keterangan,
-                'foto_barang' => $nama_barang,
-            ]);
-        }
-        else{
-            Barang::create([
-                'nama_barang' => $request->nama_barang,
-                'id_kategori' => $request->id_kategori,
-                'harga_beli' => $request->harga_beli,
-                'harga_jual' => $request->harga_jual,
-                'stok' => $request->stok,
-                'keterangan' => $request->keterangan,
-            ]);
-        }
+        Barang::create([
+            'nama_barang' => $request->nama_barang,
+            'id_kategori' => $request->id_kategori,
+            'harga_beli' => $request->harga_beli,
+            'harga_jual' => $request->harga_jual,
+            'stok' => $request->stok,
+            'keterangan' => $request->keterangan,
+        ]);
+        return redirect('/barang')->with('status','Data Berhasil Ditambahkan!!!'); 
+    }
+    public function storeGambar(Request $request, $id)
+    {
+        $file = $request->file('foto_barang');
+        $nama_barang = time().'-'.$file->getClientOriginalName();
+        Storage::disk('local')->put($nama_barang, file_get_contents($file));
+        Gambar_barang::create([
+            'id_barang' => $id,
+            'foto_barang' => $nama_barang,
+        ]);
         return redirect('/barang')->with('status','Data Berhasil Ditambahkan!!!'); 
     }
 
@@ -117,32 +113,27 @@ class C_barang extends Controller
         $request->validate([
             'nama_barang' => 'required|max:100',
         ]);
-        if($request->file('foto_barang') != null){
-            $file = $request->file('foto_barang');
-            $nama_barang = time().'-'.$file->getClientOriginalName();
-            Storage::disk('local')->put($nama_barang, file_get_contents($file));
-            Barang::where('id_barang',$id)
-            ->update([
-                'nama_barang' => $request->nama_barang,
-                'id_kategori' => $request->id_kategori,
-                'harga_beli' => $request->harga_beli,
-                'harga_jual' => $request->harga_jual,
-                'stok' => $request->stok,
-                'keterangan' => $request->keterangan,
-                'foto_barang' => $nama_barang,
-            ]);
-        }
-        else{
-            Barang::where('id_barang',$id)
-            ->update([
-                'nama_barang' => $request->nama_barang,
-                'id_kategori' => $request->id_kategori,
-                'harga_beli' => $request->harga_beli,
-                'harga_jual' => $request->harga_jual,
-                'stok' => $request->stok,
-                'keterangan' => $request->keterangan,
-            ]);
-        }
+        Barang::where('id_barang',$id)
+        ->update([
+            'nama_barang' => $request->nama_barang,
+            'id_kategori' => $request->id_kategori,
+            'harga_beli' => $request->harga_beli,
+            'harga_jual' => $request->harga_jual,
+            'stok' => $request->stok,
+            'keterangan' => $request->keterangan,
+        ]);
+        return redirect('/barang')->with('status','Data Berhasil Diubah!!!');
+    }
+
+    public function updateGambar(Request $request, $id, $id2)
+    {
+        $file = $request->file('foto_barang');
+        $nama_barang = time().'-'.$file->getClientOriginalName();
+        Storage::disk('local')->put($nama_barang, file_get_contents($file));
+        Gambar_barang::where('id_gambar',$id2)
+        ->update([
+            'foto_barang' => $nama_barang,
+        ]);
         return redirect('/barang')->with('status','Data Berhasil Diubah!!!');
     }
 
