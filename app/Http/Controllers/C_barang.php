@@ -24,6 +24,7 @@ class C_barang extends Controller
     {
         $barang = Barang::orderBy('timestamp','desc')->get();
         $kategori_barang = Kategori_barang::all();
+        $gambar_barang = Gambar_barang::all();
         return view('/barang/barang',compact('barang','kategori_barang'),['x' => 'barang','k' => '0']);
     }
 
