@@ -11,6 +11,8 @@ use App\Models\Barang;
 use App\Models\Kategori_barang;
 use App\Models\Gambar_barang;
 
+
+
 class C_barang extends Controller
 {
     /**
