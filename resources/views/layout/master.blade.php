@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-@guest
-    <script>window.location = "/login";</script>
-@else
+<!-- guest -->
+    <!-- <script>window.location = "/login";</script> -->
+<!-- else -->
     <head>
         <!-- Required meta tags -->
         <meta charset="utf-8" />
@@ -30,8 +30,18 @@
     <body>
         <div class="container-scroller">
             <div class="horizontal-menu">
-                @include('layout/top')
-                @include('layout/nav')
+                @guest
+                    @include('_customer/top')
+                    @include('_customer/nav')
+                @else
+                    @if(Auth::user()->role != 1)s
+                        @include('_customer/top')
+                        @include('_customer/nav')
+                    @elseif(Auth::user()->role == 1)
+                        @include('layout/top')
+                        @include('layout/nav')
+                    @endif
+                @endguest
             </div>
             <div class="container-fluid page-body-wrapper">
                 <div class="main-panel">
@@ -70,5 +80,5 @@
         @yield('script')
     </body>
 
-@endguest
+<!-- endguest -->
 </html>
