@@ -31,10 +31,10 @@
         <div class="container-scroller">
             <div class="horizontal-menu">
                 @guest
-                    @include('_customer/top')
-                    @include('_customer/nav')
+                    @include('__guest/top')
+                    @include('__guest/nav')
                 @else
-                    @if(Auth::user()->role != 1)s
+                    @if(Auth::user()->role != 1)
                         @include('_customer/top')
                         @include('_customer/nav')
                     @elseif(Auth::user()->role == 1)
