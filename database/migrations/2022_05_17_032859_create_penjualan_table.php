@@ -16,7 +16,7 @@ class CreatePenjualanTable extends Migration
         Schema::create('penjualan', function (Blueprint $table) {
             $table->id('id_penjualan');
             $table->bigInteger('id_pelanggan')->unsigned();
-            $table->bigInteger('id_pemesanan')->unsigned()->nullable();
+            $table->bigInteger('id_pemesanan')->unsigned();
             $table->date('tgl_penjualan');
             $table->bigInteger('total')->nullable();
             $table->integer('tipe_potongan_pnj')->nullable();
