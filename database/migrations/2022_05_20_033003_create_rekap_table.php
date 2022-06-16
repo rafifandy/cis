@@ -14,8 +14,12 @@ class CreateRekapTable extends Migration
     public function up()
     {
         Schema::create('rekap', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->id('id_rekap');
+            $table->date('tgl_awal');
+            $table->date('tgl_akhir');
+            $table->string('keterangan',100)->nullable();
+            $table->integer('status')->nullable();
+            $table->timestamp('timestamp');
         });
     }
 
