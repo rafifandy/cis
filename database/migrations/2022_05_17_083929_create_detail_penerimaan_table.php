@@ -14,7 +14,6 @@ class CreateDetailPenerimaanTable extends Migration
     public function up()
     {
         Schema::create('detail_penerimaan', function (Blueprint $table) {
-            $table->engine = 'MyISAM';
             $table->bigInteger('id_penerimaan')->unsigned();
             $table->bigInteger('id_barang')->unsigned();
             $table->integer('jumlah_barang')->nullable();

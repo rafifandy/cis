@@ -15,12 +15,13 @@ class CreatePengadaanTable extends Migration
     {
         Schema::create('pengadaan', function (Blueprint $table) {
             $table->id('id_pengadaan');
-            $table->string('nama_pemasok',100);
+            $table->bigInteger('id_pemasok')->unsigned();
             $table->date('tgl_pengadaan');
             $table->bigInteger('total')->nullable();
             $table->string('keterangan',100)->nullable();
             $table->integer('status')->nullable();
             $table->timestamp('timestamp');
+            $table->foreign('id_pemasok')->references('id_pemasok')->on('pemasok');
         });
     }
 

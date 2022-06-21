@@ -24,6 +24,7 @@ class CreatePenjualanTable extends Migration
             $table->bigInteger('potongan_penjualan_t2')->nullable();
             $table->bigInteger('total_akhir')->nullable();
             $table->string('keterangan',100)->nullable();
+            $table->string('pemesanan',100)->nullable();
             $table->integer('status')->nullable();
             $table->timestamp('timestamp');
             $table->foreign('id_pelanggan')->references('id_pelanggan')->on('pelanggan');
