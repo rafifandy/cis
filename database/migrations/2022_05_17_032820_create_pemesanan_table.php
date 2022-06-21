@@ -20,6 +20,7 @@ class CreatePemesananTable extends Migration
             $table->bigInteger('total')->nullable();
             $table->bigInteger('total_akhir')->nullable();
             $table->string('keterangan',100)->nullable();
+            $table->string('informasi',100)->nullable();
             $table->integer('status')->nullable();
             $table->string('informasi',100)->nullable();
             $table->timestamp('timestamp');

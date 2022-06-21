@@ -20,7 +20,6 @@ class CreateDetailPemesananTable extends Migration
             $table->integer('jumlah_barang')->nullable();
             $table->bigInteger('harga_barang')->nullable();
             $table->bigInteger('total_harga_barang')->nullable();
-            $table->bigInteger('total_harga_barang_akhir')->nullable();
             $table->primary(array('id_pemesanan','id_barang'));
             $table->foreign('id_pemesanan')->references('id_pemesanan')->on('pemesanan');
             $table->foreign('id_barang')->references('id_barang')->on('barang');

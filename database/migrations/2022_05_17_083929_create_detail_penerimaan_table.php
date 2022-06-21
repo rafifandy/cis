@@ -20,7 +20,8 @@ class CreateDetailPenerimaanTable extends Migration
             $table->integer('jumlah_barang')->nullable();
             $table->primary(array('id_penerimaan','id_barang'));
             $table->foreign('id_penerimaan')->references('id_penerimaan')->on('penerimaan');
-            $table->foreign('id_barang')->references('id_barang')->on('barang');
+            $table->foreign('id_penjualan')->references('id_penjualan')->on('detail_penjualan');
+            $table->foreign('id_barang')->references('id_barang')->on('detail_penjualan');
         });
     }
 
