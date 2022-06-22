@@ -24,6 +24,7 @@
                     <th>Nama</th>
                     <th>Alamat</th>
                     <th>No Telp</th>
+                    <th>Akun Email</th>
                     <th>Keterangan</th>
                     <th>Diperbarui</th>
                     <th>Opsi</th>
@@ -39,6 +40,7 @@
                     <td>{{$p->nama_pelanggan}}</td>
                     <td>{{$p->alamat_pelanggan}}</td>
                     <td>{{$p->no_telp_pelanggan}}</td>
+                    <td>{{$p->email}}</td>
                     <td>{{$p->keterangan}}</td>
                     <td>{{$p->timestamp}}</td>
                     <td><button class="badge badge-info" data-toggle="modal" data-target="#editModal{{$p->id_pelanggan}}">Edit</button></td>

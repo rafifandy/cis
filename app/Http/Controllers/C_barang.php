@@ -20,6 +20,39 @@ class C_barang extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function guest_index()
+    {
+        $barang = Barang::orderBy('timestamp','desc')->get();
+        $kategori_barang = Kategori_barang::all();
+        $gambar = Gambar_barang::all();
+        return view('/__guest/barang',compact('barang','kategori_barang','gambar'),['x' => 'barang','k' => '0']);
+    }
+
+    public function guest_indexKat($id)
+    {
+        $barang = Barang::orderBy('timestamp','desc')->where('id_kategori',$id)->get();
+        $kategori_barang = Kategori_barang::all();
+        $gambar = Gambar_barang::all();
+        return view('/__guest/barang',compact('barang','kategori_barang','gambar'),['x' => 'barang','k' => $id]);
+    }
+
+    public function customer_index()
+    {
+        $barang = Barang::orderBy('timestamp','desc')->get();
+        $kategori_barang = Kategori_barang::all();
+        $gambar = Gambar_barang::all();
+        return view('/_customer/barang',compact('barang','kategori_barang','gambar'),['x' => 'barang','k' => '0']);
+    }
+
+    public function customer_indexKat($id)
+    {
+        $barang = Barang::orderBy('timestamp','desc')->where('id_kategori',$id)->get();
+        $kategori_barang = Kategori_barang::all();
+        $gambar = Gambar_barang::all();
+        return view('/_customer/barang',compact('barang','kategori_barang','gambar'),['x' => 'barang','k' => $id]);
+    }
+
     public function index()
     {
         $barang = Barang::orderBy('timestamp','desc')->get();

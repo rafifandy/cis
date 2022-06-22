@@ -1,14 +1,14 @@
         <nav class="navbar top-navbar col-lg-12 col-12 p-0">
           <div class="container">
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-            <!--
-              <a class="navbar-brand brand-logo" href="index.html">
+            
+              <a class="navbar-brand brand-logo" href="/">
                 <span class="font-20 d-block font-weight-bold">Toko Rahayu</span>
                 <span class="font-10 d-block font-weight-bold">Toko bahan kue dan bahan</span>
                 <span class="font-10 d-block font-weight-bold">makanan kemasan</span>
               </a>
-            -->
-            <img src="{{ url('img/blyco2.png') }}" style='height:200px;width:200px; object-fit: contain;'>
+           
+            <!-- <img src="{{ url('img/blyco2.png') }}" style='height:200px;width:200px; object-fit: contain;'> -->
             </div>
             <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
               <!--<ul class="navbar-nav mr-lg-2">

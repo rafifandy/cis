@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\C_index;
 use App\Http\Controllers\C_barang;
 use App\Http\Controllers\C_pelanggan;
 use App\Http\Controllers\C_penjualan;
@@ -18,12 +19,19 @@ use App\Http\Controllers\C_rekap;
 |
 */
 
-Route::get('/', function () {
-    return view('index',['x' => 'home']);
-});
-Route::get('/home', function () {
-    return view('index',['x' => 'home']);
-});
+// Route::get('/', function () {
+//     return view('index',['x' => 'home']);
+// });
+// Route::get('/home', function () {
+//     return view('index',['x' => 'home']);
+// });
+
+//home
+Route::get('/',[C_index::class,'index']);
+Route::get('/home',[C_index::class,'index']);
+
+Route::post('/profil/store',[C_index::class,'profil_store']);
+Route::post('/profil/update/{id}',[C_index::class,'profil_update']);
 
 //barang
 Route::get('/barang',[C_barang::class,'index']);
@@ -32,6 +40,12 @@ Route::post('/barang/gambar/store/{id}',[C_barang::class,'storeGambar']);
 Route::post('/barang/gambar/update/{id}/{id2}',[C_barang::class,'updateGambar']);
 Route::post('/barang/store',[C_barang::class,'store']);
 Route::post('/barang/update/{id}',[C_barang::class,'update']);
+
+Route::get('/gbarang',[C_barang::class,'guest_index']);
+Route::get('/gbarang/{id}',[C_barang::class,'guest_indexKat']);
+
+Route::get('/cbarang',[C_barang::class,'customer_index']);
+Route::get('/cbarang/{id}',[C_barang::class,'customer_indexKat']);
 
 //pelanggan
 Route::get('/pelanggan',[C_pelanggan::class,'index']);
