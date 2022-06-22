@@ -14,10 +14,12 @@ class CreateDetailPenerimaanTable extends Migration
     public function up()
     {
         Schema::create('detail_penerimaan', function (Blueprint $table) {
+            $table->engine = 'MyISAM';
             $table->bigInteger('id_penerimaan')->unsigned();
+            $table->bigInteger('id_penjualan')->unsigned();
             $table->bigInteger('id_barang')->unsigned();
             $table->integer('jumlah_barang')->nullable();
-            $table->primary(array('id_penerimaan','id_barang'));
+            $table->primary(array('id_penerimaan','id_penjualan','id_barang'));
             $table->foreign('id_penerimaan')->references('id_penerimaan')->on('penerimaan');
             $table->foreign('id_penjualan')->references('id_penjualan')->on('detail_penjualan');
             $table->foreign('id_barang')->references('id_barang')->on('detail_penjualan');
