@@ -89,6 +89,16 @@ body {
                 </a>
               </li>
               <li class="nav-item">
+              @if ($x == 'pemesanan')
+                <a href="{{ url('/pemesanan') }}" class="nav-link active">
+              @else
+                <a href="{{ url('/pemesanan') }}" class="nav-link">
+              @endif
+                  <i class="mdi mdi-cart menu-icon"></i>
+                  <span class="menu-title">Pemesanan</span>
+                </a>
+              </li>
+              <li class="nav-item">
               @if ($x == 'penjualan')
                 <a href="{{ url('/penjualan') }}" class="nav-link active">
               @else
@@ -96,6 +106,16 @@ body {
               @endif
                   <i class="mdi mdi-cart menu-icon"></i>
                   <span class="menu-title">Penjualan</span>
+                </a>
+              </li>
+              <li class="nav-item">
+              @if ($x == 'pemasok')
+                <a href="{{ url('/pemasok') }}" class="nav-link active">
+              @else
+                <a href="{{ url('/pemasok') }}" class="nav-link">
+              @endif
+                  <i class="mdi mdi-contacts menu-icon"></i>
+                  <span class="menu-title">Pemasok</span>
                 </a>
               </li>
               <li class="nav-item">
@@ -115,7 +135,7 @@ body {
                 <a href="{{ url('/rekap') }}" class="nav-link">
               @endif
                   <i class="mdi mdi-file-document menu-icon"></i>
-                  <span class="menu-title">Rekap</span>
+                  <span class="menu-title">Laporan</span>
                 </a>
               </li>
               <!-- <li class="nav-item">

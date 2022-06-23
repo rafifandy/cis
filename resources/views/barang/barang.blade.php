@@ -253,7 +253,7 @@
                                     </div>
                                     </br>
                                     <div class="modal-footer">
-                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                        <button type="submit" class="btn btn-primary" >Submit</button>
                                     </form>
                                         <button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
                                     </div>
@@ -320,6 +320,7 @@
         </div>
     </div>
 </div>
+<!-- onclick="return confirm('text')" -->
     @endif
 @endguest
 @endsection

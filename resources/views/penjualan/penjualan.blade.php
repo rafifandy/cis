@@ -360,7 +360,7 @@
                                     <input type="text" class="form-control" name="id_pelanggan" id ="id_pelanggan" list="pelanggan2" value="{{ $p->id_pelanggan }}">
                                     <datalist id="pelanggan2">
                                         @foreach($pelanggan as $pgn)
-                                        <option value="{{$pgn->id_pelanggan}}">{{$pgn->nama_pelanggan}}</option>
+                                        <option value="{{$pgn->id_pelanggan}}">{{$pgn->nama_pelanggan}}, {{$pgn->alamat_pelanggan}}</option>
                                         @endforeach
                                     </datalist>
                                 </div>

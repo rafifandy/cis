@@ -5,6 +5,7 @@ use App\Http\Controllers\C_index;
 use App\Http\Controllers\C_barang;
 use App\Http\Controllers\C_pelanggan;
 use App\Http\Controllers\C_penjualan;
+use App\Http\Controllers\C_pemasok;
 use App\Http\Controllers\C_pengadaan;
 use App\Http\Controllers\C_rekap;
 
@@ -65,6 +66,10 @@ Route::post('/pembayaran/update/{id}/{id2}',[C_penjualan::class,'updatePembayara
 
 Route::get('/penjualan/n',[C_penjualan::class,'index2']);
 
+//pemasok
+Route::get('/pemasok',[C_pemasok::class,'index']);
+Route::post('/pemasok/store',[C_pemasok::class,'store']);
+Route::post('/pemasok/update/{id}',[C_pemasok::class,'update']);
 //pengadaan
 Route::get('/pengadaan',[C_pengadaan::class,'index']);
 Route::post('/pengadaan/store',[C_pengadaan::class,'store']);

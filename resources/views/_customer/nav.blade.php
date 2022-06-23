@@ -79,23 +79,23 @@ body {
                 </a>
               </li>
               <li class="nav-item">
-              @if ($x == 'penjualan')
-                <a href="{{ url('/penjualan') }}" class="nav-link active">
+              @if ($x == 'pemesanan')
+                <a href="{{ url('/cpemesanan') }}" class="nav-link active">
               @else
-                <a href="{{ url('/penjualan') }}" class="nav-link">
+                <a href="{{ url('/cpemesanan') }}" class="nav-link">
               @endif
                   <i class="mdi mdi-cart menu-icon"></i>
-                  <span class="menu-title">Penjualan</span>
+                  <span class="menu-title">Pemesanan</span>
                 </a>
               </li>
               <li class="nav-item">
-              @if ($x == 'pengadaan')
-                <a href="{{ url('/pengadaan') }}" class="nav-link active">
+              @if ($x == 'pembelian')
+                <a href="{{ url('/cpembelian') }}" class="nav-link active">
               @else
-                <a href="{{ url('/pengadaan') }}" class="nav-link">
+                <a href="{{ url('/cpembelian') }}" class="nav-link">
               @endif
-                  <i class="mdi mdi-truck menu-icon"></i>
-                  <span class="menu-title">Pengadaan</span>
+                  <i class="mdi mdi-cart menu-icon"></i>
+                  <span class="menu-title">Informasi Pembelian</span>
                 </a>
               </li>
               <!-- <li class="nav-item">

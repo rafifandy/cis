@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Models\Pengadaan;
+use App\Models\Pemasok;
 use App\Models\Barang;
 use DB;
 
@@ -21,15 +22,16 @@ class C_pengadaan extends Controller
     public function index()
     {
         $pengadaan = Pengadaan::orderBy('timestamp','desc')->get();
+        $pemasok = Pemasok::all();
         $barang = Barang::all();
-        return view('/pengadaan/pengadaan',compact('pengadaan','barang'),['x' => 'pengadaan']);
+        return view('/pengadaan/pengadaan',compact('pengadaan','pemasok','barang'),['x' => 'pengadaan']);
     }
     
     public function update(Request $request, $id)
     {
         Pengadaan::where('id_pengadaan',$id)
         ->update([
-            'nama_pemasok' => $request->nama_pemasok,
+            'id_pemasok' => $request->id_pemasok,
             'tgl_pengadaan' => $request->tgl_pengadaan,
             'keterangan' => $request->keterangan,
         ]);
@@ -83,7 +85,7 @@ class C_pengadaan extends Controller
     public function store(Request $request)
     {
         Pengadaan::create([
-            'nama_pemasok' => $request->nama_pemasok,
+            'id_pemasok' => $request->id_pemasok,
             'tgl_pengadaan' => $request->tgl_pengadaan,
             'keterangan' => $request->keterangan,
         ]);

@@ -46,7 +46,7 @@
                     <?php $count = $count+1 ?>
                     <td>{{$count}}</td>
                     <td>{{$p->id_pengadaan}}</td>
-                    <td>{{$p->nama_pemasok}}</td>
+                    <td>{{$p->pemasok->id_pemasok}} - {{$p->pemasok->nama_pemasok}}</td>
                     <td>{{ \Carbon\Carbon::parse($p->tgl_pengadaan)->format('d M Y')}}</td>
                     <td style="font-size:12px">
                     <button class="badge badge-success" data-toggle="modal" data-target="#tambahModalDetail{{$p->id_pengadaan}}" style="font-size:10px">Tambah</button><hr/>
@@ -151,7 +151,7 @@
                                                             <input type="text" class="form-control" name="id_barang" id ="id_barang" list="barang">
                                                                 <datalist id="barang">
                                                                 @foreach($barang as $brg)
-                                                                <option value="{{$brg->id_barang}}" hrg="{{$brg->harga_sementara}}" stk="{{$brg->stok}}">{{$brg->nama_barang}}</option>
+                                                                <option value="{{$brg->id_barang}}" hrg="{{$brg->harga_beli}}" stk="{{$brg->stok}}">{{$brg->nama_barang}}</option>
                                                                 @endforeach
                                                                 </datalist>
                                                         </div>
@@ -198,8 +198,13 @@
                                     <form autocomplete="off" method="post" action="{{ url('/pengadaan/update/'.$p->id_pengadaan) }}" enctype="multipart/form-data">
                                     @csrf
                                     <div class="form-group">
-                                        <label for="nama_pemasok">Nama Pemasok</label>
-                                        <input type="text" class="form-control" id ="nama_pemasok" name="nama_pemasok" value="{{ $p->nama_pemasok }}">
+                                        <label for="id_pemasok">ID Pemasok</label>
+                                        <input type="text" class="form-control" name="id_pemasok" id ="id_pemasok" list="pemasok2" value="{{ $p->id_pemasok }}">
+                                        <datalist id="pemasok2">
+                                            @foreach($pemasok as $pms)
+                                            <option value="{{$pms->id_pemasok}}">{{$pms->nama_pemasok}}, {{$pms->alamat_pemasok}}</option>
+                                            @endforeach
+                                        </datalist>
                                     </div>
                                     <div class="form-group">
                                         <label for="tgl_penjualan">Tanggal</label>
@@ -236,8 +241,13 @@
                     <form autocomplete="off" method="post" action="{{ url('/pengadaan/store') }}" enctype="multipart/form-data">
                       @csrf
                         <div class="form-group">
-                            <label for="nama_pemasok">Nama Pemasok</label>
-                            <input type="text" class="form-control" id ="nama_pemasok" name="nama_pemasok">
+                            <label for="id_pemasok">ID Pemasok</label>
+                            <input type="text" class="form-control" name="id_pemasok" id ="id_pemasok" list="pemasok">
+                            <datalist id="pemasok">
+                                @foreach($pemasok as $pms)
+                                <option value="{{$pms->id_pemasok}}">{{$pms->nama_pemasok}}, {{$pms->alamat_pemasok}}</option>
+                                @endforeach
+                            </datalist>
                         </div>
                         <div class="form-group">
                             <label for="tgl_pengadaan">Tanggal</label>
