@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\C_index;
 use App\Http\Controllers\C_barang;
 use App\Http\Controllers\C_pelanggan;
+use App\Http\Controllers\C_pemesanan;
 use App\Http\Controllers\C_penjualan;
 use App\Http\Controllers\C_pemasok;
 use App\Http\Controllers\C_pengadaan;
@@ -52,6 +53,13 @@ Route::get('/cbarang/{id}',[C_barang::class,'customer_indexKat']);
 Route::get('/pelanggan',[C_pelanggan::class,'index']);
 Route::post('/pelanggan/store',[C_pelanggan::class,'store']);
 Route::post('/pelanggan/update/{id}',[C_pelanggan::class,'update']);
+
+//pemesanan
+Route::get('/cpemesanan',[C_pemesanan::class,'c_index']);
+Route::post('/cpemesanan/store',[C_pemesanan::class,'c_store']);
+
+
+Route::get('/apemesanan',[C_pemesanan::class,'a_index']);
 
 //penjualan
 Route::get('/penjualan',[C_penjualan::class,'index']);

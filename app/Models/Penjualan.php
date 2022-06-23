@@ -11,7 +11,7 @@ class Penjualan extends Model
     
     protected $table = 'penjualan';
     protected $primaryKey = 'id_penjualan';
-    protected $fillable = ['id_penjualan','id_pelanggan','tgl_penjualan','total','tipe_potonngan_pnj','potongan_penjualan_t1','potongan_penjualan_t2','keterangan','status','timestamp'];
+    protected $fillable = ['id_penjualan','id_pelanggan','tgl_penjualan','total','tipe_potonngan_pnj','potongan_penjualan_t1','potongan_penjualan_t2','keterangan','status','pemesanan','timestamp'];
     
     public $timestamps = false;
     public $incrementing = false;

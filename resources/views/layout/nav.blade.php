@@ -90,9 +90,9 @@ body {
               </li>
               <li class="nav-item">
               @if ($x == 'pemesanan')
-                <a href="{{ url('/pemesanan') }}" class="nav-link active">
+                <a href="{{ url('/apemesanan') }}" class="nav-link active">
               @else
-                <a href="{{ url('/pemesanan') }}" class="nav-link">
+                <a href="{{ url('/apemesanan') }}" class="nav-link">
               @endif
                   <i class="mdi mdi-cart menu-icon"></i>
                   <span class="menu-title">Pemesanan</span>
