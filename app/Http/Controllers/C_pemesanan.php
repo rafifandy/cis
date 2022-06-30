@@ -19,9 +19,17 @@ class C_pemesanan extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function a_index()
+    {
+        $penjualan = Penjualan::orderBy('timestamp','desc')->where('pemesanan','1')->get();
+        $pelanggan = Pelanggan::all();
+        $barang = Barang::all();
+        return view('/pemesanan/pemesanan',compact('penjualan','pelanggan','barang'),['x' => 'pemesanan']);
+    }
+
     public function c_index()
     {
-        $penjualan = Penjualan::orderBy('timestamp','desc')->get();
+        $penjualan = Penjualan::orderBy('timestamp','desc')->where('pemesanan','1')->get();
         $pelanggan = Pelanggan::all();
         $barang = Barang::all();
         return view('/_customer/pemesanan',compact('penjualan','pelanggan','barang'),['x' => 'pemesanan']);

@@ -24,7 +24,7 @@ class C_penjualan extends Controller
      */
     public function index()
     {
-        $penjualan = Penjualan::orderBy('timestamp','desc')->get();
+        $penjualan = Penjualan::orderBy('timestamp','desc')->where('pemesanan','0')->orWhere('pemesanan', null)->get();
         $pelanggan = Pelanggan::all();
         $barang = Barang::all();
         $pembayaran = Pembayaran::all();

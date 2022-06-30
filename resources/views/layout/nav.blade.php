@@ -65,7 +65,7 @@ body {
                 <a class="nav-link" href="{{ url('/') }}">
               @endif
                   <i class="mdi mdi-home menu-icon"></i>
-                  <span class="menu-title">Dashboard</span>
+                  <span class="menu-title"></span>
                 </a>
               </li>
               <li class="nav-item">
@@ -106,6 +106,16 @@ body {
               @endif
                   <i class="mdi mdi-cart menu-icon"></i>
                   <span class="menu-title">Penjualan</span>
+                </a>
+              </li>
+              <li class="nav-item">
+              @if ($x == 'penerimaan')
+                <a href="{{ url('/penerimaan') }}" class="nav-link active">
+              @else
+                <a href="{{ url('/penerimaan') }}" class="nav-link">
+              @endif
+                  <i class="mdi mdi-cube-outline menu-icon"></i>
+                  <span class="menu-title">Penerimaan</span>
                 </a>
               </li>
               <li class="nav-item">
