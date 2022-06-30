@@ -273,10 +273,18 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label for="id_barang">ID Barang</label>
-                                            <input type="text" class="form-control" name="id_barang" id ="id_barang" list="barang">
-                                            <datalist id="barang">
+                                            <input type="text" class="form-control" name="id_barang" id ="id_barang" list="barang{{ $p->id_penjualan }}">
+                                            <datalist id="barang{{ $p->id_penjualan }}">
                                                 @foreach($barang as $brg)
-                                                <option value="{{$brg->id_barang}}" hrg="{{$brg->harga_jual}}" stk="{{$brg->stok}}">{{$brg->nama_barang}}</option>
+                                                    <?php $list = 0 ?>
+                                                    @foreach($p->barang as $pbrg)
+                                                        @if($brg->id_barang == $pbrg->id_barang)
+                                                            <?php $list = 1 ?>
+                                                        @endif
+                                                    @endforeach
+                                                    @if($list == 0)
+                                                        <option value="{{$brg->id_barang}}" hrg="{{$brg->harga_jual}}" stk="{{$brg->stok}}">{{$brg->nama_barang}}</option>
+                                                    @endif
                                                 @endforeach
                                             </datalist>
                                         </div>
