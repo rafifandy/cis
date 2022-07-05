@@ -94,14 +94,27 @@
                             <td>{{$pb->id_barang}}</td>
                             <td>{{$pb->nama_barang}}</td>
                             <td>{{$pb->pivot->jumlah_barang}}</td>
-                            <td>{{$pb->pivot->harga_barang}}</td>
-                            <td>{{$pb->pivot->total_harga_barang}}</td>
+                            <td>Rp {{number_format($pb->pivot->harga_barang)}}</td>
+                            <td>Rp {{number_format($pb->pivot->total_harga_barang)}}</td>
                             <td>
                                 <button class="badge badge-info" style="width:80px;margin:5px" data-toggle="modal" data-target="#editModal{{$p->id_penjualan}}_{{$pb->id_barang}}">Edit</button>
                                 <button class="badge badge-danger" style="width:80px;margin:5px" data-toggle="modal" data-target="#editModal{{$p->id_penjualan}}_{{$pb->id_barang}}">Hapus</button>
                             </td>
                         </tr>
                     @endforeach
+                        <tr>
+                            <td colspan="5" style="text-align:right">Total :</td>
+                            <td style="display: none;"></td>
+                            <td style="display: none;"></td>
+                            <td style="display: none;"></td>
+                            <td style="display: none;"></td>
+                            <td>Rp {{number_format($p->total)}}</td>
+                            <td>
+                                @if($p->total > 0)
+                                    <button class="badge badge-success" style="width:170px;margin:5px" data-toggle="modal" data-target="#editModal{{$p->id_penjualan}}_{{$pb->id_barang}}">Submit pesanan</button>
+                                @endif
+                            </td>
+                        </tr>
                     </tbody>
                     </table>
                     <hr/>
@@ -239,19 +252,21 @@
                                                 <input type="hidden" class="form-control" id ="status" name="status" value="{{ $p->status + 1}}">
                                                 <input type="hidden" class="form-control" id ="id_barang" name="id_barang" value="{{ $b->id_barang}}">
                                                 <div class="row">
-                                                    <div class="col-sm-6">
+                                                    <div class="col-sm-4">
                                                         <div class="form-group">
                                                             <label for="stok_barang">Stok</label>
-                                                            <input type="number" class="form-control" id ="stok_barang" name="stok_barang" value="{{$b->stok}}" disabled>
+                                                            <input type="number" class="form-control" id ="stok" name="stok" value="{{$b->stok}}" disabled>
+                                                            <input type="hidden" class="form-control" id ="stok_barang" name="stok_barang" value="{{ $b->stok}}">
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-6">
+                                                    <div class="col-sm-4">
                                                         <div class="form-group">
                                                             <label for="harga_barang">Harga</label>
-                                                            <input type="number" class="form-control" id ="harga_barang" name="harga_barang" value="{{$b->harga_jual}}" disabled> 
+                                                            <input type="number" class="form-control" id ="harga" name="harga" value="{{$b->harga_jual}}" disabled>
+                                                            <input type="hidden" class="form-control" id ="harga_barang" name="harga_barang" value="{{$b->harga_jual}}"> 
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-6">
+                                                    <div class="col-sm-4">
                                                         <div class="form-group">
                                                             <label for="jumlah_barang">Jumlah</label>
                                                             <input type="number" class="form-control" id ="jumlah_barang" name="jumlah_barang">

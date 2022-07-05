@@ -161,6 +161,35 @@ class C_pemesanan extends Controller
         ]);
         return redirect('/cpemesanan')->with('status','Silahkan memilih barang'); 
     }
+    public function c_storeDetail(Request $request, $id)
+    {
+        $stok = $request->stok_barang - $request->jumlah_barang;
+        //dd($request->stok_barang);
+        $penjualan_tot = Penjualan::where('id_penjualan',$id)->get();
+        foreach ($penjualan_tot as $pt){
+            $total = $pt->total;
+        }
+        $total = $total + ($request->harga_barang*$request->jumlah_barang);
+        //dd($request->harga_barang);
+        Penjualan::where('id_penjualan',$id)
+        ->update([
+            'status' => $request->status,
+            'total' => $total,
+            'total_akhir' => $total,
+        ]);
+        Barang::where('id_barang',$request->id_barang)
+        ->update([
+            'stok' => $stok,
+        ]);
+        DB::table('detail_penjualan')->insert([
+			'id_penjualan' => $request->id_penjualan,
+			'id_barang' => $request->id_barang,
+			'harga_barang' => $request->harga_barang,
+			'jumlah_barang' => $request->jumlah_barang,
+			'total_harga_barang' => $request->harga_barang*$request->jumlah_barang,
+		]);
+        return redirect('/cpemesanan')->with('status','Barang Berhasil Ditambahkan!!!'); 
+    }
     public function storeDetail(Request $request, $id)
     {
         $stok = $request->stok_barang - $request->jumlah_barang;
