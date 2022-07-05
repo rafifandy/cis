@@ -67,10 +67,10 @@
                     <?php 
                         // $d_id0 = str_pad($p->id_penjualan,11,'0',STR_PAD_LEFT);
                         // $d_id = str_pad($d_id0,12,'P',STR_PAD_LEFT);
-                        $d_id = $p->id_penjualan;
+                        $p_id = $p->id_penjualan;
                     ?>
                     <br/>
-                        <h5>ID - {{$d_id}}</h5>
+                        <h5>ID - {{$p_id}}</h5>
                     <br/>
                     <table id="t" class="display cell-border">
                     <thead>
@@ -95,7 +95,10 @@
                             <td>{{$pb->pivot->jumlah_barang}}</td>
                             <td>{{$pb->pivot->harga_barang}}</td>
                             <td>{{$pb->pivot->total_harga_barang}}</td>
-                            <td><button class="badge badge-info" style="width:80px;margin:5px" data-toggle="modal" data-target="#editModal{{$p->id_penjualan}}_{{$pb->id_barang}}">Edit</button></td>
+                            <td>
+                                <button class="badge badge-info" style="width:80px;margin:5px" data-toggle="modal" data-target="#editModal{{$p->id_penjualan}}_{{$pb->id_barang}}">Edit</button>
+                                <button class="badge badge-danger" style="width:80px;margin:5px" data-toggle="modal" data-target="#editModal{{$p->id_penjualan}}_{{$pb->id_barang}}">Hapus</button>
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -219,7 +222,7 @@
                                     @endif
                                     <td>{{$b->stok}}</td>
                                     <td>{{$b->keterangan}}</td>
-                                    <td><button class="badge badge-info" data-toggle="modal" data-target="#editModal{{$b->id_barang}}">Beli</button></td>
+                                    <td><button class="badge badge-success" data-toggle="modal" data-target="#beliModal{{$p_id}}">Beli</button></td>
                                 </tr>
                             @endif
                         @endforeach
