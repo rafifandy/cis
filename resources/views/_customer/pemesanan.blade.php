@@ -71,6 +71,7 @@
                     ?>
                     <br/>
                         <h5>ID - {{$p_id}}</h5>
+                        <p>{{$p->timestamp}}</p>
                     <br/>
                     <table id="t" class="display cell-border">
                     <thead>
@@ -222,8 +223,51 @@
                                     @endif
                                     <td>{{$b->stok}}</td>
                                     <td>{{$b->keterangan}}</td>
-                                    <td><button class="badge badge-success" data-toggle="modal" data-target="#beliModal{{$p_id}}">Beli</button></td>
+                                    <td><button class="badge badge-success" data-toggle="modal" data-target="#beliModal{{$b->id_barang}}">Beli</button></td>
                                 </tr>
+                                <!-- Modal Tambah Detail -->
+                                <div class="modal fade" id="beliModal{{$b->id_barang}}" tabindex="-2" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Jumlah Beli - {{$b->nama_barang}}</h5>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form autocomplete="off" method="post" action="{{ url('/cpemesanan/detail/store/'.$p_id) }}" enctype="multipart/form-data">
+                                                @csrf
+                                                <input type="hidden" class="form-control" id ="id_penjualan" name="id_penjualan" value="{{ $p_id }}">
+                                                <input type="hidden" class="form-control" id ="status" name="status" value="{{ $p->status + 1}}">
+                                                <input type="hidden" class="form-control" id ="id_barang" name="id_barang" value="{{ $b->id_barang}}">
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label for="stok_barang">Stok</label>
+                                                            <input type="number" class="form-control" id ="stok_barang" name="stok_barang" value="{{$b->stok}}" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label for="harga_barang">Harga</label>
+                                                            <input type="number" class="form-control" id ="harga_barang" name="harga_barang" value="{{$b->harga_jual}}" disabled> 
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label for="jumlah_barang">Jumlah</label>
+                                                            <input type="number" class="form-control" id ="jumlah_barang" name="jumlah_barang">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </br>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                                </form>
+                                                <button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             @endif
                         @endforeach
                         </tbody>
@@ -252,15 +296,15 @@
         $('#t2').DataTable();
     } );
     
-    $('#id_barang').on('change', function(){
-        var value = $(this).val();
-        var harga = $('#barang [value="' + value + '"]').attr('hrg');
-        var stokb = $('#barang [value="' + value + '"]').attr('stk');
-        console.log(harga);
-        $('#stok_barang').val(stokb);
-        $('#stok_b').val(stokb);
-        $('#harga_barang').val(harga);
-    })
+    // $('#id_barang').on('change', function(){
+    //     var value = $(this).val();
+    //     var harga = $('#barang [value="' + value + '"]').attr('hrg');
+    //     var stokb = $('#barang [value="' + value + '"]').attr('stk');
+    //     console.log(harga);
+    //     $('#stok_barang').val(stokb);
+    //     $('#stok_b').val(stokb);
+    //     $('#harga_barang').val(harga);
+    // })
     
     // init
     $('#id_barang').change();
