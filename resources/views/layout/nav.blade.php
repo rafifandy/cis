@@ -114,8 +114,8 @@ body {
               @else
                 <a href="{{ url('/penerimaan') }}" class="nav-link">
               @endif
-                  <i class="mdi mdi-cube-outline menu-icon"></i>
-                  <span class="menu-title">Penerimaan</span>
+                  <i class="mdi mdi-truck menu-icon"></i>
+                  <span class="menu-title">Pengiriman</span>
                 </a>
               </li>
               <li class="nav-item">
