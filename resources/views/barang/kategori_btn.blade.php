@@ -86,6 +86,48 @@
             <a href="{{ url('/cbarang/3') }}"><button class="badge badge-primary" style="width:150px;margin-right:10px">Bahan Minuman</button><a>
             <a href="{{ url('/cbarang/4') }}"><button class="badge badge-primary" style="width:150px;margin-right:10px">Alat-alat</button><a>
             <a href="{{ url('/cbarang/5') }}"><button class="badge badge-secondary" style="width:150px;margin-right:10px">Lain-lain</button><a>
+        @elseif($k == 10)
+            <a href="{{ url('/cpemesanan') }}"><button class="badge badge-secondary" style="width:150px;margin-right:10px">All</button><a>
+            <a href="{{ url('/cpemesanan/1') }}"><button class="badge badge-primary" style="width:150px;margin-right:10px">Bahan Kue</button><a>
+            <a href="{{ url('/cpemesanan/2') }}"><button class="badge badge-primary" style="width:150px;margin-right:10px">Bahan Makanan</button><a>
+            <a href="{{ url('/cpemesanan/3') }}"><button class="badge badge-primary" style="width:150px;margin-right:10px">Bahan Minuman</button><a>
+            <a href="{{ url('/cpemesanan/4') }}"><button class="badge badge-primary" style="width:150px;margin-right:10px">Alat-alat</button><a>
+            <a href="{{ url('/cpemesanan/5') }}"><button class="badge badge-primary" style="width:150px;margin-right:10px">Lain-lain</button><a>
+        @elseif($k == 11)
+            <a href="{{ url('/cpemesanan') }}"><button class="badge badge-primary" style="width:150px;margin-right:10px">All</button><a>
+            <a href="{{ url('/cpemesanan/1') }}"><button class="badge badge-secondary" style="width:150px;margin-right:10px">Bahan Kue</button><a>
+            <a href="{{ url('/cpemesanan/2') }}"><button class="badge badge-primary" style="width:150px;margin-right:10px">Bahan Makanan</button><a>
+            <a href="{{ url('/cpemesanan/3') }}"><button class="badge badge-primary" style="width:150px;margin-right:10px">Bahan Minuman</button><a>
+            <a href="{{ url('/cpemesanan/4') }}"><button class="badge badge-primary" style="width:150px;margin-right:10px">Alat-alat</button><a>
+            <a href="{{ url('/cpemesanan/5') }}"><button class="badge badge-primary" style="width:150px;margin-right:10px">Lain-lain</button><a>
+        @elseif($k == 12)
+            <a href="{{ url('/cpemesanan') }}"><button class="badge badge-primary" style="width:150px;margin-right:10px">All</button><a>
+            <a href="{{ url('/cpemesanan/1') }}"><button class="badge badge-primary" style="width:150px;margin-right:10px">Bahan Kue</button><a>
+            <a href="{{ url('/cpemesanan/2') }}"><button class="badge badge-secondary" style="width:150px;margin-right:10px">Bahan Makanan</button><a>
+            <a href="{{ url('/cpemesanan/3') }}"><button class="badge badge-primary" style="width:150px;margin-right:10px">Bahan Minuman</button><a>
+            <a href="{{ url('/cpemesanan/4') }}"><button class="badge badge-primary" style="width:150px;margin-right:10px">Alat-alat</button><a>
+            <a href="{{ url('/cpemesanan/5') }}"><button class="badge badge-primary" style="width:150px;margin-right:10px">Lain-lain</button><a>
+        @elseif($k == 13)
+            <a href="{{ url('/cpemesanan') }}"><button class="badge badge-primary" style="width:150px;margin-right:10px">All</button><a>
+            <a href="{{ url('/cpemesanan/1') }}"><button class="badge badge-primary" style="width:150px;margin-right:10px">Bahan Kue</button><a>
+            <a href="{{ url('/cpemesanan/2') }}"><button class="badge badge-primary" style="width:150px;margin-right:10px">Bahan Makanan</button><a>
+            <a href="{{ url('/cpemesanan/3') }}"><button class="badge badge-secondary" style="width:150px;margin-right:10px">Bahan Minuman</button><a>
+            <a href="{{ url('/cpemesanan/4') }}"><button class="badge badge-primary" style="width:150px;margin-right:10px">Alat-alat</button><a>
+            <a href="{{ url('/cpemesanan/5') }}"><button class="badge badge-primary" style="width:150px;margin-right:10px">Lain-lain</button><a>
+        @elseif($k == 14)
+            <a href="{{ url('/cpemesanan') }}"><button class="badge badge-primary" style="width:150px;margin-right:10px">All</button><a>
+            <a href="{{ url('/cpemesanan/1') }}"><button class="badge badge-primary" style="width:150px;margin-right:10px">Bahan Kue</button><a>
+            <a href="{{ url('/cpemesanan/2') }}"><button class="badge badge-primary" style="width:150px;margin-right:10px">Bahan Makanan</button><a>
+            <a href="{{ url('/cpemesanan/3') }}"><button class="badge badge-primary" style="width:150px;margin-right:10px">Bahan Minuman</button><a>
+            <a href="{{ url('/cpemesanan/4') }}"><button class="badge badge-secondary" style="width:150px;margin-right:10px">Alat-alat</button><a>
+            <a href="{{ url('/cpemesanan/5') }}"><button class="badge badge-primary" style="width:150px;margin-right:10px">Lain-lain</button><a>
+        @elseif($k == 15)
+            <a href="{{ url('/cpemesanan') }}"><button class="badge badge-primary" style="width:150px;margin-right:10px">All</button><a>
+            <a href="{{ url('/cpemesanan/1') }}"><button class="badge badge-primary" style="width:150px;margin-right:10px">Bahan Kue</button><a>
+            <a href="{{ url('/cpemesanan/2') }}"><button class="badge badge-primary" style="width:150px;margin-right:10px">Bahan Makanan</button><a>
+            <a href="{{ url('/cpemesanan/3') }}"><button class="badge badge-primary" style="width:150px;margin-right:10px">Bahan Minuman</button><a>
+            <a href="{{ url('/cpemesanan/4') }}"><button class="badge badge-primary" style="width:150px;margin-right:10px">Alat-alat</button><a>
+            <a href="{{ url('/cpemesanan/5') }}"><button class="badge badge-secondary" style="width:150px;margin-right:10px">Lain-lain</button><a>
         @endif
     @elseif(Auth::user()->role == 1)  
         @if($k == 0)

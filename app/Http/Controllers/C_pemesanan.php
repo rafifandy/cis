@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\File;
 use App\Models\Penjualan;
 use App\Models\Pelanggan;
 use App\Models\Barang;
+use App\Models\Gambar_barang;
+use App\Models\Kategori_barang;
 use DB;
 
 class C_pemesanan extends Controller
@@ -19,12 +21,14 @@ class C_pemesanan extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // pemesanan 1,2,null/0
     public function a_index()
     {
         $penjualan = Penjualan::orderBy('timestamp','desc')->where('pemesanan','1')->get();
         $pelanggan = Pelanggan::all();
         $barang = Barang::all();
-        return view('/pemesanan/pemesanan',compact('penjualan','pelanggan','barang'),['x' => 'pemesanan']);
+        $gambar = Gambar_barang::all();
+        return view('/pemesanan/pemesanan',compact('penjualan','pelanggan','barang','gambar'),['x' => 'pemesanan']);
     }
 
     public function c_index()
@@ -32,7 +36,19 @@ class C_pemesanan extends Controller
         $penjualan = Penjualan::orderBy('timestamp','desc')->where('pemesanan','1')->get();
         $pelanggan = Pelanggan::all();
         $barang = Barang::all();
-        return view('/_customer/pemesanan',compact('penjualan','pelanggan','barang'),['x' => 'pemesanan']);
+        $gambar = Gambar_barang::all();
+        $kategori_barang = Kategori_barang::all();
+        return view('/_customer/pemesanan',compact('penjualan','pelanggan','barang','gambar','kategori_barang'),['x' => 'pemesanan','k' => '10']);
+    }
+
+    public function c_indexKat($id)
+    {
+        $penjualan = Penjualan::orderBy('timestamp','desc')->where('pemesanan','1')->get();
+        $pelanggan = Pelanggan::all();
+        $barang = Barang::where('id_kategori',$id)->get();
+        $gambar = Gambar_barang::all();
+        $kategori_barang = Kategori_barang::all();
+        return view('/_customer/pemesanan',compact('penjualan','pelanggan','barang','gambar','kategori_barang'),['x' => 'pemesanan','k' => $id+10]);
     }
     
 

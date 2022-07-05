@@ -56,6 +56,7 @@ Route::post('/pelanggan/update/{id}',[C_pelanggan::class,'update']);
 
 //pemesanan
 Route::get('/cpemesanan',[C_pemesanan::class,'c_index']);
+Route::get('/cpemesanan/{id}',[C_pemesanan::class,'c_indexKat']);
 Route::post('/cpemesanan/store',[C_pemesanan::class,'c_store']);
 
 

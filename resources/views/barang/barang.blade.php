@@ -53,12 +53,10 @@
                     <td>{{$b->nama_barang}}</td>
                     <td>
                         
-                        <?php $countgb = 0 ?>
-                        @foreach($b->gambar_barang as $g)
-                            <?php $countgb = $countgb+1 ?>
-                        @endforeach
-                        @foreach($b->gambar_barang as $gb)
-                            @if($countgb > 0 and $gb->id_gambar == 1)
+                        <?php $jmlg = 0 ?>
+                        @foreach($gambar as $gb)
+                            @if($b->id_barang == $gb->id_barang)
+                            @if($jmlg == 0)
                             <img src="{{ asset('storage/'.$gb->foto_barang) }}" data-toggle="modal" data-target="#view1Modal{{$gb->id_gambar}}" style='height: 100px; width: 100px; object-fit: contain'>
                             <div class="modal fade" style="text-align: center" id="view1Modal{{$gb->id_gambar}}" tabindex="-2" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" style="max-width: 100%; width: auto; max-height: 100%; height: auto; display: inline-block" role="document">
@@ -73,6 +71,8 @@
                                     </div>
                                 </div>
                             </div>
+                            <?php $jmlg++ ?>
+                            @endif
                             @endif
                         @endforeach
                         <hr/>
