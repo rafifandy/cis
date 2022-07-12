@@ -5,6 +5,15 @@
     td{
         font-size: 16px;
     }
+    /* col search */
+    tfoot input {
+        width: 100%;
+        padding: 3px;
+        box-sizing: border-box;
+    }
+    tfoot {
+        display: table-header-group;
+    }
 </style>
 @endsection
 @section('content')
@@ -14,7 +23,7 @@
         
         <br/>
             <h1>Barang</h1>
-            @include('/barang/kategori_btn')
+            <!-- @include('/barang/kategori_btn') -->
         <br/>
         <hr/>
         @if (session('status'))
@@ -28,9 +37,19 @@
                     <th>No</th>
                     <th>Nama</th>
                     <th>Gambar</th>
+                    <th>Kategori</th>
                     <th>Keterangan</th>
                 </tr>
             </thead>
+            <tfoot>
+                <tr style="background-color:#BDDFEE">
+                    <th>No</th>
+                    <th>Nama</th>
+                    <th>Gambar</th>
+                    <th>Kategori</th>
+                    <th>Keterangan</th>
+                </tr>
+            </tfoot>
             <tbody>
             <?php $count = 0 ?>
             @foreach($barang as $b)
@@ -123,6 +142,7 @@
                         @else
                         <td><a href="{{ asset('storage/'.$b->foto_barang) }}" download><img src="{{ asset('storage/'.$b->foto_barang) }}" style='height: 100px; width: 100px; object-fit: contain'></a></td>
                         @endif -->
+                    <td>{{$b->kategori->nama_kategori}}</td>
                     <td>{{$b->keterangan}}</td>
                 </tr>
                 
@@ -143,32 +163,33 @@
 @endsection
 @section('script')
 <script type="text/javascript">
-	$(document).ready( function () {
-        $('#t').DataTable();
-    } );
-    function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = function (e) {
-                    $('#blah')
-                        .attr('src', e.target.result);
-                };
-
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-        function readURL2(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = function (a) {
-                    $('#blah2')
-                        .attr('src', a.target.result);
-                };
-
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
+	$(document).ready(function () {
+        // Setup - add a text input to each footer cell
+        $('#t tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+        });
+    
+        // DataTable
+        var table = $('#t').DataTable({
+            //dom: 'Bfrtip',
+            //buttons: ['excel'],
+            //buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+            initComplete: function () {
+                // Apply the search
+                this.api()
+                    .columns()
+                    .every(function () {
+                        var that = this;
+    
+                        $('input', this.footer()).on('keyup change clear', function () {
+                            if (that.search() !== this.value) {
+                                that.search(this.value).draw();
+                            }
+                        });
+                    });
+            },
+        });
+    });  
 </script>
 @endsection

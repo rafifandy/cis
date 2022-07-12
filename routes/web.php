@@ -37,14 +37,14 @@ Route::post('/profil/update/{id}',[C_index::class,'profil_update']);
 
 //barang
 Route::get('/barang',[C_barang::class,'index']);
-Route::get('/barang/{id}',[C_barang::class,'indexKat']);
+Route::get('/barang/{id}',[C_barang::class,'indexKat']); //unused
 Route::post('/barang/gambar/store/{id}',[C_barang::class,'storeGambar']);
 Route::post('/barang/gambar/update/{id}/{id2}',[C_barang::class,'updateGambar']);
 Route::post('/barang/store',[C_barang::class,'store']);
 Route::post('/barang/update/{id}',[C_barang::class,'update']);
 
 Route::get('/gbarang',[C_barang::class,'guest_index']);
-Route::get('/gbarang/{id}',[C_barang::class,'guest_indexKat']);
+Route::get('/gbarang/{id}',[C_barang::class,'guest_indexKat']); //unused
 
 Route::get('/cbarang',[C_barang::class,'customer_index']);
 Route::get('/cbarang/{id}',[C_barang::class,'customer_indexKat']);
@@ -56,12 +56,16 @@ Route::post('/pelanggan/update/{id}',[C_pelanggan::class,'update']);
 
 //pemesanan
 Route::get('/cpemesanan',[C_pemesanan::class,'c_index']);
-Route::get('/cpemesanan/{id}',[C_pemesanan::class,'c_indexKat']);
+Route::get('/cpemesanan/{id}',[C_pemesanan::class,'c_indexKat']); //unused
 Route::post('/cpemesanan/store',[C_pemesanan::class,'c_store']);
 Route::post('/cpemesanan/detail/store/{id}',[C_pemesanan::class,'c_storeDetail']);
-
+Route::post('/cpemesanan/detail/update/{id}/{id2}',[C_pemesanan::class,'c_updateDetail']);
+Route::post('/cpemesanan/detail/delete/{id}/{id2}',[C_pemesanan::class,'c_deleteDetail']);
+Route::post('/cpemesanan/submit/{id}',[C_pemesanan::class,'c_submit']);
 
 Route::get('/apemesanan',[C_pemesanan::class,'a_index']);
+Route::post('/apemesanan/confirm/{id}',[C_pemesanan::class,'a_confirm']);
+Route::get('/apemesananv',[C_pemesanan::class,'a_view']);
 
 //penjualan
 Route::get('/penjualan',[C_penjualan::class,'index']);

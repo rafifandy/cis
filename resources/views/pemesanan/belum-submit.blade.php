@@ -32,10 +32,11 @@
             <div class="container">
                 
                 <br/>
-                <h1>Pemesanan</h1>
+                <h2>Pemesanan</h2>
+                <p>Pemesanan yang belum disubmit oleh pelanggan</p>
             <br/>
             <br/>
-                <a href="{{ url('/apemesananv') }}"><button class="badge badge-info">Lihat yang belum disubmit</button></a><hr/>
+                <a href="{{ url('/apemesanan') }}"><button class="badge badge-info">Kembali</button></a><hr/>
                @if (session('status'))
                     <div class="alert alert-success">
                         {{ session('status') }}
@@ -51,7 +52,6 @@
                             <th>List Barang</th>
                             <th>Keterangan</th>
                             <th>Tgl Diperbarui</th>
-                            <th>Opsi</th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -63,7 +63,6 @@
                             <th>List Barang</th>
                             <th>Keterangan</th>
                             <th>Tgl Diperbarui</th>
-                            <th>Opsi</th>
                         </tr>
                     </tfoot>
                     <tbody>
@@ -134,13 +133,6 @@
                             </td>
                             <td>{{$p->keteragan}}</td>
                             <td>{{$p->timestamp}}</td>
-                            <td style="width">
-                                <form autocomplete="off" method="post" action="{{ url('/apemesanan/confirm/'.$p->id_penjualan) }}" enctype="multipart/form-data">
-                                        @csrf
-                                        <input type="hidden" class="form-control" id ="pemesanan" name="pemesanan" value="0">
-                                        <button type="submit" class="badge badge-success" style="width:auto;margin:5px" onclick="return confirm('Konfirmasi pemesanan')">Konfirmasi</button>
-                                </form>
-                            </td>
                         </tr>
                         
                     @endforeach

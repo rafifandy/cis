@@ -1,15 +1,24 @@
 @extends('layout/master')
 @section('title','Pemesanan')
 @section('css')
-    <style>
-        td{
-            vertical-align: top;
-            font-size: 13px;
-        }
-        th{
-            font-size: 14px;
-        }
-    </style>
+<style>
+    td{
+        vertical-align: top;
+        font-size: 16px;
+    }
+    th{
+        font-size: 16px;
+    }
+    /* col search */
+    tfoot input {
+        width: 100%;
+        padding: 3px;
+        box-sizing: border-box;
+    }
+    tfoot {
+        display: table-header-group;
+    }
+</style>
 @endsection
 @section('content')
 @guest
@@ -59,7 +68,7 @@
                         <input type="hidden" class="form-control" id ="tgl_penjualan" name="tgl_penjualan" value="<?php echo date('Y-m-d'); ?>">
                         <input type="hidden" class="form-control" id ="pemesanan" name="pemesanan" value="1">
                     </br>
-                    <button type="submit" class="btn btn-success" onclick="return confirm('Mulai Pemesanan?')">Mulai Pemesanan</button>
+                    <button type="submit" class="btn btn-success" onclick="return confirm('Mulai Pemesanan?')">Mulai Pemesanan Baru</button>
                 </form>
             @elseif($countpms == 1)
             @foreach($penjualan as $p)
@@ -85,6 +94,17 @@
                             <th>Opsi</th>
                         </tr>
                     </thead>
+                    <tfoot>
+                        <tr style="background-color:#BDDFEE">
+                            <th>No</th>
+                            <th>Kode barang</th>
+                            <th>Barang</th>
+                            <th>Jumlah Pesan</th>
+                            <th>Harga satuan</th>
+                            <th>Total Harga</th>
+                            <th>Opsi</th>
+                        </tr>
+                    </tfoot>
                     <tbody>
                     <?php $count = 0 ?>
                     @foreach($p->barang as $pb)
@@ -98,9 +118,67 @@
                             <td>Rp {{number_format($pb->pivot->total_harga_barang)}}</td>
                             <td>
                                 <button class="badge badge-info" style="width:80px;margin:5px" data-toggle="modal" data-target="#editModal{{$p->id_penjualan}}_{{$pb->id_barang}}">Edit</button>
-                                <button class="badge badge-danger" style="width:80px;margin:5px" data-toggle="modal" data-target="#editModal{{$p->id_penjualan}}_{{$pb->id_barang}}">Hapus</button>
+                                <form autocomplete="off" method="post" action="{{ url('/cpemesanan/detail/delete/'.$p->id_penjualan.'/'.$pb->id_barang) }}" enctype="multipart/form-data">
+                                    @csrf
+                                    <input type="hidden" class="form-control" id ="stok_barange" name="stok_barange" value="{{$pb->stok}}">
+                                    <input type="hidden" class="form-control" id ="stok_jumlah" name="stok_jumlah" value="{{ $pb->pivot->jumlah_barang }}">
+                                    <input type="hidden" class="form-control" id ="harga_barang" name="harga_barang" value="{{ $pb->pivot->harga_barang }}">
+                                    <input type="hidden" class="form-control" id ="jumlah_barang" name="jumlah_barang" value="0">
+                                    <button type="submit" class="badge badge-danger" style="width:80px;margin:5px" onclick="return confirm('Hapus barang?')">Hapus</button>
+                                </form>
                             </td>
                         </tr>
+                        <!-- Modal Edit Detail -->
+                        <div class="modal fade" id="editModal{{$p->id_penjualan}}_{{$pb->id_barang}}" tabindex="-2" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">{{$pb->nama_barang}}  -  Edit Jumlah</h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form autocomplete="off" method="post" action="{{ url('/cpemesanan/detail/update/'.$p->id_penjualan.'/'.$pb->id_barang) }}" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="row">
+                                            <input type="hidden" class="form-control" id ="id_penjualan" name="id_penjualan" value="{{ $p->id_penjualan }}">
+                                            <input type="hidden" class="form-control" id ="status" name="status" value="{{ $p->status + 1}}">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="view">Barang</label>
+                                                    <input type="text" class="form-control" id ="view" name="view" value="{{$pb->id_barang}} - {{$pb->nama_barang}}" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="stok_barang">Stok</label>
+                                                    <input type="number" class="form-control" id ="stok_be" name="stok_e" value="{{$pb->stok}}" disabled>
+                                                    <input type="hidden" class="form-control" id ="stok_barange" name="stok_barange" value="{{$pb->stok}}">
+                                                    <input type="hidden" class="form-control" id ="stok_jumlah" name="stok_jumlah" value="{{ $pb->pivot->jumlah_barang }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="harga_barang">Harga</label>
+                                                    <input type="number" class="form-control" id ="harga_barang" name="harga_barang" value="{{ $pb->pivot->harga_barang }}" disabled>
+                                                    <input type="hidden" class="form-control" id ="harga_barang" name="harga_barang" value="{{ $pb->pivot->harga_barang }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="jumlah_barang">Jumlah</label>
+                                                    <input type="number" class="form-control" id ="jumlah_barang" name="jumlah_barang" value="{{ $pb->pivot->jumlah_barang }}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </br>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                        </form>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     @endforeach
                         <tr>
                             <td colspan="5" style="text-align:right">Total :</td>
@@ -111,16 +189,21 @@
                             <td>Rp {{number_format($p->total)}}</td>
                             <td>
                                 @if($p->total > 0)
-                                    <button class="badge badge-success" style="width:170px;margin:5px" data-toggle="modal" data-target="#editModal{{$p->id_penjualan}}_{{$pb->id_barang}}">Submit pesanan</button>
+                                    <form autocomplete="off" method="post" action="{{ url('/cpemesanan/submit/'.$p->id_penjualan) }}" enctype="multipart/form-data">
+                                        @csrf
+                                        <input type="hidden" class="form-control" id ="pemesanan" name="pemesanan" value="2">
+                                        <input type="hidden" class="form-control" id ="tgl_penjualan" name="tgl_penjualan" value="<?php echo date('Y-m-d'); ?>">
+                                        <button type="submit" class="badge badge-success" style="width:170px;margin:5px" onclick="return confirm('Kirim pesanan ke penjual?, (pesanan yang disubmit tidak dapat dibatalkan)')">Submit pesanan</button>
+                                    </form>
                                 @endif
                             </td>
                         </tr>
                     </tbody>
                     </table>
                     <hr/>
-                        <h4>Pilih Barang</h4>
+                        <h3>Pilih Barang</h3>
                         <p style="font-size:11px">*Stok dan harga dapat berubah</p><br/>
-                        @include('/barang/kategori_btn')
+                        <!-- @include('/barang/kategori_btn') -->
                     <br/>
                     <br/>
                     <table id="t2" class="display cell-border">
@@ -136,6 +219,18 @@
                                 <th>Opsi</th>
                             </tr>
                         </thead>
+                        <tfoot>
+                            <tr style="background-color:#BDDFEE">
+                                <th>No</th>
+                                <th>Kode Barang</th>
+                                <th>Nama Barang</th>
+                                <th>Gambar</th>
+                                <th>Harga</th>
+                                <th>Stok</th>
+                                <th>Keterangan</th>
+                                <th>Opsi</th>
+                            </tr>
+                        </tfoot>
                         <tbody>
                         <?php $count = 0 ?>
                         @foreach($barang as $b)
@@ -303,13 +398,63 @@
 @section('script')
 <script type="text/javascript">
    
-	$(document).ready( function () {
-        $('#t').DataTable();
-    } );
+   $(document).ready(function () {
+        // Setup - add a text input to each footer cell
+        $('#t tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+        });
+    
+        // DataTable
+        var table = $('#t').DataTable({
+            //dom: 'Bfrtip',
+            //buttons: ['excel'],
+            //buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+            initComplete: function () {
+                // Apply the search
+                this.api()
+                    .columns()
+                    .every(function () {
+                        var that = this;
+    
+                        $('input', this.footer()).on('keyup change clear', function () {
+                            if (that.search() !== this.value) {
+                                that.search(this.value).draw();
+                            }
+                        });
+                    });
+            },
+        });
+    }); 
 
-    $(document).ready( function () {
-        $('#t2').DataTable();
-    } );
+    $(document).ready(function () {
+        // Setup - add a text input to each footer cell
+        $('#t2 tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+        });
+    
+        // DataTable
+        var table = $('#t2').DataTable({
+            //dom: 'Bfrtip',
+            //buttons: ['excel'],
+            //buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+            initComplete: function () {
+                // Apply the search
+                this.api()
+                    .columns()
+                    .every(function () {
+                        var that = this;
+    
+                        $('input', this.footer()).on('keyup change clear', function () {
+                            if (that.search() !== this.value) {
+                                that.search(this.value).draw();
+                            }
+                        });
+                    });
+            },
+        });
+    }); 
     
     // $('#id_barang').on('change', function(){
     //     var value = $(this).val();
@@ -322,6 +467,6 @@
     // })
     
     // init
-    $('#id_barang').change();
+    // $('#id_barang').change();
 </script>
 @endsection

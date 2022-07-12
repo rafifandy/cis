@@ -201,7 +201,7 @@ class C_penjualan extends Controller
             'jumlah_bayar' => $request->jumlah_bayar,
             'keterangan' => $request->keterangan,
         ]);
-        return redirect('/penjualan')->with('status','Barang Berhasil Ditambahkan!!!'); 
+        return redirect('/penjualan')->with('status','Pembayaran Berhasil Ditambahkan!!!'); 
     }
 
     /**

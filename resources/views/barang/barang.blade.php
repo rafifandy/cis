@@ -5,6 +5,15 @@
     td{
         font-size: 16px;
     }
+    /* col search */
+    tfoot input {
+        width: 100%;
+        padding: 3px;
+        box-sizing: border-box;
+    }
+    tfoot {
+        display: table-header-group;
+    }
 </style>
 @endsection
 @section('content')
@@ -19,7 +28,7 @@
         
         <br/>
             <h1>Barang</h1>
-            @include('/barang/kategori_btn')
+            <!-- @include('/barang/kategori_btn') -->
         <br/>
         <hr/>
         <button class="badge badge-success" data-toggle="modal" data-target="#tambahModal">Tambah Data Barang</button><hr/>
@@ -38,11 +47,27 @@
                     <th>Harga Beli</th>
                     <th>Harga Jual</th>
                     <th>Stok</th>
+                    <th>Kategori</th>
                     <th>Keterangan</th>
-                    <th>Timestamp</th>
+                    <th>Updated at</th>
                     <th>Opsi</th>
                 </tr>
             </thead>
+            <tfoot>
+                <tr style="background-color:#BDDFEE">
+                    <th>No</th>
+                    <th>ID</th>
+                    <th>Nama</th>
+                    <th>Gambar</th>
+                    <th>Harga Beli</th>
+                    <th>Harga Jual</th>
+                    <th>Stok</th>
+                    <th>Kategori</th>
+                    <th>Keterangan</th>
+                    <th>Updated at</th>
+                    <th>Opsi</th>
+                </tr>
+            </tfoot>
             <tbody>
             <?php $count = 0 ?>
             @foreach($barang as $b)
@@ -204,6 +229,7 @@
                         @endif
 
                     <td>{{$b->stok}}</td>
+                    <td>{{$b->kategori->nama_kategori}}</td>
                     <td>{{$b->keterangan}}</td>
                     <td>{{$b->timestamp}}</td>
                     <td><button class="badge badge-info" data-toggle="modal" data-target="#editModal{{$b->id_barang}}">Edit</button></td>
@@ -326,21 +352,49 @@
 @endsection
 @section('script')
 <script type="text/javascript">
-	$(document).ready( function () {
-        $('#t').DataTable();
-    } );
+
+    $(document).ready(function () {
+        // Setup - add a text input to each footer cell
+        $('#t tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+        });
+    
+        // DataTable
+        var table = $('#t').DataTable({
+            //dom: 'Bfrtip',
+            //buttons: ['excel'],
+            //buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+            initComplete: function () {
+                // Apply the search
+                this.api()
+                    .columns()
+                    .every(function () {
+                        var that = this;
+    
+                        $('input', this.footer()).on('keyup change clear', function () {
+                            if (that.search() !== this.value) {
+                                that.search(this.value).draw();
+                            }
+                        });
+                    });
+            },
+        });
+    });   
+
+    // input img preview
     function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
 
-                reader.onload = function (e) {
-                    $('#blah')
-                        .attr('src', e.target.result);
-                };
+            reader.onload = function (e) {
+                $('#blah')
+                    .attr('src', e.target.result);
+            };
 
-                reader.readAsDataURL(input.files[0]);
-            }
+            reader.readAsDataURL(input.files[0]);
         }
+    }
     function readURL2(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -353,5 +407,6 @@
             reader.readAsDataURL(input.files[0]);
         }
     }
+
 </script>
 @endsection
