@@ -109,10 +109,10 @@ body {
                 </a>
               </li>
               <li class="nav-item">
-              @if ($x == 'penerimaan')
-                <a href="{{ url('/penerimaan') }}" class="nav-link active">
+              @if ($x == 'pengiriman')
+                <a href="{{ url('/pengiriman') }}" class="nav-link active">
               @else
-                <a href="{{ url('/penerimaan') }}" class="nav-link">
+                <a href="{{ url('/pengiriman') }}" class="nav-link">
               @endif
                   <i class="mdi mdi-truck menu-icon"></i>
                   <span class="menu-title">Pengiriman</span>

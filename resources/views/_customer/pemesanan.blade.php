@@ -72,7 +72,7 @@
                 </form>
             @elseif($countpms == 1)
             @foreach($penjualan as $p)
-                @if($sp->id_pelanggan == $uid and $p->pemesanan == 1)
+                @if($p->id_pelanggan == $uid and $p->pemesanan == 1)
                     <?php 
                         // $d_id0 = str_pad($p->id_penjualan,11,'0',STR_PAD_LEFT);
                         // $d_id = str_pad($d_id0,12,'P',STR_PAD_LEFT);
