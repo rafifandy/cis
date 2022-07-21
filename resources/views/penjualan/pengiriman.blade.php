@@ -152,8 +152,8 @@
                                                                         <div class="col-sm-6">
                                                                             <div class="form-group">
                                                                                 <label for="stok_barang">Jumlah belum dikirim</label>
-                                                                                <input type="number" class="form-control" id ="stok_" name="stok_" value="{{$belum_terkirim}}" disabled>
-                                                                                <input type="number" class="form-control" id ="stok_barange" name="stok_barange" value="{{$belum_terkirim}}" hidden>
+                                                                                <!-- <input type="number" class="form-control" id ="stok_" name="stok_" value="" disabled>
+                                                                                <input type="number" class="form-control" id ="stok_barange" name="stok_barange" value="" hidden> -->
                                                                                 <input type="number" class="form-control" id ="stok_jumlah" name="stok_jumlah" value="{{ $d->jumlah_barang }}" hidden>
                                                                             </div>
                                                                         </div>
