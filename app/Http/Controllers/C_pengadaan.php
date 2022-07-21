@@ -93,7 +93,7 @@ class C_pengadaan extends Controller
     }
     public function storeDetail(Request $request, $id)
     {
-        $stok = $request->stok_barang + $request->jumlah_barang;
+        //$stok = $request->stok_barang + $request->jumlah_barang;
         //dd($request->stok_barang);
         $pengadaan_tot = Pengadaan::where('id_pengadaan',$id)->get();
         foreach ($pengadaan_tot as $pt){
@@ -105,6 +105,11 @@ class C_pengadaan extends Controller
             'status' => $request->status,
             'total' => $total,
         ]);
+        $barangstok = Barang::where('id_barang',$request->id_barang)->get();
+        foreach ($barangstok as $b){
+            $bstok = $b->stok;
+        }
+        $stok = $bstok + $request->jumlah_barang;
         Barang::where('id_barang',$request->id_barang)
         ->update([
             'stok' => $stok,

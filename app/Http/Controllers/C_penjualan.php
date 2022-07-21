@@ -11,6 +11,7 @@ use App\Models\Penjualan;
 use App\Models\Pelanggan;
 use App\Models\Barang;
 use App\Models\Pembayaran;
+use App\Models\Pengiriman;
 use DB;
 use PDF;
 use DomPDF;
@@ -27,8 +28,10 @@ class C_penjualan extends Controller
         $penjualan = Penjualan::orderBy('timestamp','desc')->where('pemesanan','0')->orWhere('pemesanan', null)->get();
         $pelanggan = Pelanggan::all();
         $barang = Barang::all();
-        $pembayaran = Pembayaran::all();
-        return view('/penjualan/penjualan',compact('penjualan','pelanggan','barang'),['x' => 'penjualan']);
+        $d_pengiriman = DB::table('detail_pengiriman')->get();
+        // $pembayaran = Pembayaran::all();
+        // $pengiriman = Pengiriman::all();
+        return view('/penjualan/penjualan',compact('penjualan','pelanggan','barang','d_pengiriman'),['x' => 'penjualan']);
     }
     public function index2()
     {
@@ -46,10 +49,10 @@ class C_penjualan extends Controller
         ]);
         //$pembayaran = Pembayaran::where('id_penjualan',$id)->get();
  
-    	//$pdf = DomPDF::loadview('/penjualan/cetak',compact('penjualan'));
-    	//return $pdf->stream('nota');
+    	$pdf = DomPDF::loadview('/penjualan/cetak0',compact('penjualan'));
+    	return $pdf->stream('nota');
         //return view ('/penjualan/cetak');
-        return view ('/penjualan/cetak',compact('penjualan'));
+        //return view ('/penjualan/cetak0',compact('penjualan'));
     }
 
     public function update(Request $request, $id)
@@ -136,6 +139,20 @@ class C_penjualan extends Controller
         ]);
         return redirect('/penjualan')->with('status','Data Berhasil Diubah!!!');
     }
+    public function updatePengiriman(Request $request, $id, $id2)
+    {
+        Penjualan::where('id_penjualan',$id)
+        ->update([
+            'status' => $request->status,
+        ]);
+        Pengiriman::where('id_pengiriman',$id2)
+        ->update([
+            'tgl_pengiriman' => $request->tgl_pengiriman,
+            'alamat_tujuan' => $request->alamat_tujuan,
+            'keterangan' => $request->keterangan,
+        ]);
+        return redirect('/penjualan')->with('status','Data Berhasil Diubah!!!');
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -163,7 +180,7 @@ class C_penjualan extends Controller
     }
     public function storeDetail(Request $request, $id)
     {
-        $stok = $request->stok_barang - $request->jumlah_barang;
+        //$stok = $request->stok_barang - $request->jumlah_barang;
         //dd($request->stok_barang);
         $penjualan_tot = Penjualan::where('id_penjualan',$id)->get();
         foreach ($penjualan_tot as $pt){
@@ -176,6 +193,11 @@ class C_penjualan extends Controller
             'total' => $total,
             'total_akhir' => $total,
         ]);
+        $barangstok = Barang::where('id_barang',$request->id_barang)->get();
+        foreach ($barangstok as $b){
+            $bstok = $b->stok;
+        }
+        $stok = $bstok - $request->jumlah_barang;
         Barang::where('id_barang',$request->id_barang)
         ->update([
             'stok' => $stok,
@@ -202,6 +224,20 @@ class C_penjualan extends Controller
             'keterangan' => $request->keterangan,
         ]);
         return redirect('/penjualan')->with('status','Pembayaran Berhasil Ditambahkan!!!'); 
+    }
+    public function storePengiriman(Request $request, $id)
+    {
+        Penjualan::where('id_penjualan',$id)
+        ->update([
+            'status' => $request->status,
+        ]);
+        Pengiriman::create([
+            'id_penjualan' => $id,
+            'tgl_pengiriman' => $request->tgl_pengiriman,
+            'alamat_tujuan' => $request->alamat_tujuan,
+            'keterangan' => $request->keterangan,
+        ]);
+        return redirect('/penjualan')->with('status','Pengiriman Berhasil Ditambahkan!!!'); 
     }
 
     /**

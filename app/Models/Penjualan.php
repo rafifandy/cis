@@ -28,4 +28,8 @@ class Penjualan extends Model
     {
         return $this->hasMany(Pembayaran::class,'id_penjualan');
     }
+    public function pengiriman()
+    {
+        return $this->hasMany(Pengiriman::class,'id_penjualan');
+    }
 }

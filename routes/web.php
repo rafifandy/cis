@@ -77,6 +77,11 @@ Route::post('/penjualan/detail/update/{id}/{id2}',[C_penjualan::class,'updateDet
 //pembayaran
 Route::post('/pembayaran/store/{id}',[C_penjualan::class,'storePembayaran']);
 Route::post('/pembayaran/update/{id}/{id2}',[C_penjualan::class,'updatePembayaran']);
+//pengiriman
+Route::post('/pengiriman/store/{id}',[C_penjualan::class,'storePengiriman']);
+Route::post('/pengiriman/update/{id}/{id2}',[C_penjualan::class,'updatePengiriman']);
+Route::post('/pengiriman/detail/store/{id}',[C_penjualan::class,'storeDetailPengiriman']);
+Route::post('/pengiriman/detail/update/{id}/{id2}',[C_penjualan::class,'updateDetailPengiriman']);
 
 Route::get('/penjualan/n',[C_penjualan::class,'index2']);
 

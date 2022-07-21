@@ -1,6 +1,17 @@
 @extends('layout/master')
 @section('title','Pemasok')
 @section('css')
+<style>
+    /* col search */
+    tfoot input {
+        width: 100%;
+        padding: 3px;
+        box-sizing: border-box;
+    }
+    tfoot {
+        display: table-header-group;
+    }
+</style>
 @endsection
 @section('content')
 <body>
@@ -29,6 +40,18 @@
                     <th>Opsi</th>
                 </tr>
             </thead>
+            <tfoot>
+                <tr style="background-color:#BDDFEE">
+                    <th>No</th>
+                    <th>ID</th>
+                    <th>Nama</th>
+                    <th>Alamat</th>
+                    <th>No Telp</th>
+                    <th>Keterangan</th>
+                    <th>Tgl Diperbarui</th>
+                    <th>Opsi</th>
+                </tr>
+            </tfoot>
             <tbody>
             <?php $count = 0 ?>
             @foreach($pemasok as $p)
@@ -126,8 +149,33 @@
 @endsection
 @section('script')
 <script type="text/javascript">
-	$(document).ready( function () {
-        $('#t').DataTable();
-    } );
+	$(document).ready(function () {
+        // Setup - add a text input to each footer cell
+        $('#t tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+        });
+    
+        // DataTable
+        var table = $('#t').DataTable({
+            //dom: 'Bfrtip',
+            //buttons: ['excel'],
+            //buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+            initComplete: function () {
+                // Apply the search
+                this.api()
+                    .columns()
+                    .every(function () {
+                        var that = this;
+    
+                        $('input', this.footer()).on('keyup change clear', function () {
+                            if (that.search() !== this.value) {
+                                that.search(this.value).draw();
+                            }
+                        });
+                    });
+            },
+        });
+    });   
 </script>
 @endsection

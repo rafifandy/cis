@@ -145,11 +145,11 @@
                                                 <input type="hidden" class="form-control" id ="id_pengadaan" name="id_pengadaan" value="{{ $p->id_pengadaan }}">
                                                 <input type="hidden" class="form-control" id ="status" name="status" value="{{ $p->status + 1}}">
                                                 <div class="row">
-                                                    <div class="col-sm-6">
+                                                    <div class="col-sm-12">
                                                         <div class="form-group">
                                                             <label for="id_barang">ID Barang</label>
-                                                            <input type="text" class="form-control" name="id_barang" id ="id_barang" list="barang{{ $p->id_pengadaan }}">
-                                                            <datalist id="barang{{ $p->id_pengadaan }}">
+                                                            <input type="text" class="form-control" name="id_barang" id ="id_barang" list="barang{{$p->id_pengadaan}}">
+                                                            <datalist id="barang{{$p->id_pengadaan}}">
                                                                 @foreach($barang as $brg)
                                                                     <?php $list = 0 ?>
                                                                     @foreach($p->barang as $pbrg)
@@ -158,19 +158,19 @@
                                                                         @endif
                                                                     @endforeach
                                                                     @if($list == 0)
-                                                                        <option value="{{$brg->id_barang}}" hrg="{{$brg->harga_jual}}" stk="{{$brg->stok}}">{{$brg->nama_barang}}</option>
+                                                                        <option value="{{$brg->id_barang}}" hrg="{{$brg->harga_beli}}" stk="{{$brg->stok}}">{{$brg->nama_barang}} harga:{{$brg->harga_beli}} stok:{{$brg->stok}}</option>
                                                                     @endif
                                                                 @endforeach
                                                             </datalist>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-6">
+                                                    <!-- <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <label for="stok_barang">Stok</label>
                                                             <input type="number" class="form-control" id ="stok_b" name="stok_b" disabled>
                                                             <input type="number" class="form-control" id ="stok_barang" name="stok_barang" hidden>
                                                         </div>
-                                                    </div>
+                                                    </div> -->
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <label for="harga_barang">Harga</label>
