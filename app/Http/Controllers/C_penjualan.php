@@ -28,10 +28,23 @@ class C_penjualan extends Controller
         $penjualan = Penjualan::orderBy('timestamp','desc')->where('pemesanan','0')->orWhere('pemesanan', null)->get();
         $pelanggan = Pelanggan::all();
         $barang = Barang::all();
-        $d_pengiriman = DB::table('detail_pengiriman')->get();
+        //$d_pengiriman = DB::table('detail_pengiriman')->get();
         // $pembayaran = Pembayaran::all();
         // $pengiriman = Pengiriman::all();
-        return view('/penjualan/penjualan',compact('penjualan','pelanggan','barang','d_pengiriman'),['x' => 'penjualan']);
+        return view('/penjualan/penjualan',compact('penjualan','pelanggan','barang'),['x' => 'penjualan']);
+    }
+    public function indexPengiriman(Request $request, $id)
+    {
+        $penjualan = Penjualan::where('id_penjualan',$id)->get();
+        foreach ($penjualan as $p){
+            $idcust = $p->id_pelanggan;
+        }
+        $pelanggan = Pelanggan::where('id_pelanggan',$idcust)->get();
+        $pengiriman = Pengiriman::where('id_penjualan',$id)->get();
+        $d_pengiriman = DB::table('detail_pengiriman')->get();
+        $d_penjualan = DB::table('detail_penjualan')->get();
+        $barang = Barang::all();
+        return view('/penjualan/pengiriman',compact('penjualan','pelanggan','pengiriman','d_pengiriman','barang','d_penjualan'),['x' => 'penjualan']);
     }
     public function index2()
     {
@@ -151,7 +164,7 @@ class C_penjualan extends Controller
             'alamat_tujuan' => $request->alamat_tujuan,
             'keterangan' => $request->keterangan,
         ]);
-        return redirect('/penjualan')->with('status','Data Berhasil Diubah!!!');
+        return redirect('/pengiriman/'.$id)->with('status','Data Berhasil Diubah!!!');
     }
     /**
      * Show the form for creating a new resource.
@@ -237,9 +250,36 @@ class C_penjualan extends Controller
             'alamat_tujuan' => $request->alamat_tujuan,
             'keterangan' => $request->keterangan,
         ]);
-        return redirect('/penjualan')->with('status','Pengiriman Berhasil Ditambahkan!!!'); 
+        return redirect('/pengiriman/'.$id)->with('status','Pengiriman Berhasil Ditambahkan!!!'); 
     }
-
+    public function storeDetailPengiriman(Request $request, $id)
+    {
+        //$stok = $request->stok_barang - $request->jumlah_barang;
+        //dd($request->stok_barang);
+        Pengiriman::where('id_pengiriman',$id)
+        ->update([
+            'status' => $request->status,
+        ]);
+        $dbarang = DB::table('detail_penjualan')->where('id_penjualan',$request->id_penjualan)->where('id_barang',$request->id_barang)->get();
+        foreach ($dbarang as $d){
+            if($d->jumlah_terkirim == null){
+                $terkirim = 0;
+            }else{
+                $terkirim = $d->$jumlah_terkirim;
+            }
+        }
+        $terkirim = $terkirim + $request->jumlah_barang; 
+        DB::table('detail_penjualan')->where('id_penjualan',$request->id_penjualan)->where('id_barang',$request->id_barang)->update([
+			'jumlah_terkirim' => $terkirim,
+		]);
+        DB::table('detail_pengiriman')->insert([
+			'id_pengiriman' => $id,
+			'id_penjualan' => $request->id_penjualan,
+			'id_barang' => $request->id_barang,
+			'jumlah_barang' => $request->jumlah_barang,
+		]);
+        return redirect('/pengiriman/'.$request->id_penjualan)->with('status','Barang Berhasil Ditambahkan!!!'); 
+    }
     /**
      * Display the specified resource.
      *

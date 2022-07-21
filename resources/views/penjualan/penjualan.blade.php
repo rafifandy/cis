@@ -41,7 +41,7 @@
                         {{ session('status') }}
                     </div>
                 @endif
-                <table id="t" class="display cell-border">
+                <table id="" class="t display cell-border">
                     <thead>
                         <tr style="background-color:#BDDFFF">
                             <th>No</th>
@@ -100,7 +100,7 @@
                                             </div>
                                             <div class="modal-body">
                                                 <button class="badge badge-success" data-dismiss="modal" data-toggle="modal" data-target="#tambahModalDetail{{$p->id_penjualan}}" style="width:80px;margin:5px">Tambah</button><hr/>
-                                                <table id="t2">
+                                                <table id="" class="t">
                                                     <thead>
                                                         <tr>
                                                             <th>No</th>
@@ -217,7 +217,7 @@
                                             </div>
                                             <div class="modal-body">
                                                 <button class="badge badge-success" data-dismiss="modal" data-toggle="modal" data-target="#tambahModalPembayaran{{$p->id_penjualan}}" style="width:80px;margin:5px">Tambah</button><hr/>
-                                                <table id="t3">
+                                                <table id="" class="t">
                                                     <thead>
                                                         <tr>
                                                             <th>No</th>
@@ -304,167 +304,7 @@
                             <br/>Belum Terbayar : {{ number_format($lunas) }}
                             </td>
                             <td>
-                                <button class="badge badge-secondary" data-toggle="modal" data-target="#modalPengiriman{{$p->id_penjualan}}" style="width:120px;margin:5px">Pengiriman</button>
-                                <div class="modal fade" id="modalPengiriman{{$p->id_penjualan}}" tabindex="-2" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-lg" style="width:100%" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">{{ $p->id_penjualan }} -  Pengiriman</h5>
-                                            </div>
-                                            <div class="modal-body">
-                                                <button class="badge badge-success" data-dismiss="modal" data-toggle="modal" data-target="#tambahModalPengiriman{{$p->id_penjualan}}" style="width:80px;margin:5px">Tambah</button><hr/>
-                                                <table id="t4">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>No</th>
-                                                            <th>ID</th>
-                                                            <th>Tgl Pengiriman</th>
-                                                            <th>Alamat Tujuan</th>
-                                                            <th>List Barang</th>
-                                                            <th>Keterangan</th>
-                                                            <th>Tgl Diperbarui</th>
-                                                            <th>Opsi</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tfoot>
-                                                        <tr>
-                                                            <th>No</th>
-                                                            <th>ID</th>
-                                                            <th>Tgl Pengiriman</th>
-                                                            <th>Alamat Tujuan</th>
-                                                            <th>List Barang</th>
-                                                            <th>Keterangan</th>
-                                                            <th>Tgl Diperbarui</th>
-                                                            <th>Opsi</th>
-                                                        </tr>
-                                                    </tfoot>
-                                                    <tbody>
-                                                    <?php $countpk = 0 ?>
-                                                    @foreach($p->pengiriman as $pk)
-                                                    <tr>
-                                                        <?php $countpk = $countpk+1 ?>
-                                                        <td>{{$countpk}}</td>
-                                                        <td>{{ $pk->id_pengiriman}}</td>
-                                                        <td>{{ $pk->tgl_pengiriman}}</td>
-                                                        <td>{{ $pk->alamat_tujuan }}</td>
-                                                        <td style="font-size:12px">
-                                                        <button class="badge badge-success" data-toggle="modal" data-target="#tambahModalDetailPengiriman{{$pk->id_pengiriman}}" style="font-size:10px">Tambah</button><hr/>
-                                                            <?php //$total = 0 ?>
-                                                            <table id="t0">
-                                                            <thead>
-                                                                <tr style="background-color:white">
-                                                                    <th style="font-size:11px">Barang</th>
-                                                                    <th style="font-size:11px">Jumlah</th>
-                                                                    <th style="font-size:11px">Opsi</th>
-                                                                </tr>
-                                                            </thead>
-                                                                <tbody>
-                                                                @foreach($d_pengiriman as $dp)
-                                                                @if($dp->id_pengiriman == $pk->id_pengiriman)
-                                                                <tr>
-                                                                    @foreach($barang as $br)
-                                                                    @if($br->id_barang == $dp->id_barang)
-                                                                    <td style="font-size:11px">{{ $br->nama_barang }}</td>
-                                                                    @endif
-                                                                    @endforeach
-                                                                    <td style="font-size:11px">{{ $dp->jumlah_barang }}</td>
-                                                                    <td style="font-size:11px"><button class="badge badge-info" data-toggle="modal" data-target="#editModalPengiriman{{$pk->id_pengiriman}}_{{$dp->id_penjualan}}_{{$dp->id_barang}}" style="font-size:10px">Edit</button></td>
-                                                                    <!-- <li>{{ $b->pivot->jumlah_barang }} | {{ $b->nama_barang }} | {{ number_format($b->pivot->harga_barang) }} | {{ number_format($b->pivot->jumlah_barang * $b->pivot->harga_barang) }}</li> -->
-                                                                    <?php //$total += ($b->pivot->total_harga_barang) ?>
-                                                                </tr>
-                                                                <!-- Modal Edit Detail Pengiriman -->
-                                                                <div class="modal fade" id="#editModalDetailPengiriman{{$pk->id_pengiriman}}_{{$dp->id_penjualan}}_{{$dp->id_barang}}" tabindex="-2" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                                    <div class="modal-dialog" role="document">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <h5 class="modal-title" id="exampleModalLabel">{{ $pk->id_pengiriman }} - {{ $dp->id_penjualan }} - {{$dp->id_barang}}  -  Edit Barang</h5>
-                                                                            </div>
-                                                                                    <div class="modal-body">
-                                                                                    <form autocomplete="off" method="post" action="{{ url('/pengiriman/detail/update/'.$pk->id_pengiriman.'/'.$dp->id_penjualan.'/'.$b->id_barang) }}" enctype="multipart/form-data">
-                                                                                    @csrf
-                                                                                    <div class="row">
-                                                                                        <input type="hidden" class="form-control" id ="id_penjualan" name="id_penjualan" value="{{ $p->id_penjualan }}">
-                                                                                        <input type="hidden" class="form-control" id ="status" name="status" value="{{ $p->status + 1}}">
-                                                                                        <div class="col-sm-6">
-                                                                                            <div class="form-group">
-                                                                                                <label for="view">Barang</label>
-                                                                                                <input type="text" class="form-control" id ="view" name="view" value="{{$dp->id_barang}}" disabled>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="col-sm-6">
-                                                                                            <div class="form-group">
-                                                                                                <label for="jumlah_barang">Jumlah</label>
-                                                                                                <input type="number" class="form-control" id ="jumlah_barang" name="jumlah_barang" value="{{ $dp->jumlah_barang }}">
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    </div>
-                                                                                    </br>
-                                                                                    <div class="modal-footer">
-                                                                                        <button type="submit" class="btn btn-primary">Submit</button>
-                                                                                    </form>
-                                                                                        <button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                                    </div>
-                                                                                    </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                @endif
-                                                                @endforeach
-                                                                </tbody>
-                                                            </table>
-                                                        </td>
-                                                        <td>{{ $pk->keterangan }}</td>
-                                                        <td>{{ $pk->timestamp }}</td>
-                                                        <td><button class="badge badge-info" data-toggle="modal" data-target="#editModalPengiriman{{$pk->id_pengiriman}}">Edit</button></td>
-                                                        <!-- <li>{{ $b->pivot->jumlah_barang }} | {{ $b->nama_barang }} | {{ number_format($b->pivot->harga_barang) }} | {{ number_format($b->pivot->jumlah_barang * $b->pivot->harga_barang) }}</li> -->
-                                                        <?php //$total += ($b->pivot->total_harga_barang) ?>
-                                                    </tr>
-                                                    <!-- Modal Edit Pengiriman -->
-                                                    <div class="modal fade" id="editModalPengiriman{{$pk->id_pengiriman}}" tabindex="-2" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                        <div class="modal-dialog" style="width:100%;max-width:800px" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLabel">{{$pk->id_pengiriman}}  -  Edit Pengiriman</h5>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <form autocomplete="off" method="post" action="{{ url('/pengiriman/update/'.$p->id_penjualan.'/'.$pk->id_pengiriman) }}" enctype="multipart/form-data">
-                                                                    @csrf
-                                                                    <input type="hidden" class="form-control" id ="id_penjualan" name="id_penjualan" value="{{ $p->id_penjualan }}">
-                                                                    <input type="hidden" class="form-control" id ="status" name="status" value="{{ $p->status + 1}}">
-                                                                    <div class="form-group">
-                                                                        <label for="tgl_pengiriman">Tanggal</label>
-                                                                        <input type="date" class="form-control" id ="tgl_pengiriman" name="tgl_pengiriman" value="{{ $pk->tgl_pengiriman }}">
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                            <label for="alamat_tujuan">Alamat Tujuan</label>
-                                                                            <input type="text" class="form-control" id ="alamat_tujuan" name="alamat_tujuan" value="{{ $pk->alamat_tujuan }}">
-                                                                        </div>
-                                                                    <div class="form-group">
-                                                                        <label for="keterangan">Keterangan</label>
-                                                                        <input type="text" class="form-control" id ="keterangan" name="keterangan" value="{{ $pk->keterangan }}">
-                                                                    </div>
-                                                                </div>
-                                                                </br>
-                                                                <div class="modal-footer">
-                                                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                                                    </form>
-                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    @endforeach
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            </br>
-                                            <div class="modal-footer">
-                                                <button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <a href="{{ url('/pengiriman/'.$p->id_penjualan) }}"><button class="badge badge-secondary" style="width:120px;margin:5px">Pengiriman</button></a>
                             </td>
                             <td>{{$p->keterangan}}</td>
                             <td>{{$p->timestamp}}</td>
@@ -752,13 +592,13 @@
 
    $(document).ready(function () {
         // Setup - add a text input to each footer cell
-        $('#t tfoot th').each(function () {
+        $('table.t tfoot th').each(function () {
             var title = $(this).text();
             $(this).html('<input type="text" placeholder="Search ' + title + '" />');
         });
     
         // DataTable
-        var table = $('#t').DataTable({
+        var table = $('table.t').DataTable({
             //dom: 'Bfrtip',
             //buttons: ['excel'],
             //buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
@@ -778,93 +618,7 @@
             },
         });
     });
-
-    $(document).ready(function () {
-        // Setup - add a text input to each footer cell
-        $('#t2 tfoot th').each(function () {
-            var title = $(this).text();
-            $(this).html('<input type="text" placeholder="Search ' + title + '" />');
-        });
-    
-        // DataTable
-        var table = $('#t2').DataTable({
-            //dom: 'Bfrtip',
-            //buttons: ['excel'],
-            //buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
-            initComplete: function () {
-                // Apply the search
-                this.api()
-                    .columns()
-                    .every(function () {
-                        var that = this;
-    
-                        $('input', this.footer()).on('keyup change clear', function () {
-                            if (that.search() !== this.value) {
-                                that.search(this.value).draw();
-                            }
-                        });
-                    });
-            },
-        });
-    });  
-
-    $(document).ready(function () {
-        // Setup - add a text input to each footer cell
-        $('#t3 tfoot th').each(function () {
-            var title = $(this).text();
-            $(this).html('<input type="text" placeholder="Search ' + title + '" />');
-        });
-    
-        // DataTable
-        var table = $('#t3').DataTable({
-            //dom: 'Bfrtip',
-            //buttons: ['excel'],
-            //buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
-            initComplete: function () {
-                // Apply the search
-                this.api()
-                    .columns()
-                    .every(function () {
-                        var that = this;
-    
-                        $('input', this.footer()).on('keyup change clear', function () {
-                            if (that.search() !== this.value) {
-                                that.search(this.value).draw();
-                            }
-                        });
-                    });
-            },
-        });
-    }); 
-
-    $(document).ready(function () {
-        // Setup - add a text input to each footer cell
-        $('#t4 tfoot th').each(function () {
-            var title = $(this).text();
-            $(this).html('<input type="text" placeholder="Search ' + title + '" />');
-        });
-    
-        // DataTable
-        var table = $('#t4').DataTable({
-            //dom: 'Bfrtip',
-            //buttons: ['excel'],
-            //buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
-            initComplete: function () {
-                // Apply the search
-                this.api()
-                    .columns()
-                    .every(function () {
-                        var that = this;
-    
-                        $('input', this.footer()).on('keyup change clear', function () {
-                            if (that.search() !== this.value) {
-                                that.search(this.value).draw();
-                            }
-                        });
-                    });
-            },
-        });
-    });   
+   
     
 </script>
 @endsection
