@@ -126,6 +126,13 @@
                                                             <td>{{ $nama_barang }}</td>
                                                         @endif
                                                         @endforeach
+                                                        @foreach($d_penjualan as $dpj)
+                                                        @if($dpj->id_barang == $d->id_barang && $dpj->id_penjualan == $id_pj)
+                                                            <?php 
+                                                                $belum_terkirim = $dpj->jumlah_barang - $dpj->jumlah_terkirim;
+                                                            ?>
+                                                        @endif
+                                                        @endforeach
                                                         <td>{{ $d->jumlah_barang }}</td>
                                                         <td><button class="badge badge-info" data-toggle="modal" data-target="#editModalDetail{{$p->id_pengiriman}}_{{$d->id_barang}}">Edit</button></td>
                                                        <?php //$total += ($b->pivot->total_harga_barang) ?>
@@ -141,6 +148,7 @@
                                                                     <form autocomplete="off" method="post" action="{{ url('/pengiriman/detail/update/'.$p->id_pengiriman.'/'.$d->id_barang) }}" enctype="multipart/form-data">
                                                                     @csrf
                                                                     <div class="row">
+                                                                        <input type="hidden" class="form-control" id ="id_penjualanj" name="id_penjualan" value="{{ $id_pj }}">
                                                                         <input type="hidden" class="form-control" id ="id_pengiriman" name="id_pengiriman" value="{{ $p->id_pengiriman }}">
                                                                         <input type="hidden" class="form-control" id ="status" name="status" value="{{ $p->status + 1}}">
                                                                         <div class="col-sm-6">
@@ -152,9 +160,9 @@
                                                                         <div class="col-sm-6">
                                                                             <div class="form-group">
                                                                                 <label for="stok_barang">Jumlah belum dikirim</label>
-                                                                                <!-- <input type="number" class="form-control" id ="stok_" name="stok_" value="" disabled>
-                                                                                <input type="number" class="form-control" id ="stok_barange" name="stok_barange" value="" hidden> -->
-                                                                                <input type="number" class="form-control" id ="stok_jumlah" name="stok_jumlah" value="{{ $d->jumlah_barang }}" hidden>
+                                                                                <input type="number" class="form-control" id ="stok_" name="stok_" value="{{$belum_terkirim}}" disabled>
+                                                                                <input type="number" class="form-control" id ="stok_barange" name="stok_barange" value="{{$belum_terkirim}}" hidden>
+                                                                                <input type="number" class="form-control" id ="jumlah_terkirim" name="jumlah_terkirim" value="{{ $d->jumlah_barang }}" hidden>
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-sm-6">

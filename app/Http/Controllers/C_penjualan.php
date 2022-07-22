@@ -138,6 +138,33 @@ class C_penjualan extends Controller
 		]);
         return redirect('/penjualan')->with('status','Data Berhasil Diubah!!!');
     }
+    public function updateDetailPengiriman(Request $request, $id, $id2)
+    {
+        //$stok = $request->stok_barang - $request->jumlah_barang;
+        //dd($request->stok_barang);
+        Pengiriman::where('id_pengiriman',$id)
+        ->update([
+            'status' => $request->status,
+        ]);
+        $dbarang = DB::table('detail_penjualan')->where('id_penjualan',$request->id_penjualan)->where('id_barang',$id2)->get();
+        foreach ($dbarang as $d){
+            if($d->jumlah_terkirim == null){
+                $terkirim = 0;
+            }else{
+                $terkirim = $d->jumlah_terkirim;
+            }
+        }
+        //dd($terkirim, $request->jumlah_terkirim);
+        $terkirim = $terkirim - $request->jumlah_terkirim + $request->jumlah_barang; 
+        //dd($terkirim);
+        DB::table('detail_penjualan')->where('id_penjualan',$request->id_penjualan)->where('id_barang',$id2)->update([
+			'jumlah_terkirim' => $terkirim,
+		]);
+        DB::table('detail_pengiriman')->where('id_pengiriman',$id)->where('id_barang',$id2)->update([
+			'jumlah_barang' => $request->jumlah_barang,
+		]);
+        return redirect('/pengiriman/'.$request->id_penjualan)->with('status','Barang Berhasil Ditambahkan!!!'); 
+    }
     public function updatePembayaran(Request $request, $id, $id2)
     {
         Penjualan::where('id_penjualan',$id)
@@ -265,7 +292,7 @@ class C_penjualan extends Controller
             if($d->jumlah_terkirim == null){
                 $terkirim = 0;
             }else{
-                $terkirim = $d->$jumlah_terkirim;
+                $terkirim = $d->jumlah_terkirim;
             }
         }
         $terkirim = $terkirim + $request->jumlah_barang; 
