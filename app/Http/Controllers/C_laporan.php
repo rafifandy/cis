@@ -7,13 +7,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
-use App\Models\Rekap;
+use App\Models\Laporan;
 use App\Models\Pengadaan;
 use App\Models\Penjualan;
 use App\Models\Barang;
 use PDF;
 
-class C_rekap extends Controller
+class C_laporan extends Controller
 {
     /**
      * Display a listing of the resource.

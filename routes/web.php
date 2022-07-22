@@ -97,10 +97,10 @@ Route::post('/pengadaan/update/{id}',[C_pengadaan::class,'update']);
 Route::post('/pengadaan/detail/store/{id}',[C_pengadaan::class,'storeDetail']);
 Route::post('/pengadaan/detail/update/{id}/{id2}',[C_pengadaan::class,'updateDetail']);
 
-//rekap
-Route::get('/rekap',[C_rekap::class,'index']);
-Route::post('/rekap/store',[C_rekap::class,'store']);
-Route::post('/rekap/update/{id}',[C_rekap::class,'update']);
+//laporan
+Route::get('/laporan',[C_laporan::class,'index']);
+Route::post('/laporan/store',[C_laporan::class,'store']);
+Route::post('/laporan/update/{id}',[C_laporan::class,'update']);
 
 
 
