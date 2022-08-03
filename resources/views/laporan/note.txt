@@ -1,0 +1,101 @@
+select id_barang, sum(jumlah_barang) from detail_penjualan group by id_barang
+
+                                    <td>
+                                        <button class="badge badge-info" data-toggle="modal" data-target="#modalPenjualan" style="margin:5px">Penjualan</button>
+                                        <!-- Modal Penjualan -->
+                                        <div class="modal fade" id="modalPenjualan" tabindex="-2" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg"  role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Laporan Penjualan</h5>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <table id="" class="tpj">
+                                                            <thead>
+                                                                <tr style="background-color:#BDDFFF">
+                                                                    <th>No</th>
+                                                                    <th>ID</th>
+                                                                    <th>Pelanggan</th>
+                                                                    <th colspan="4">Detail</th>
+                                                                    <th style="display: none;"></th>
+                                                                    <th style="display: none;"></th>
+                                                                    <th style="display: none;"></th>
+                                                                    <th>Tanggal</th>
+                                                                    <th>Total</th>
+                                                                    <!-- <th>Keterangan</th> -->
+                                                                </tr>
+                                                            </thead>
+                                                            <tfoot>
+                                                                <tr style="background-color:#BDDFEE">
+                                                                    <th>No</th>
+                                                                    <th>ID</th>
+                                                                    <th>Pelanggan</th>
+                                                                    <th colspan="4">Detail</th>
+                                                                    <th style="display: none;"></th>
+                                                                    <th style="display: none;"></th>
+                                                                    <th style="display: none;"></th>
+                                                                    <th>Tanggal</th>
+                                                                    <th>Total</th>
+                                                                    <!-- <th>Keterangan</th> -->
+                                                                </tr>
+                                                            </tfoot>
+                                                            <tbody>
+                                                            <?php $countpj = 0 ; $tot = 0 ?>
+                                                            @foreach($penjualan as $p)
+                                                                <?php $countrow = 1?>
+                                                                @foreach($p->barang as $b)
+                                                                <?php $countrow = $countrow+1?>
+                                                                @endforeach
+                                                            <tr>
+                                                                <?php 
+                                                                    $countpj = $countpj+1;
+                                                                    $tot = $tot+$p->total;
+                                                                ?>
+                                                                <td rowspan="{{$countrow}}">{{$countpj}}</td>
+                                                                <td rowspan="{{$countrow}}">{{ $p->id_penjualan}}</td>
+                                                                <td rowspan="{{$countrow}}">{{ $p->pelanggan->nama_pelanggan }}</td>
+                                                                <td>Barang</td>
+                                                                <td>Harga</td>
+                                                                <td>Jumlah</td>
+                                                                <td>Subtotal</td>
+                                                                <td rowspan="{{$countrow}}">{{ $p->tgl_penjualan }}</td>
+                                                                <td rowspan="{{$countrow}}">{{ number_format($p->total) }}</td>
+                                                                <!-- <td>{{ ($p->keterangan) }}</td> -->
+                                                            </tr>
+                                                            @foreach($p->barang as $b)
+                                                            <tr>
+                                                                <td colspan="3" style="display: none;"></td>
+                                                                <td style="display: none;"></td>
+                                                                <td style="display: none;"></td>
+                                                                <td>{{$b->nama_barang}}</td>
+                                                                <td>{{$b->pivot->harga_barang}}</td>
+                                                                <td>{{$b->pivot->jumlah_barang}}</td>
+                                                                <td>{{$b->pivot->total_harga_barang}}</td>
+                                                                <td colspan="2" style="display: none;"></td>
+                                                                <td style="display: none;"></td>
+                                                                <!-- <td>{{ ($p->keterangan) }}</td> -->
+                                                            </tr>
+                                                            @endforeach
+                                                            @endforeach
+                                                            <tr>
+                                                                <td colspan="8" style="text-align:right">Total :</td>
+                                                                <td style="display: none;"></td>
+                                                                <td style="display: none;"></td>
+                                                                <td style="display: none;"></td>
+                                                                <td style="display: none;"></td>
+                                                                <td style="display: none;"></td>
+                                                                <td style="display: none;"></td>
+                                                                <td style="display: none;"></td>
+                                                                <td>{{number_format($tot)}}</td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    </br>
+                                                    <div class="modal-footer">
+                                                        <button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>

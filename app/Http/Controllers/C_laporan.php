@@ -10,8 +10,11 @@ use Illuminate\Support\Facades\File;
 use App\Models\Laporan;
 use App\Models\Pengadaan;
 use App\Models\Penjualan;
+use App\Models\Pembayaran;
+use App\Models\Pengiriman;
 use App\Models\Barang;
 use PDF;
+use DB;
 
 class C_laporan extends Controller
 {
@@ -23,24 +26,31 @@ class C_laporan extends Controller
     public function index()
     {
         //$rekap = Rekap::orderBy('timestamp','desc')->get();
+        $laporan = Laporan::all();
+        foreach ($laporan as $l){
+            $start = $l->tgl_awal;
+            $end = $l->tgl_akhir;
+        }
         $barang = Barang::all();
-        $penjualan = Penjualan::all();
-        $pengadaan = Pengadaan::all();
-        $tgl = ['2022-05-17'];
+        $penjualan = Penjualan::whereBetween('tgl_penjualan',[$start,$end])->get();
+        $pengadaan = Pengadaan::whereBetween('tgl_pengadaan',[$start,$end])->get();
+        $pembayaran = Pembayaran::whereBetween('tgl_pembayaran',[$start,$end])->get();
+        $pengiriman = Pengiriman::whereBetween('tgl_pengiriman',[$start,$end])->get();
+        $det_pengiriman = DB::table('detail_pengiriman')->get();
+        // dd($penjualan);
+        //$tgl = ['2022-05-17'];
         //$rbarang = Barang::groupBy('id_barang')->get();
-        return view('/rekap/rekap',compact('pengadaan','penjualan','barang','tgl'),['x' => 'rekap']);
+        return view('/laporan/laporan',compact('laporan','penjualan','pembayaran','pengiriman','pengadaan','barang','det_pengiriman'),['x' => 'laporan']);
     }
     
     public function update(Request $request, $id)
     {
-        Rekap::where('id_rekap',$id)
+        laporan::where('id_laporan',$id)
         ->update([
-            'nama_rekap' => $request->nama_rekap,
             'tgl_awal' => $request->tgl_awal,
             'tgl_akhir' => $request->tgl_akhir,
-            'keterangan' => $request->keterangan,
         ]);
-        return redirect('/rekap')->with('status','Data Berhasil Diubah!!!');
+        return redirect('/laporan')->with('status','Tanggal Berhasil Diubah!!!');
     }
     /**
      * Show the form for creating a new resource.
@@ -60,13 +70,13 @@ class C_laporan extends Controller
      */
     public function store(Request $request)
     {
-        Rekap::create([
-            'nama_rekap' => $request->nama_rekap,
-            'tgl_awal' => $request->tgl_awal,
-            'tgl_akhir' => $request->tgl_akhir,
-            'keterangan' => $request->keterangan,
-        ]);
-        return redirect('/rekap')->with('status','Data Berhasil Ditambahkan!!!'); 
+        // Rekap::create([
+        //     'nama_rekap' => $request->nama_rekap,
+        //     'tgl_awal' => $request->tgl_awal,
+        //     'tgl_akhir' => $request->tgl_akhir,
+        //     'keterangan' => $request->keterangan,
+        // ]);
+        // return redirect('/rekap')->with('status','Data Berhasil Ditambahkan!!!'); 
     }
 
     /**

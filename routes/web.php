@@ -8,7 +8,7 @@ use App\Http\Controllers\C_pemesanan;
 use App\Http\Controllers\C_penjualan;
 use App\Http\Controllers\C_pemasok;
 use App\Http\Controllers\C_pengadaan;
-use App\Http\Controllers\C_rekap;
+use App\Http\Controllers\C_laporan;
 
 /*
 |--------------------------------------------------------------------------
@@ -99,7 +99,7 @@ Route::post('/pengadaan/detail/update/{id}/{id2}',[C_pengadaan::class,'updateDet
 
 //laporan
 Route::get('/laporan',[C_laporan::class,'index']);
-Route::post('/laporan/store',[C_laporan::class,'store']);
+//Route::post('/laporan/store',[C_laporan::class,'store']);
 Route::post('/laporan/update/{id}',[C_laporan::class,'update']);
 
 

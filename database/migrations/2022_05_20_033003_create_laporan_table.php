@@ -21,6 +21,12 @@ class CreateLaporanTable extends Migration
             $table->integer('status')->nullable();
             $table->timestamp('timestamp');
         });
+        DB::table('laporan')->insert(
+            array(
+                'tgl_awal' => '2022-01-01',
+                'tgl_akhir' => '2022-02-01'
+            )
+        );
     }
 
     /**
